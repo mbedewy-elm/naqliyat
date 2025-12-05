@@ -210,4 +210,60 @@ public class TripAppService : NaqliyatAppService, ITripAppService
             StatusId = b.StatusId
         }).ToList();
     }
+
+    [UnitOfWork]
+    public virtual async Task<BidDto> GetBidByIdAsync(Guid bidId)
+    {
+        var bid = await _bidRepository.GetAsync(bidId);
+
+        return new BidDto
+        {
+            Id = bid.Id,
+            TripId = bid.TripId,
+            TruckId = bid.TruckId,
+            Price = bid.Price,
+            ArrivalDate = bid.ArrivalDate,
+            StatusId = bid.StatusId
+        };
+    }
+
+    [UnitOfWork]
+    public virtual async Task<BidDto> ApproveBidAsync(Guid bidId)
+    {
+        var bid = await _bidRepository.GetAsync(bidId);
+
+        bid.Accept();
+
+        bid = await _bidRepository.UpdateAsync(bid, autoSave: true);
+
+        return new BidDto
+        {
+            Id = bid.Id,
+            TripId = bid.TripId,
+            TruckId = bid.TruckId,
+            Price = bid.Price,
+            ArrivalDate = bid.ArrivalDate,
+            StatusId = bid.StatusId
+        };
+    }
+
+    [UnitOfWork]
+    public virtual async Task<BidDto> RejectBidAsync(Guid bidId)
+    {
+        var bid = await _bidRepository.GetAsync(bidId);
+
+        bid.Reject();
+
+        bid = await _bidRepository.UpdateAsync(bid, autoSave: true);
+
+        return new BidDto
+        {
+            Id = bid.Id,
+            TripId = bid.TripId,
+            TruckId = bid.TruckId,
+            Price = bid.Price,
+            ArrivalDate = bid.ArrivalDate,
+            StatusId = bid.StatusId
+        };
+    }
 }

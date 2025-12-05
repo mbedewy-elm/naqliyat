@@ -71,4 +71,7 @@ public interface ITripAppService
     System.Threading.Tasks.Task<TripDto> GetByIdAsync(System.Guid id);
     System.Threading.Tasks.Task<BidDto> PlaceBidAsync(System.Guid tripId, CreateBidDto input);
     System.Threading.Tasks.Task<System.Collections.Generic.List<BidDto>> GetNewBidsAsync(System.Guid tripId);
+    System.Threading.Tasks.Task<BidDto> GetBidByIdAsync(System.Guid bidId);
+    System.Threading.Tasks.Task<BidDto> ApproveBidAsync(System.Guid bidId);
+    System.Threading.Tasks.Task<BidDto> RejectBidAsync(System.Guid bidId);
 }

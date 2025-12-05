@@ -51,4 +51,25 @@ public class TripController : NaqliyatController
     {
         return _tripAppService.GetNewBidsAsync(id);
     }
+
+    [HttpGet("bids/{bidId}")]
+    [Authorize(NaqliyatPermissions.Trips.ViewBids)]
+    public virtual Task<BidDto> GetBidByIdAsync(System.Guid bidId)
+    {
+        return _tripAppService.GetBidByIdAsync(bidId);
+    }
+
+    [HttpPost("bids/{bidId}/approve")]
+    [Authorize(NaqliyatPermissions.Trips.ManageBids)]
+    public virtual Task<BidDto> ApproveBidAsync(System.Guid bidId)
+    {
+        return _tripAppService.ApproveBidAsync(bidId);
+    }
+
+    [HttpPost("bids/{bidId}/reject")]
+    [Authorize(NaqliyatPermissions.Trips.ManageBids)]
+    public virtual Task<BidDto> RejectBidAsync(System.Guid bidId)
+    {
+        return _tripAppService.RejectBidAsync(bidId);
+    }
 }

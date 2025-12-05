@@ -27,6 +27,15 @@ namespace Naqliyat.Data
                     NaqliyatPermissions.Trips.Create
                 }
             );
+
+            // Grant open-trips viewing permission to Driver role
+            await _permissionDataSeeder.SeedAsync(
+                roleName: "Driver",
+                permissions: new[]
+                {
+                    NaqliyatPermissions.Trips.ViewOpen
+                }
+            );
         }
     }
 }

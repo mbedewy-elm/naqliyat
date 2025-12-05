@@ -7,6 +7,7 @@ public static class NaqliyatPermissions
     public static class Trips
     {
         public const string Default = GroupName + ".Trips";
-        public const string Create = Default + ".Create";
+        public const string Create   = Default + ".Create";
+        public const string ViewOpen = Default + ".ViewOpen";
     }
 }

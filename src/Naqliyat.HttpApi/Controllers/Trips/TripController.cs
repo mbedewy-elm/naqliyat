@@ -23,4 +23,11 @@ public class TripController : NaqliyatController
     {
         return _tripAppService.CreateAsync(input);
     }
+
+    [HttpGet("open")]
+    [Authorize(NaqliyatPermissions.Trips.ViewOpen)]
+    public virtual Task<System.Collections.Generic.List<TripDto>> GetOpenAsync([FromQuery] string locationFilter = null)
+    {
+        return _tripAppService.GetOpenTripsAsync(locationFilter);
+    }
 }

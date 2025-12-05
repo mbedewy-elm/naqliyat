@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Naqliyat.Trips;
+using Naqliyat.Enums;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Uow;
@@ -75,5 +75,61 @@ public class TripAppService : NaqliyatAppService, ITripAppService
             StatusId = trip.StatusId,
             PictureIds = pictureIds
         };
+    }
+
+    [UnitOfWork]
+    public virtual async Task<List<TripDto>> GetOpenTripsAsync(string locationFilter = null)
+    {
+        var queryable = await _tripRepository.GetQueryableAsync();
+
+        var query = queryable
+            .Where(t => t.StatusId == TripStatuses.OpenForBidding);
+
+        if (!string.IsNullOrWhiteSpace(locationFilter))
+        {
+            var filter = locationFilter.Trim();
+            query = query.Where(t =>
+                t.FromLocation.Contains(filter) ||
+                t.ToLocation.Contains(filter));
+        }
+
+        var trips = await AsyncExecuter.ToListAsync(query);
+
+        var tripIds = trips.Select(t => t.Id).ToList();
+
+        var pictureQueryable = await _tripPictureRepository.GetQueryableAsync();
+        var tripPicturesQuery = pictureQueryable
+            .Where(tp => tripIds.Contains(tp.TripId));
+
+        var tripPictures = await AsyncExecuter.ToListAsync(tripPicturesQuery);
+
+        var picturesByTrip = tripPictures
+            .GroupBy(tp => tp.TripId)
+            .ToDictionary(g => g.Key, g => g.Select(x => x.PictureId).Distinct().ToList());
+
+        var result = new List<TripDto>();
+
+        foreach (var trip in trips)
+        {
+            picturesByTrip.TryGetValue(trip.Id, out var picIds);
+
+            result.Add(new TripDto
+            {
+                Id = trip.Id,
+                FromLocation = trip.FromLocation,
+                ToLocation = trip.ToLocation,
+                StartDate = trip.StartDate,
+                EndDate = trip.EndDate,
+                GoodsWeight = trip.GoodsWeight,
+                GoodsDimensions = trip.GoodsDimensions,
+                TruckTypeId = trip.TruckTypeId,
+                GoodsType = trip.GoodsType,
+                Notes = trip.Notes,
+                StatusId = trip.StatusId,
+                PictureIds = picIds ?? new List<Guid>()
+            });
+        }
+
+        return result;
     }
 }

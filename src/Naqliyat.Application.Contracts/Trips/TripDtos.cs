@@ -51,4 +51,5 @@ public class CreateTripDto
 public interface ITripAppService
 {
     System.Threading.Tasks.Task<TripDto> CreateAsync(CreateTripDto input);
+    System.Threading.Tasks.Task<System.Collections.Generic.List<TripDto>> GetOpenTripsAsync(string locationFilter = null);
 }

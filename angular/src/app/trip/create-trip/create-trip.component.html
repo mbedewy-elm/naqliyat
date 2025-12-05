@@ -1,0 +1,167 @@
+<div class="create-trip-container">
+  <div class="page-header">
+    <h1>Create New Trip</h1>
+    <p>Fill in the details below to create a new transport request</p>
+  </div>
+
+  @if (errorMessage) {
+    <div class="alert alert-danger">
+      <i class="fa fa-exclamation-circle"></i>
+      {{ errorMessage }}
+    </div>
+  }
+
+  <form [formGroup]="tripForm" (ngSubmit)="onSubmit()" class="trip-form">
+    <!-- Location Section -->
+    <div class="form-section">
+      <h3><i class="fa fa-map-marker"></i> Location Details</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fromLocation">Pickup Location <span class="required">*</span></label>
+          <input
+            type="text"
+            id="fromLocation"
+            formControlName="fromLocation"
+            placeholder="Enter pickup address"
+            [class.is-invalid]="isFieldInvalid('fromLocation')"
+          />
+          @if (isFieldInvalid('fromLocation')) {
+            <span class="error-message">{{ getFieldError('fromLocation') }}</span>
+          }
+        </div>
+        <div class="form-group">
+          <label for="toLocation">Drop-off Location <span class="required">*</span></label>
+          <input
+            type="text"
+            id="toLocation"
+            formControlName="toLocation"
+            placeholder="Enter drop-off address"
+            [class.is-invalid]="isFieldInvalid('toLocation')"
+          />
+          @if (isFieldInvalid('toLocation')) {
+            <span class="error-message">{{ getFieldError('toLocation') }}</span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Schedule Section -->
+    <div class="form-section">
+      <h3><i class="fa fa-calendar"></i> Schedule</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="startDate">Start Date <span class="required">*</span></label>
+          <input
+            type="datetime-local"
+            id="startDate"
+            formControlName="startDate"
+            [class.is-invalid]="isFieldInvalid('startDate')"
+          />
+          @if (isFieldInvalid('startDate')) {
+            <span class="error-message">{{ getFieldError('startDate') }}</span>
+          }
+        </div>
+        <div class="form-group">
+          <label for="endDate">End Date <span class="required">*</span></label>
+          <input
+            type="datetime-local"
+            id="endDate"
+            formControlName="endDate"
+            [class.is-invalid]="isFieldInvalid('endDate')"
+          />
+          @if (isFieldInvalid('endDate')) {
+            <span class="error-message">{{ getFieldError('endDate') }}</span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Cargo Section -->
+    <div class="form-section">
+      <h3><i class="fa fa-cube"></i> Cargo Details</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="goodsType">Goods Type <span class="required">*</span></label>
+          <input
+            type="text"
+            id="goodsType"
+            formControlName="goodsType"
+            placeholder="e.g., Electronics, Furniture, Food"
+            [class.is-invalid]="isFieldInvalid('goodsType')"
+          />
+          @if (isFieldInvalid('goodsType')) {
+            <span class="error-message">{{ getFieldError('goodsType') }}</span>
+          }
+        </div>
+        <div class="form-group">
+          <label for="goodsWeight">Weight (kg) <span class="required">*</span></label>
+          <input
+            type="number"
+            id="goodsWeight"
+            formControlName="goodsWeight"
+            placeholder="Enter weight in kg"
+            min="1"
+            [class.is-invalid]="isFieldInvalid('goodsWeight')"
+          />
+          @if (isFieldInvalid('goodsWeight')) {
+            <span class="error-message">{{ getFieldError('goodsWeight') }}</span>
+          }
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="goodsDimensions">Dimensions</label>
+          <input
+            type="text"
+            id="goodsDimensions"
+            formControlName="goodsDimensions"
+            placeholder="e.g., 2m x 1.5m x 1m"
+          />
+        </div>
+        <div class="form-group">
+          <label for="truckTypeId">Truck Type <span class="required">*</span></label>
+          <select
+            id="truckTypeId"
+            formControlName="truckTypeId"
+            [class.is-invalid]="isFieldInvalid('truckTypeId')"
+          >
+            @for (type of truckTypes; track type.value) {
+              <option [value]="type.value">{{ type.key }}</option>
+            }
+          </select>
+          @if (isFieldInvalid('truckTypeId')) {
+            <span class="error-message">{{ getFieldError('truckTypeId') }}</span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Info Section -->
+    <div class="form-section">
+      <h3><i class="fa fa-info-circle"></i> Additional Information</h3>
+      <div class="form-group full-width">
+        <label for="notes">Notes</label>
+        <textarea
+          id="notes"
+          formControlName="notes"
+          rows="4"
+          placeholder="Any special instructions or requirements..."
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Submit Section -->
+    <div class="form-actions">
+      <button type="button" class="btn-secondary" routerLink="/trip/list">
+        Cancel
+      </button>
+      <button type="submit" class="btn-primary" [disabled]="isSubmitting">
+        @if (isSubmitting) {
+          <i class="fa fa-spinner fa-spin"></i> Creating...
+        } @else {
+          <i class="fa fa-plus"></i> Create Trip
+        }
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,25 @@
+import { Routes } from '@angular/router';
+import { authGuard } from '@abp/ng.core';
+
+export const TRIP_ROUTES: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'create',
+  },
+  {
+    path: 'create',
+    loadComponent: () => import('./create-trip/create-trip.component').then(c => c.CreateTripComponent),
+    canActivate: [authGuard],
+  },
+  {
+    path: 'list',
+    loadComponent: () => import('./trip-list/trip-list.component').then(c => c.TripListComponent),
+    canActivate: [authGuard],
+  },
+  {
+    path: ':id',
+    loadComponent: () => import('./trip-detail/trip-detail.component').then(c => c.TripDetailComponent),
+    canActivate: [authGuard],
+  },
+];

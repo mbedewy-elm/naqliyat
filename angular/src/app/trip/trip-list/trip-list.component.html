@@ -1,0 +1,93 @@
+<div class="trip-list-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>Available Trips</h1>
+      <p>Browse and manage transport requests</p>
+    </div>
+    <a routerLink="/trip/create" class="btn-primary">
+      <i class="fa fa-plus"></i> Create Trip
+    </a>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <div class="search-input-wrapper">
+      <i class="fa fa-search"></i>
+      <input
+        type="text"
+        [(ngModel)]="locationFilter"
+        placeholder="Search by location..."
+        (keyup.enter)="onSearch()"
+      />
+    </div>
+    <button class="btn-search" (click)="onSearch()">Search</button>
+  </div>
+
+  @if (errorMessage) {
+    <div class="alert alert-danger">
+      <i class="fa fa-exclamation-circle"></i>
+      {{ errorMessage }}
+    </div>
+  }
+
+  @if (isLoading) {
+    <div class="loading-state">
+      <i class="fa fa-spinner fa-spin"></i>
+      <p>Loading trips...</p>
+    </div>
+  } @else if (trips.length === 0) {
+    <div class="empty-state">
+      <i class="fa fa-truck"></i>
+      <h3>No trips found</h3>
+      <p>There are no open trips at the moment. Create a new trip to get started.</p>
+      <a routerLink="/trip/create" class="btn-primary">
+        <i class="fa fa-plus"></i> Create Trip
+      </a>
+    </div>
+  } @else {
+    <div class="trips-grid">
+      @for (trip of trips; track trip.id) {
+        <div class="trip-card">
+          <div class="trip-header">
+            <span class="status-badge" [ngClass]="getStatusClass(trip.statusId)">
+              {{ getStatusName(trip.statusId) }}
+            </span>
+            <span class="truck-type">{{ getTruckTypeName(trip.truckTypeId) }}</span>
+          </div>
+          <div class="trip-locations">
+            <div class="location from">
+              <i class="fa fa-circle"></i>
+              <span>{{ trip.fromLocation }}</span>
+            </div>
+            <div class="location-line"></div>
+            <div class="location to">
+              <i class="fa fa-map-marker"></i>
+              <span>{{ trip.toLocation }}</span>
+            </div>
+          </div>
+          <div class="trip-details">
+            <div class="detail">
+              <i class="fa fa-cube"></i>
+              <span>{{ trip.goodsType }}</span>
+            </div>
+            <div class="detail">
+              <i class="fa fa-balance-scale"></i>
+              <span>{{ trip.goodsWeight }} kg</span>
+            </div>
+            @if (trip.startDate) {
+              <div class="detail">
+                <i class="fa fa-calendar"></i>
+                <span>{{ trip.startDate | date:'mediumDate' }}</span>
+              </div>
+            }
+          </div>
+          <div class="trip-actions">
+            <a [routerLink]="['/trip', trip.id]" class="btn-view">
+              View Details <i class="fa fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

@@ -74,6 +74,7 @@ public static class NaqliyatDbContextModelCreatingExtensions
         builder.Entity<Trip>(b =>
         {
             b.ConfigureByConvention();
+            b.Property(e => e.Otp).IsRequired(false);
         });
 
         builder.Entity<TripOwner>(b =>

@@ -1,0 +1,142 @@
+<div class="trip-detail-container">
+  <div class="back-link">
+    <a routerLink="/trip/list">
+      <i class="fa fa-arrow-left"></i> Back to Trips
+    </a>
+  </div>
+
+  @if (errorMessage) {
+    <div class="alert alert-danger">
+      <i class="fa fa-exclamation-circle"></i>
+      {{ errorMessage }}
+    </div>
+  }
+
+  @if (isLoading) {
+    <div class="loading-state">
+      <i class="fa fa-spinner fa-spin"></i>
+      <p>Loading trip details...</p>
+    </div>
+  } @else if (trip) {
+    <div class="trip-detail-content">
+      <!-- Trip Header -->
+      <div class="trip-header-card">
+        <div class="trip-status">
+          <span class="status-badge" [ngClass]="getStatusClass(trip.statusId)">
+            {{ getStatusName(trip.statusId) }}
+          </span>
+        </div>
+        <h1>Trip Details</h1>
+        <p class="trip-id">ID: {{ trip.id }}</p>
+      </div>
+
+      <div class="detail-grid">
+        <!-- Location Card -->
+        <div class="detail-card">
+          <h3><i class="fa fa-map-marker"></i> Route</h3>
+          <div class="route-display">
+            <div class="location from">
+              <span class="label">From</span>
+              <span class="value">{{ trip.fromLocation }}</span>
+            </div>
+            <div class="route-line">
+              <i class="fa fa-long-arrow-right"></i>
+            </div>
+            <div class="location to">
+              <span class="label">To</span>
+              <span class="value">{{ trip.toLocation }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Schedule Card -->
+        <div class="detail-card">
+          <h3><i class="fa fa-calendar"></i> Schedule</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">Start Date</span>
+              <span class="value">{{ trip.startDate | date:'medium' }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">End Date</span>
+              <span class="value">{{ trip.endDate | date:'medium' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cargo Card -->
+        <div class="detail-card">
+          <h3><i class="fa fa-cube"></i> Cargo Details</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">Goods Type</span>
+              <span class="value">{{ trip.goodsType }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Weight</span>
+              <span class="value">{{ trip.goodsWeight }} kg</span>
+            </div>
+            @if (trip.goodsDimensions) {
+              <div class="info-item">
+                <span class="label">Dimensions</span>
+                <span class="value">{{ trip.goodsDimensions }}</span>
+              </div>
+            }
+            <div class="info-item">
+              <span class="label">Truck Type</span>
+              <span class="value">{{ getTruckTypeName(trip.truckTypeId) }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notes Card -->
+        @if (trip.notes) {
+          <div class="detail-card full-width">
+            <h3><i class="fa fa-sticky-note"></i> Notes</h3>
+            <p class="notes-text">{{ trip.notes }}</p>
+          </div>
+        }
+      </div>
+
+      <!-- Bids Section -->
+      @if (trip.statusId === TripStatuses.OpenForBidding || trip.statusId === TripStatuses.WaitingBidAgreement) {
+        <div class="bids-section">
+          <h2><i class="fa fa-gavel"></i> Bids ({{ bids.length }})</h2>
+          @if (bids.length === 0) {
+            <div class="empty-bids">
+              <i class="fa fa-clock-o"></i>
+              <p>No bids yet. Waiting for drivers to submit their offers.</p>
+            </div>
+          } @else {
+            <div class="bids-list">
+              @for (bid of bids; track bid.id) {
+                <div class="bid-card">
+                  <div class="bid-info">
+                    <div class="bid-price">
+                      <span class="currency">SAR</span>
+                      <span class="amount">{{ bid.price }}</span>
+                    </div>
+                    @if (bid.arrivalDate) {
+                      <div class="bid-arrival">
+                        <i class="fa fa-calendar-check-o"></i>
+                        Arrival: {{ bid.arrivalDate | date:'mediumDate' }}
+                      </div>
+                    }
+                  </div>
+                  <div class="bid-actions">
+                    <button class="btn-approve" (click)="approveBid(bid.id!)">
+                      <i class="fa fa-check"></i> Approve
+                    </button>
+                    <button class="btn-reject" (click)="rejectBid(bid.id!)">
+                      <i class="fa fa-times"></i> Reject
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

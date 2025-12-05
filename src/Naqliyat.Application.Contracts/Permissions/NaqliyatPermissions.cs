@@ -14,5 +14,6 @@ public static class NaqliyatPermissions
         public const string ViewBids   = Default + ".ViewBids";
         public const string ManageBids = Default + ".ManageBids";
         public const string CreatePayment = Default + ".CreatePayment";
+        public const string ConfirmArrival = Default + ".ConfirmArrival";
     }
 }

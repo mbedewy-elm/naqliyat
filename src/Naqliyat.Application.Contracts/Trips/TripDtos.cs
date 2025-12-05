@@ -78,6 +78,11 @@ public class CreatePaymentDto
     public double PriceWithoutVat { get; set; }
 }
 
+public class ConfirmArrivalDto
+{
+    public string Otp { get; set; }
+}
+
 public interface ITripAppService
 {
     System.Threading.Tasks.Task<TripDto> CreateAsync(CreateTripDto input);
@@ -89,4 +94,5 @@ public interface ITripAppService
     System.Threading.Tasks.Task<BidDto> ApproveBidAsync(System.Guid bidId);
     System.Threading.Tasks.Task<BidDto> RejectBidAsync(System.Guid bidId);
     System.Threading.Tasks.Task<PaymentDto> CreatePaymentAsync(System.Guid tripId, CreatePaymentDto input);
+    System.Threading.Tasks.Task<TripDto> ConfirmArrivalAsync(System.Guid tripId, ConfirmArrivalDto input);
 }

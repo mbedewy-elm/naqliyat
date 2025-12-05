@@ -321,4 +321,47 @@ public class TripAppService : NaqliyatAppService, ITripAppService
             Status = payment.Status
         };
     }
+
+    [UnitOfWork]
+    public virtual async Task<TripDto> ConfirmArrivalAsync(Guid tripId, ConfirmArrivalDto input)
+    {
+        var trip = await _tripRepository.GetAsync(tripId);
+
+        if (string.IsNullOrWhiteSpace(input.Otp) || string.IsNullOrWhiteSpace(trip.Otp) || !string.Equals(input.Otp, trip.Otp, StringComparison.Ordinal))
+        {
+            throw new Volo.Abp.UserFriendlyException("Invalid OTP.");
+        }
+
+        trip.SetStatus(TripStatuses.Arrived);
+        trip.SetOtp(null);
+
+        trip = await _tripRepository.UpdateAsync(trip, autoSave: true);
+
+        var pictureQueryable = await _tripPictureRepository.GetQueryableAsync();
+        var tripPicturesQuery = pictureQueryable
+            .Where(tp => tp.TripId == tripId);
+
+        var tripPictures = await AsyncExecuter.ToListAsync(tripPicturesQuery);
+
+        var pictureIds = tripPictures
+            .Select(tp => tp.PictureId)
+            .Distinct()
+            .ToList();
+
+        return new TripDto
+        {
+            Id = trip.Id,
+            FromLocation = trip.FromLocation,
+            ToLocation = trip.ToLocation,
+            StartDate = trip.StartDate,
+            EndDate = trip.EndDate,
+            GoodsWeight = trip.GoodsWeight,
+            GoodsDimensions = trip.GoodsDimensions,
+            TruckTypeId = trip.TruckTypeId,
+            GoodsType = trip.GoodsType,
+            Notes = trip.Notes,
+            StatusId = trip.StatusId,
+            PictureIds = pictureIds
+        };
+    }
 }

@@ -79,4 +79,11 @@ public class TripController : NaqliyatController
     {
         return _tripAppService.CreatePaymentAsync(id, input);
     }
+
+    [HttpPost("{id}/confirm-arrival")]
+    [Authorize(NaqliyatPermissions.Trips.ConfirmArrival)]
+    public virtual Task<TripDto> ConfirmArrivalAsync(System.Guid id, [FromBody] ConfirmArrivalDto input)
+    {
+        return _tripAppService.ConfirmArrivalAsync(id, input);
+    }
 }

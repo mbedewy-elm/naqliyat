@@ -44,4 +44,11 @@ public class TripController : NaqliyatController
     {
         return _tripAppService.PlaceBidAsync(id, input);
     }
+
+    [HttpGet("{id}/bids/new")]
+    [Authorize(NaqliyatPermissions.Trips.ViewBids)]
+    public virtual Task<System.Collections.Generic.List<BidDto>> GetNewBidsAsync(System.Guid id)
+    {
+        return _tripAppService.GetNewBidsAsync(id);
+    }
 }

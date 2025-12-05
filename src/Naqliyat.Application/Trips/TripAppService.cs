@@ -189,4 +189,25 @@ public class TripAppService : NaqliyatAppService, ITripAppService
             StatusId = bid.StatusId
         };
     }
+
+    [UnitOfWork]
+    public virtual async Task<List<BidDto>> GetNewBidsAsync(Guid tripId)
+    {
+        var queryable = await _bidRepository.GetQueryableAsync();
+
+        var query = queryable
+            .Where(b => b.TripId == tripId && b.StatusId == BidStatus.New);
+
+        var bids = await AsyncExecuter.ToListAsync(query);
+
+        return bids.Select(b => new BidDto
+        {
+            Id = b.Id,
+            TripId = b.TripId,
+            TruckId = b.TruckId,
+            Price = b.Price,
+            ArrivalDate = b.ArrivalDate,
+            StatusId = b.StatusId
+        }).ToList();
+    }
 }

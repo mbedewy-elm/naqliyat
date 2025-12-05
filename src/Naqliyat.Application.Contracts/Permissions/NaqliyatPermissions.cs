@@ -11,5 +11,6 @@ public static class NaqliyatPermissions
         public const string ViewOpen   = Default + ".ViewOpen";
         public const string ViewDetails = Default + ".ViewDetails";
         public const string Bid        = Default + ".Bid";
+        public const string ViewBids   = Default + ".ViewBids";
     }
 }

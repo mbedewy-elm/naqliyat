@@ -70,4 +70,5 @@ public interface ITripAppService
     System.Threading.Tasks.Task<System.Collections.Generic.List<TripDto>> GetOpenTripsAsync(string locationFilter = null);
     System.Threading.Tasks.Task<TripDto> GetByIdAsync(System.Guid id);
     System.Threading.Tasks.Task<BidDto> PlaceBidAsync(System.Guid tripId, CreateBidDto input);
+    System.Threading.Tasks.Task<System.Collections.Generic.List<BidDto>> GetNewBidsAsync(System.Guid tripId);
 }

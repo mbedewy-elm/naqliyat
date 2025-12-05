@@ -132,4 +132,37 @@ public class TripAppService : NaqliyatAppService, ITripAppService
 
         return result;
     }
+
+    [UnitOfWork]
+    public virtual async Task<TripDto> GetByIdAsync(Guid id)
+    {
+        var trip = await _tripRepository.GetAsync(id);
+
+        var pictureQueryable = await _tripPictureRepository.GetQueryableAsync();
+        var tripPicturesQuery = pictureQueryable
+            .Where(tp => tp.TripId == id);
+
+        var tripPictures = await AsyncExecuter.ToListAsync(tripPicturesQuery);
+
+        var pictureIds = tripPictures
+            .Select(tp => tp.PictureId)
+            .Distinct()
+            .ToList();
+
+        return new TripDto
+        {
+            Id = trip.Id,
+            FromLocation = trip.FromLocation,
+            ToLocation = trip.ToLocation,
+            StartDate = trip.StartDate,
+            EndDate = trip.EndDate,
+            GoodsWeight = trip.GoodsWeight,
+            GoodsDimensions = trip.GoodsDimensions,
+            TruckTypeId = trip.TruckTypeId,
+            GoodsType = trip.GoodsType,
+            Notes = trip.Notes,
+            StatusId = trip.StatusId,
+            PictureIds = pictureIds
+        };
+    }
 }

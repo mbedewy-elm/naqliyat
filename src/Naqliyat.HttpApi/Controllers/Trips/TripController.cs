@@ -30,4 +30,11 @@ public class TripController : NaqliyatController
     {
         return _tripAppService.GetOpenTripsAsync(locationFilter);
     }
+
+    [HttpGet("{id}")]
+    [Authorize(NaqliyatPermissions.Trips.ViewDetails)]
+    public virtual Task<TripDto> GetByIdAsync(System.Guid id)
+    {
+        return _tripAppService.GetByIdAsync(id);
+    }
 }

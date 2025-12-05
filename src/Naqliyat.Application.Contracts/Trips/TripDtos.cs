@@ -64,6 +64,20 @@ public class CreateBidDto
     public DateTime ArrivalDate { get; set; }
 }
 
+public class PaymentDto : EntityDto<Guid>
+{
+    public Guid TripId { get; set; }
+    public double PriceWithoutVat { get; set; }
+    public string ReferenceId { get; set; }
+    public DateTime ExpiryDate { get; set; }
+    public PaymentStatus Status { get; set; }
+}
+
+public class CreatePaymentDto
+{
+    public double PriceWithoutVat { get; set; }
+}
+
 public interface ITripAppService
 {
     System.Threading.Tasks.Task<TripDto> CreateAsync(CreateTripDto input);
@@ -74,4 +88,5 @@ public interface ITripAppService
     System.Threading.Tasks.Task<BidDto> GetBidByIdAsync(System.Guid bidId);
     System.Threading.Tasks.Task<BidDto> ApproveBidAsync(System.Guid bidId);
     System.Threading.Tasks.Task<BidDto> RejectBidAsync(System.Guid bidId);
+    System.Threading.Tasks.Task<PaymentDto> CreatePaymentAsync(System.Guid tripId, CreatePaymentDto input);
 }

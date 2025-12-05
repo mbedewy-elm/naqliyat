@@ -18,6 +18,7 @@ public class NaqliyatPermissionDefinitionProvider : PermissionDefinitionProvider
         trips.AddChild(NaqliyatPermissions.Trips.Bid,         L("Permission:Trips.Bid"));
         trips.AddChild(NaqliyatPermissions.Trips.ViewBids,    L("Permission:Trips.ViewBids"));
         trips.AddChild(NaqliyatPermissions.Trips.ManageBids,  L("Permission:Trips.ManageBids"));
+        trips.AddChild(NaqliyatPermissions.Trips.CreatePayment, L("Permission:Trips.CreatePayment"));
     }
 
     private static LocalizableString L(string name)

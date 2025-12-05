@@ -72,4 +72,11 @@ public class TripController : NaqliyatController
     {
         return _tripAppService.RejectBidAsync(bidId);
     }
+
+    [HttpPost("{id}/payments")]
+    [Authorize(NaqliyatPermissions.Trips.CreatePayment)]
+    public virtual Task<PaymentDto> CreatePaymentAsync(System.Guid id, [FromBody] CreatePaymentDto input)
+    {
+        return _tripAppService.CreatePaymentAsync(id, input);
+    }
 }

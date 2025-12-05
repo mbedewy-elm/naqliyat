@@ -14,15 +14,21 @@ public class TripAppService : NaqliyatAppService, ITripAppService
     private readonly IRepository<Trip, Guid> _tripRepository;
     private readonly IRepository<TripPicture, Guid> _tripPictureRepository;
     private readonly IRepository<Bid, Guid> _bidRepository;
+    private readonly IRepository<Payment, Guid> _paymentRepository;
+    private readonly IPaymentIntegrationService _paymentIntegrationService;
 
     public TripAppService(
         IRepository<Trip, Guid> tripRepository,
         IRepository<TripPicture, Guid> tripPictureRepository,
-        IRepository<Bid, Guid> bidRepository)
+        IRepository<Bid, Guid> bidRepository,
+        IRepository<Payment, Guid> paymentRepository,
+        IPaymentIntegrationService paymentIntegrationService)
     {
         _tripRepository = tripRepository;
         _tripPictureRepository = tripPictureRepository;
         _bidRepository = bidRepository;
+        _paymentRepository = paymentRepository;
+        _paymentIntegrationService = paymentIntegrationService;
     }
 
     [UnitOfWork]
@@ -264,6 +270,33 @@ public class TripAppService : NaqliyatAppService, ITripAppService
             Price = bid.Price,
             ArrivalDate = bid.ArrivalDate,
             StatusId = bid.StatusId
+        };
+    }
+
+    [UnitOfWork]
+    public virtual async Task<PaymentDto> CreatePaymentAsync(Guid tripId, CreatePaymentDto input)
+    {
+        var trip = await _tripRepository.GetAsync(tripId);
+
+        var integrationResult = await _paymentIntegrationService.ReserveAsync(tripId, input.PriceWithoutVat);
+
+        var payment = new Payment(
+            Guid.NewGuid(),
+            tripId,
+            input.PriceWithoutVat,
+            integrationResult.ReferenceId,
+            integrationResult.ExpiryDate);
+
+        payment = await _paymentRepository.InsertAsync(payment, autoSave: true);
+
+        return new PaymentDto
+        {
+            Id = payment.Id,
+            TripId = payment.TripId,
+            PriceWithoutVat = payment.PriceWithoutVat,
+            ReferenceId = payment.ReferenceId,
+            ExpiryDate = payment.ExpiryDate,
+            Status = payment.Status
         };
     }
 }

@@ -335,6 +335,24 @@ public class TripAppService : NaqliyatAppService, ITripAppService
         trip.SetStatus(TripStatuses.Arrived);
         trip.SetOtp(null);
 
+        // Complete payment after arrival (if payment exists)
+        var paymentQueryable = await _paymentRepository.GetQueryableAsync();
+        var payment = await AsyncExecuter.FirstOrDefaultAsync(
+            paymentQueryable.Where(p => p.TripId == tripId));
+
+        if (payment != null)
+        {
+            var success = await _paymentIntegrationService.CompleteAsync(payment.ReferenceId);
+
+            if (!success)
+            {
+                throw new Volo.Abp.UserFriendlyException("Payment completion failed.");
+            }
+
+            payment.MarkPaid();
+            await _paymentRepository.UpdateAsync(payment, autoSave: true);
+        }
+
         trip = await _tripRepository.UpdateAsync(trip, autoSave: true);
 
         var pictureQueryable = await _tripPictureRepository.GetQueryableAsync();

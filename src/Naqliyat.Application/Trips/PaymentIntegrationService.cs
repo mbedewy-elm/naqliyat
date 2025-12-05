@@ -16,5 +16,12 @@ namespace Naqliyat.Trips
 
             return Task.FromResult(result);
         }
+
+        public Task<bool> CompleteAsync(string referenceId)
+        {
+            // TODO: call external payment provider to verify/complete payment using referenceId
+            // For now, assume completion is always successful.
+            return Task.FromResult(true);
+        }
     }
 }

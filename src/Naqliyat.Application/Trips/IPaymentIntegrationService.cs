@@ -6,6 +6,7 @@ namespace Naqliyat.Trips
     public interface IPaymentIntegrationService
     {
         Task<PaymentReservationResult> ReserveAsync(Guid tripId, double priceWithoutVat);
+        Task<bool> CompleteAsync(string referenceId);
     }
 
     public class PaymentReservationResult

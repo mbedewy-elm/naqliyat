@@ -1,0 +1,150 @@
+<div class="driver-trips-container">
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <i class="fa fa-truck"></i>
+      </div>
+      <div class="header-text">
+        <h1>Available Trips</h1>
+        <p>Browse open trips and place your bids</p>
+      </div>
+    </div>
+    <div class="trips-count" *ngIf="!isLoading">
+      <span class="count">{{ filteredTrips.length }}</span>
+      <span class="label">trips available</span>
+    </div>
+  </div>
+
+  <!-- Search & Filter Bar -->
+  <div class="filter-bar">
+    <div class="search-wrapper">
+      <i class="fa fa-search"></i>
+      <input
+        type="text"
+        [(ngModel)]="locationFilter"
+        placeholder="Search by location..."
+        (keyup.enter)="onSearch()"
+      />
+      <button class="btn-search" (click)="onSearch()">
+        <i class="fa fa-filter"></i> Search
+      </button>
+    </div>
+  </div>
+
+  @if (errorMessage) {
+    <div class="alert alert-danger">
+      <i class="fa fa-exclamation-triangle"></i>
+      {{ errorMessage }}
+    </div>
+  }
+
+  @if (isLoading) {
+    <div class="loading-state">
+      <div class="loader">
+        <i class="fa fa-spinner fa-spin"></i>
+      </div>
+      <p>Finding available trips...</p>
+    </div>
+  } @else if (filteredTrips.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="fa fa-road"></i>
+      </div>
+      <h3>No Trips Available</h3>
+      <p>There are no open trips for bidding at the moment. Check back later for new opportunities.</p>
+      <button class="btn-refresh" (click)="loadOpenTrips()">
+        <i class="fa fa-refresh"></i> Refresh
+      </button>
+    </div>
+  } @else {
+    <div class="trips-grid">
+      @for (trip of filteredTrips; track trip.id) {
+        <div class="trip-card">
+          <div class="card-header">
+            <span class="status-badge">
+              <i class="fa fa-circle"></i> Open for Bidding
+            </span>
+            <span class="truck-type-badge">
+              <i class="fa fa-truck"></i> {{ getTruckTypeName(trip.truckTypeId) }}
+            </span>
+          </div>
+
+          <div class="route-section">
+            <div class="route-point from">
+              <div class="point-marker">
+                <i class="fa fa-circle-o"></i>
+              </div>
+              <div class="point-info">
+                <span class="label">Pickup</span>
+                <span class="location">{{ trip.fromLocation }}</span>
+              </div>
+            </div>
+            <div class="route-connector">
+              <div class="connector-line"></div>
+              <i class="fa fa-long-arrow-down"></i>
+            </div>
+            <div class="route-point to">
+              <div class="point-marker">
+                <i class="fa fa-map-marker"></i>
+              </div>
+              <div class="point-info">
+                <span class="label">Drop-off</span>
+                <span class="location">{{ trip.toLocation }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="trip-details">
+            <div class="detail-item">
+              <i class="fa fa-cube"></i>
+              <span>{{ trip.goodsType || 'General Cargo' }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-balance-scale"></i>
+              <span>{{ trip.goodsWeight }} kg</span>
+            </div>
+            @if (trip.goodsDimensions) {
+              <div class="detail-item">
+                <i class="fa fa-arrows-alt"></i>
+                <span>{{ trip.goodsDimensions }}</span>
+              </div>
+            }
+          </div>
+
+          <div class="schedule-section">
+            <div class="schedule-item">
+              <i class="fa fa-calendar"></i>
+              <div class="schedule-info">
+                <span class="label">Start Date</span>
+                <span class="value">{{ formatDate(trip.startDate) }}</span>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <i class="fa fa-calendar-check-o"></i>
+              <div class="schedule-info">
+                <span class="label">End Date</span>
+                <span class="value">{{ formatDate(trip.endDate) }}</span>
+              </div>
+            </div>
+          </div>
+
+          @if (trip.notes) {
+            <div class="notes-section">
+              <i class="fa fa-sticky-note-o"></i>
+              <p>{{ trip.notes }}</p>
+            </div>
+          }
+
+          <div class="card-actions">
+            <a [routerLink]="['/trip/bid', trip.id]" class="btn-bid">
+              <i class="fa fa-gavel"></i> Place Bid
+            </a>
+            <a [routerLink]="['/trip', trip.id]" class="btn-details">
+              View Details <i class="fa fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

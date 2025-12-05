@@ -18,6 +18,16 @@ export const TRIP_ROUTES: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'available',
+    loadComponent: () => import('./driver-trips/driver-trips.component').then(c => c.DriverTripsComponent),
+    canActivate: [authGuard],
+  },
+  {
+    path: 'bid/:id',
+    loadComponent: () => import('./place-bid/place-bid.component').then(c => c.PlaceBidComponent),
+    canActivate: [authGuard],
+  },
+  {
     path: ':id',
     loadComponent: () => import('./trip-detail/trip-detail.component').then(c => c.TripDetailComponent),
     canActivate: [authGuard],

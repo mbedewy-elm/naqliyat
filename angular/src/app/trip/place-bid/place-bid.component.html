@@ -1,0 +1,179 @@
+<div class="place-bid-container">
+  <div class="back-link">
+    <a routerLink="/trip/available">
+      <i class="fa fa-arrow-left"></i> Back to Available Trips
+    </a>
+  </div>
+
+  @if (errorMessage) {
+    <div class="alert alert-danger">
+      <i class="fa fa-exclamation-triangle"></i>
+      {{ errorMessage }}
+    </div>
+  }
+
+  @if (successMessage) {
+    <div class="alert alert-success">
+      <i class="fa fa-check-circle"></i>
+      {{ successMessage }}
+    </div>
+  }
+
+  @if (isLoading) {
+    <div class="loading-state">
+      <i class="fa fa-spinner fa-spin"></i>
+      <p>Loading trip details...</p>
+    </div>
+  } @else if (trip) {
+    <div class="bid-layout">
+      <!-- Trip Summary Card -->
+      <div class="trip-summary-card">
+        <div class="card-header">
+          <h2><i class="fa fa-truck"></i> Trip Details</h2>
+        </div>
+        <div class="card-body">
+          <div class="route-display">
+            <div class="route-point">
+              <div class="point-icon from">
+                <i class="fa fa-circle-o"></i>
+              </div>
+              <div class="point-details">
+                <span class="label">Pickup Location</span>
+                <span class="value">{{ trip.fromLocation }}</span>
+              </div>
+            </div>
+            <div class="route-line"></div>
+            <div class="route-point">
+              <div class="point-icon to">
+                <i class="fa fa-map-marker"></i>
+              </div>
+              <div class="point-details">
+                <span class="label">Drop-off Location</span>
+                <span class="value">{{ trip.toLocation }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="trip-info-grid">
+            <div class="info-item">
+              <i class="fa fa-cube"></i>
+              <div class="info-content">
+                <span class="label">Goods Type</span>
+                <span class="value">{{ trip.goodsType }}</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fa fa-balance-scale"></i>
+              <div class="info-content">
+                <span class="label">Weight</span>
+                <span class="value">{{ trip.goodsWeight }} kg</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fa fa-truck"></i>
+              <div class="info-content">
+                <span class="label">Truck Type</span>
+                <span class="value">{{ getTruckTypeName(trip.truckTypeId) }}</span>
+              </div>
+            </div>
+            @if (trip.goodsDimensions) {
+              <div class="info-item">
+                <i class="fa fa-arrows-alt"></i>
+                <div class="info-content">
+                  <span class="label">Dimensions</span>
+                  <span class="value">{{ trip.goodsDimensions }}</span>
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="schedule-info">
+            <div class="schedule-item">
+              <i class="fa fa-calendar"></i>
+              <span>Start: {{ formatDate(trip.startDate) }}</span>
+            </div>
+            <div class="schedule-item">
+              <i class="fa fa-calendar-check-o"></i>
+              <span>End: {{ formatDate(trip.endDate) }}</span>
+            </div>
+          </div>
+
+          @if (trip.notes) {
+            <div class="notes-box">
+              <h4><i class="fa fa-sticky-note-o"></i> Notes</h4>
+              <p>{{ trip.notes }}</p>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Bid Form Card -->
+      <div class="bid-form-card">
+        <div class="card-header">
+          <h2><i class="fa fa-gavel"></i> Place Your Bid</h2>
+          <p>Submit your offer for this trip</p>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="bidForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="price">
+                <i class="fa fa-money"></i> Your Price (SAR) <span class="required">*</span>
+              </label>
+              <div class="price-input-wrapper">
+                <span class="currency">SAR</span>
+                <input
+                  type="number"
+                  id="price"
+                  formControlName="price"
+                  placeholder="Enter your bid amount"
+                  min="1"
+                  [class.is-invalid]="isFieldInvalid('price')"
+                />
+              </div>
+              @if (isFieldInvalid('price')) {
+                <span class="error-message">Please enter a valid price</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="arrivalDate">
+                <i class="fa fa-clock-o"></i> Estimated Arrival <span class="required">*</span>
+              </label>
+              <input
+                type="datetime-local"
+                id="arrivalDate"
+                formControlName="arrivalDate"
+                [class.is-invalid]="isFieldInvalid('arrivalDate')"
+              />
+              @if (isFieldInvalid('arrivalDate')) {
+                <span class="error-message">Please select an arrival date</span>
+              }
+            </div>
+
+            <div class="bid-tips">
+              <h4><i class="fa fa-lightbulb-o"></i> Tips for a Winning Bid</h4>
+              <ul>
+                <li>Offer a competitive price based on distance and cargo type</li>
+                <li>Provide a realistic arrival estimate</li>
+                <li>Ensure your truck meets the required specifications</li>
+              </ul>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-cancel" routerLink="/trip/available">
+                Cancel
+              </button>
+              <button type="submit" class="btn-submit" [disabled]="isSubmitting">
+                @if (isSubmitting) {
+                  <i class="fa fa-spinner fa-spin"></i> Submitting...
+                } @else {
+                  <i class="fa fa-gavel"></i> Submit Bid
+                }
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  }
+</div>

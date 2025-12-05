@@ -1,0 +1,492 @@
+// Variables - Golden Orange Theme
+$primary-color: #f59e0b;
+$primary-dark: #d97706;
+$primary-light: #fbbf24;
+$text-primary: #1e293b;
+$text-secondary: #64748b;
+$text-light: #94a3b8;
+$bg-light: #fffbeb;
+$bg-white: #ffffff;
+$bg-gray: #f9fafb;
+$border-color: #e5e7eb;
+$error-color: #ef4444;
+$success-color: #10b981;
+
+.driver-trips-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid $border-color;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .header-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i {
+      font-size: 1.5rem;
+      color: white;
+    }
+  }
+
+  .header-text {
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: $text-primary;
+      margin-bottom: 0.25rem;
+    }
+
+    p {
+      color: $text-secondary;
+      font-size: 0.95rem;
+    }
+  }
+
+  .trips-count {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: $bg-light;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba($primary-color, 0.2);
+
+    .count {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: $primary-dark;
+    }
+
+    .label {
+      font-size: 0.75rem;
+      color: $text-secondary;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.filter-bar {
+  margin-bottom: 2rem;
+}
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  background: $bg-white;
+  border: 1px solid $border-color;
+  border-radius: 0.75rem;
+  padding: 0.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  i.fa-search {
+    padding: 0 1rem;
+    color: $text-secondary;
+  }
+
+  input {
+    flex: 1;
+    border: none;
+    padding: 0.875rem 0;
+    font-size: 1rem;
+    color: $text-primary;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: $text-light;
+    }
+  }
+
+  .btn-search {
+    background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba($primary-color, 0.4);
+    }
+  }
+}
+
+.alert {
+  padding: 1rem 1.5rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  &.alert-danger {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: $error-color;
+  }
+}
+
+.loading-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: $bg-white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+  .loader {
+    margin-bottom: 1rem;
+
+    i {
+      font-size: 3rem;
+      color: $primary-color;
+    }
+  }
+
+  p {
+    color: $text-secondary;
+    font-size: 1rem;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: $bg-white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+  .empty-icon {
+    width: 80px;
+    height: 80px;
+    background: $bg-light;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+
+    i {
+      font-size: 2rem;
+      color: $primary-color;
+    }
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    color: $text-primary;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: $text-secondary;
+    margin-bottom: 1.5rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-refresh {
+    background: $bg-white;
+    color: $primary-color;
+    border: 2px solid $primary-color;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: $primary-color;
+      color: white;
+    }
+  }
+}
+
+.trips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 1.5rem;
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.trip-card {
+  background: $bg-white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, rgba($primary-color, 0.1) 0%, rgba($primary-dark, 0.05) 100%);
+  border-bottom: 1px solid rgba($primary-color, 0.1);
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $success-color;
+  text-transform: uppercase;
+
+  i {
+    font-size: 0.5rem;
+    animation: pulse 2s infinite;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.truck-type-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: $text-secondary;
+  background: $bg-white;
+  padding: 0.375rem 0.75rem;
+  border-radius: 50px;
+
+  i {
+    color: $primary-color;
+  }
+}
+
+.route-section {
+  padding: 1.5rem;
+  background: $bg-gray;
+}
+
+.route-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+
+  .point-marker {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  &.from .point-marker {
+    background: rgba($success-color, 0.1);
+    color: $success-color;
+  }
+
+  &.to .point-marker {
+    background: rgba($error-color, 0.1);
+    color: $error-color;
+  }
+
+  .point-info {
+    .label {
+      display: block;
+      font-size: 0.7rem;
+      color: $text-light;
+      text-transform: uppercase;
+      margin-bottom: 0.125rem;
+    }
+
+    .location {
+      font-weight: 600;
+      color: $text-primary;
+      font-size: 0.95rem;
+    }
+  }
+}
+
+.route-connector {
+  display: flex;
+  align-items: center;
+  padding-left: 0.9rem;
+  margin: 0.25rem 0;
+
+  .connector-line {
+    width: 2px;
+    height: 20px;
+    background: linear-gradient($success-color, $error-color);
+  }
+
+  i {
+    display: none;
+  }
+}
+
+.trip-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid $border-color;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: $text-secondary;
+
+  i {
+    color: $primary-color;
+    width: 16px;
+  }
+}
+
+.schedule-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid $border-color;
+}
+
+.schedule-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  i {
+    color: $primary-color;
+    font-size: 1rem;
+  }
+
+  .schedule-info {
+    .label {
+      display: block;
+      font-size: 0.7rem;
+      color: $text-light;
+      text-transform: uppercase;
+    }
+
+    .value {
+      font-weight: 500;
+      color: $text-primary;
+      font-size: 0.875rem;
+    }
+  }
+}
+
+.notes-section {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: rgba($primary-color, 0.03);
+  border-bottom: 1px solid $border-color;
+
+  i {
+    color: $primary-color;
+    margin-top: 0.125rem;
+  }
+
+  p {
+    font-size: 0.875rem;
+    color: $text-secondary;
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+}
+
+.btn-bid {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem;
+  background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 15px rgba($primary-color, 0.4);
+    transform: translateY(-1px);
+  }
+}
+
+.btn-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1rem;
+  background: transparent;
+  color: $text-secondary;
+  border: 1px solid $border-color;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: $primary-color;
+    color: $primary-color;
+  }
+}

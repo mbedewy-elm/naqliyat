@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { AuthService, LocalizationPipe } from '@abp/ng.core';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '@abp/ng.core';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  imports: [LocalizationPipe]
+  imports: [CommonModule]
 })
 export class HomeComponent {
   private authService = inject(AuthService);
@@ -16,5 +17,12 @@ export class HomeComponent {
 
   login() {
     this.authService.navigateToLogin();
+  }
+
+  scrollToSection(sectionId: string) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 }

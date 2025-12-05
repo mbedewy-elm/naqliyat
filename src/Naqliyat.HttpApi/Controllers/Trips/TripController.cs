@@ -37,4 +37,11 @@ public class TripController : NaqliyatController
     {
         return _tripAppService.GetByIdAsync(id);
     }
+
+    [HttpPost("{id}/bids")]
+    [Authorize(NaqliyatPermissions.Trips.Bid)]
+    public virtual Task<BidDto> PlaceBidAsync(System.Guid id, [FromBody] CreateBidDto input)
+    {
+        return _tripAppService.PlaceBidAsync(id, input);
+    }
 }

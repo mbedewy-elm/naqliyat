@@ -48,9 +48,26 @@ public class CreateTripDto
     public List<Guid> PictureIds { get; set; } = new();
 }
 
+public class BidDto : EntityDto<Guid>
+{
+    public Guid TripId { get; set; }
+    public Guid TruckId { get; set; }
+    public double Price { get; set; }
+    public DateTime ArrivalDate { get; set; }
+    public BidStatus StatusId { get; set; }
+}
+
+public class CreateBidDto
+{
+    public Guid TruckId { get; set; }
+    public double Price { get; set; }
+    public DateTime ArrivalDate { get; set; }
+}
+
 public interface ITripAppService
 {
     System.Threading.Tasks.Task<TripDto> CreateAsync(CreateTripDto input);
     System.Threading.Tasks.Task<System.Collections.Generic.List<TripDto>> GetOpenTripsAsync(string locationFilter = null);
     System.Threading.Tasks.Task<TripDto> GetByIdAsync(System.Guid id);
+    System.Threading.Tasks.Task<BidDto> PlaceBidAsync(System.Guid tripId, CreateBidDto input);
 }

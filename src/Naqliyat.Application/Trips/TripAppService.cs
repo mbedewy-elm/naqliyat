@@ -13,13 +13,16 @@ public class TripAppService : NaqliyatAppService, ITripAppService
 {
     private readonly IRepository<Trip, Guid> _tripRepository;
     private readonly IRepository<TripPicture, Guid> _tripPictureRepository;
+    private readonly IRepository<Bid, Guid> _bidRepository;
 
     public TripAppService(
         IRepository<Trip, Guid> tripRepository,
-        IRepository<TripPicture, Guid> tripPictureRepository)
+        IRepository<TripPicture, Guid> tripPictureRepository,
+        IRepository<Bid, Guid> bidRepository)
     {
         _tripRepository = tripRepository;
         _tripPictureRepository = tripPictureRepository;
+        _bidRepository = bidRepository;
     }
 
     [UnitOfWork]
@@ -163,6 +166,27 @@ public class TripAppService : NaqliyatAppService, ITripAppService
             Notes = trip.Notes,
             StatusId = trip.StatusId,
             PictureIds = pictureIds
+        };
+    }
+
+    [UnitOfWork]
+    public virtual async Task<BidDto> PlaceBidAsync(Guid tripId, CreateBidDto input)
+    {
+        // Ensure trip exists
+        var trip = await _tripRepository.GetAsync(tripId);
+
+        var bid = new Bid(tripId, input.TruckId, input.Price, input.ArrivalDate);
+
+        bid = await _bidRepository.InsertAsync(bid, autoSave: true);
+
+        return new BidDto
+        {
+            Id = bid.Id,
+            TripId = bid.TripId,
+            TruckId = bid.TruckId,
+            Price = bid.Price,
+            ArrivalDate = bid.ArrivalDate,
+            StatusId = bid.StatusId
         };
     }
 }

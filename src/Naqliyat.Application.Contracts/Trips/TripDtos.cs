@@ -83,6 +83,12 @@ public class ConfirmArrivalDto
     public string Otp { get; set; }
 }
 
+public class RateTripDto
+{
+    public int Rate { get; set; }
+    public string Note { get; set; }
+}
+
 public interface ITripAppService
 {
     System.Threading.Tasks.Task<TripDto> CreateAsync(CreateTripDto input);
@@ -95,4 +101,5 @@ public interface ITripAppService
     System.Threading.Tasks.Task<BidDto> RejectBidAsync(System.Guid bidId);
     System.Threading.Tasks.Task<PaymentDto> CreatePaymentAsync(System.Guid tripId, CreatePaymentDto input);
     System.Threading.Tasks.Task<TripDto> ConfirmArrivalAsync(System.Guid tripId, ConfirmArrivalDto input);
+    System.Threading.Tasks.Task<TripDto> RateTripAsync(System.Guid tripId, RateTripDto input);
 }

@@ -86,4 +86,11 @@ public class TripController : NaqliyatController
     {
         return _tripAppService.ConfirmArrivalAsync(id, input);
     }
+
+    [HttpPost("{id}/rating")]
+    [Authorize(NaqliyatPermissions.Trips.Rate)]
+    public virtual Task<TripDto> RateTripAsync(System.Guid id, [FromBody] RateTripDto input)
+    {
+        return _tripAppService.RateTripAsync(id, input);
+    }
 }

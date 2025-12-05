@@ -1,0 +1,36 @@
+import { mapEnumToOptions } from '@abp/ng.core';
+
+export enum TruckTypes {
+  Unknown = 0,
+  SemiTruck = 1,
+  DayCab = 2,
+  SleeperCab = 3,
+  DryVan = 4,
+  BoxTruck = 5,
+  CurtainSide = 6,
+  Reefer = 7,
+  RefrigeratedChilled = 8,
+  RefrigeratedFrozen = 9,
+  RefrigeratedDeepFrozen = 10,
+  Insulated = 11,
+  Flatbed = 12,
+  StepDeck = 13,
+  DoubleDrop = 14,
+  Lowboy = 15,
+  Conestoga = 16,
+  Hotshot = 17,
+  Tanker = 18,
+  PneumaticTanker = 19,
+  CarCarrier = 20,
+  LoggingTruck = 21,
+  DumpTruck = 22,
+  GarbageTruck = 23,
+  CementMixer = 24,
+  HeavyHaul = 25,
+  OversizeLoad = 26,
+  SprinterVan = 27,
+  CargoVan = 28,
+  PickUp = 29,
+}
+
+export const truckTypesOptions = mapEnumToOptions(TruckTypes);

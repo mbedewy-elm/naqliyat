@@ -11,8 +11,8 @@ public class NaqliyatPermissionDefinitionProvider : PermissionDefinitionProvider
     {
         var myGroup = context.AddGroup(NaqliyatPermissions.GroupName);
 
-        //Define your own permissions here. Example:
-        //myGroup.AddPermission(NaqliyatPermissions.MyPermission1, L("Permission:MyPermission1"));
+        var trips = myGroup.AddPermission(NaqliyatPermissions.Trips.Default, L("Permission:Trips"));
+        trips.AddChild(NaqliyatPermissions.Trips.Create, L("Permission:Trips.Create"));
     }
 
     private static LocalizableString L(string name)

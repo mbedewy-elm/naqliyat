@@ -4,8 +4,9 @@ public static class NaqliyatPermissions
 {
     public const string GroupName = "Naqliyat";
 
-
-    
-    //Add your own permission names. Example:
-    //public const string MyPermission1 = GroupName + ".MyPermission1";
+    public static class Trips
+    {
+        public const string Default = GroupName + ".Trips";
+        public const string Create = Default + ".Create";
+    }
 }

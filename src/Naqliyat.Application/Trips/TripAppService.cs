@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Naqliyat.Enums;
+using Naqliyat.Notifications;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Uow;
@@ -16,19 +17,22 @@ public class TripAppService : NaqliyatAppService, ITripAppService
     private readonly IRepository<Bid, Guid> _bidRepository;
     private readonly IRepository<Payment, Guid> _paymentRepository;
     private readonly IPaymentIntegrationService _paymentIntegrationService;
+    private readonly IRepository<Notification, Guid> _notificationRepository;
 
     public TripAppService(
         IRepository<Trip, Guid> tripRepository,
         IRepository<TripPicture, Guid> tripPictureRepository,
         IRepository<Bid, Guid> bidRepository,
         IRepository<Payment, Guid> paymentRepository,
-        IPaymentIntegrationService paymentIntegrationService)
+        IPaymentIntegrationService paymentIntegrationService,
+        IRepository<Notification, Guid> notificationRepository)
     {
         _tripRepository = tripRepository;
         _tripPictureRepository = tripPictureRepository;
         _bidRepository = bidRepository;
         _paymentRepository = paymentRepository;
         _paymentIntegrationService = paymentIntegrationService;
+        _notificationRepository = notificationRepository;
     }
 
     [UnitOfWork]
@@ -288,6 +292,24 @@ public class TripAppService : NaqliyatAppService, ITripAppService
             integrationResult.ExpiryDate);
 
         payment = await _paymentRepository.InsertAsync(payment, autoSave: true);
+
+        // Create notification to requester with OTP
+        var receiver = trip.CreatorId?.ToString() ?? string.Empty;
+        var otp = new Random().Next(100000, 999999).ToString();
+
+        // Persist OTP on the trip
+        trip.SetOtp(otp);
+        await _tripRepository.UpdateAsync(trip, autoSave: true);
+
+        var content = $"Your bid has been accepted. OTP: {otp}";
+
+        var notification = new Notification(
+            Guid.NewGuid(),
+            receiver,
+            content,
+            NotificationType.Push);
+
+        await _notificationRepository.InsertAsync(notification, autoSave: true);
 
         return new PaymentDto
         {

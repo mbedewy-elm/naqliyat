@@ -21,6 +21,8 @@ namespace Naqliyat.Trips
         public string GoodsType { get; set; }
         public string Notes { get; set; }
 
+        public string Otp { get; set; }
+
         public TripStatuses StatusId { get; set; }
         public virtual TripStatus Status { get; set; }
 
@@ -84,6 +86,11 @@ namespace Naqliyat.Trips
         public void SetNotes(string notes)
         {
             Notes = notes;
+        }
+
+        public void SetOtp(string otp)
+        {
+            Otp = otp;
         }
 
         public void SetStatus(TripStatuses status)

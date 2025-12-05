@@ -1,4 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using Naqliyat.Attachments;
+using Naqliyat.Notifications;
+using Naqliyat.Trips;
+using Naqliyat.Trucks;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.BlobStoring.Database.EntityFrameworkCore;
@@ -49,6 +53,30 @@ public class NaqliyatDbContext :
 
     #endregion
 
+    #region Entities
+
+    public DbSet<Truck> Trucks { get; set; }
+    public DbSet<Driver> Drivers { get; set; }
+    public DbSet<Owner> Owners { get; set; }
+    public DbSet<OwnerTruck> OwnerTrucks { get; set; }
+    public DbSet<TruckType> TruckTypes { get; set; }
+    public DbSet<Country> Countries { get; set; }
+    public DbSet<TruckPicture> TruckPictures { get; set; }
+
+    public DbSet<Trip> Trips { get; set; }
+    public DbSet<TripOwner> TripOwners { get; set; }
+    public DbSet<TripPicture> TripPictures { get; set; }
+    public DbSet<TripStatus> TripStatuses { get; set; }
+    public DbSet<TripRating> TripRatings { get; set; }
+    public DbSet<Bid> Bids { get; set; }
+
+    public DbSet<Payment> Payments { get; set; }
+
+    public DbSet<Attachment> Attachments { get; set; }
+    public DbSet<Notification> Notifications { get; set; }
+
+    #endregion
+
     public NaqliyatDbContext(DbContextOptions<NaqliyatDbContext> options)
         : base(options)
     {
@@ -69,6 +97,8 @@ public class NaqliyatDbContext :
         builder.ConfigureIdentity();
         builder.ConfigureOpenIddict();
         builder.ConfigureBlobStoring();
+        
+        builder.ConfigureNaqliyat();
         
         /* Configure your own tables/entities inside here */
 

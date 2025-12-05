@@ -29,8 +29,4 @@
     <PackageReference Include="Volo.Abp.Identity.Domain" Version="10.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Trips\" />
-  </ItemGroup>
-
 </Project>

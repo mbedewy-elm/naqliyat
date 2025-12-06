@@ -1,0 +1,124 @@
+version: '3.8'
+
+services:
+  # Backend API Service
+  naqliyat-api:
+    build:
+      context: ./src/Naqliyat.HttpApi.Host
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+      - TEAM_NAME=${TEAM_NAME:-naqliyat}
+      - SERVICE_NAME=${SERVICE_NAME:-naqliyat-api}
+    networks:
+      - hackathon-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health-status", "||", "exit", "1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend Service
+  naqliyat-frontend:
+    build:
+      context: ./angular
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    environment:
+      - TEAM_NAME=${TEAM_NAME:-naqliyat}
+      - SERVICE_NAME=${SERVICE_NAME:-naqliyat-frontend}
+    networks:
+      - hackathon-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+  # Database for local development (optional)
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=YourStrong@Passw0rd
+      - MSSQL_PID=Developer
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    ports:
+      - "1433:1433"
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P YourStrong@Passw0rd -C -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - hackathon-network
+    restart: unless-stopped
+    profiles:
+      - dev
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    networks:
+      - hackathon-network
+    restart: unless-stopped
+    profiles:
+      - dev
+
+  # Optional: pgAdmin for database management
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@hackathon.local
+      - PGADMIN_DEFAULT_PASSWORD=admin123
+      - PGADMIN_LISTEN_PORT=80
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - hackathon-network
+    restart: unless-stopped
+    profiles:
+      - dev
+
+  # Optional: Redis Commander for Redis management
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+    networks:
+      - hackathon-network
+    restart: unless-stopped
+    profiles:
+      - dev
+
+volumes:
+  sqlserver-data:
+    driver: local
+  redis-data:
+    driver: local
+
+networks:
+  hackathon-network:
+    driver: bridge

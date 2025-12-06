@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "app.naqliyat.bp.elmhakaton.com"
+    namespace "com.naqliyat.app"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "app.naqliyat.bp.elmhakaton.com"
+        applicationId "com.naqliyat.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

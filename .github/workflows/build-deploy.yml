@@ -1,0 +1,398 @@
+name: Build and Deploy to EKS
+
+on:
+  workflow_dispatch:
+    inputs:
+      team_name:
+        description: 'naqliyat'
+        required: true
+        type: string
+  push:
+    branches:
+      - main
+      - develop
+
+env:
+  AWS_REGION: ap-southeast-1
+  EKS_CLUSTER_NAME: k8s-hakathon-prod
+  # Team name is set from input or defaults to naqliyat
+  TEAM_NAME: ${{ github.event.inputs.team_name || 'naqliyat' }}
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy All Services for ${{ github.event.inputs.team_name }}
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        run: |
+          aws ecr get-login-password --region ${{ env.AWS_REGION }} | \
+            docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com
+          echo "registry=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com" >> $GITHUB_OUTPUT
+
+      - name: Detect build method and services
+        id: detect-services
+        run: |
+          if [ -f "docker-compose.yml" ] || [ -f "docker-compose.yaml" ]; then
+            echo "method=compose" >> $GITHUB_OUTPUT
+            if [ -f "docker-compose.yml" ]; then
+              COMPOSE_FILE="docker-compose.yml"
+            else
+              COMPOSE_FILE="docker-compose.yaml"
+            fi
+            echo "file=$COMPOSE_FILE" >> $GITHUB_OUTPUT
+            echo "::notice::Found $COMPOSE_FILE, detecting buildable services..."
+            
+            # Get list of services that have a build section
+            BUILDABLE_SERVICES=$(docker compose -f $COMPOSE_FILE config --services | while read service; do
+              if docker compose -f $COMPOSE_FILE config | grep -A 10 "^  $service:" | grep -q "build:"; then
+                echo "$service"
+              fi
+            done)
+            
+            if [ -z "$BUILDABLE_SERVICES" ]; then
+              echo "::error::No buildable services found in $COMPOSE_FILE"
+              exit 1
+            fi
+            
+            # Convert to JSON array for matrix strategy
+            SERVICES_JSON=$(echo "$BUILDABLE_SERVICES" | jq -R -s -c 'split("\n") | map(select(length > 0))')
+            echo "services=$SERVICES_JSON" >> $GITHUB_OUTPUT
+            echo "::notice::Buildable services: $BUILDABLE_SERVICES"
+            
+          elif [ -f "Dockerfile" ] || [ -f "Dockerfile.node" ]; then
+            echo "method=dockerfile" >> $GITHUB_OUTPUT
+            if [ -f "Dockerfile.node" ]; then
+              echo "file=Dockerfile.node" >> $GITHUB_OUTPUT
+            else
+              echo "file=Dockerfile" >> $GITHUB_OUTPUT
+            fi
+            # For Dockerfile, create a single-service array with the repo name as service name
+            echo "services=[\"app\"]" >> $GITHUB_OUTPUT
+            echo "::notice::Found Dockerfile, will build single service"
+          else
+            echo "::error::No Dockerfile or docker-compose file found"
+            exit 1
+          fi
+
+      - name: Build and Push All Services
+        run: |
+          BUILD_METHOD="${{ steps.detect-services.outputs.method }}"
+          SERVICES='${{ steps.detect-services.outputs.services }}'
+          
+          echo "::group::Building and Pushing Services"
+          echo "Build method: $BUILD_METHOD"
+          echo "Services to build: $SERVICES"
+          
+          # Parse services JSON array
+          SERVICE_COUNT=$(echo $SERVICES | jq -r 'length')
+          echo "::notice::Found $SERVICE_COUNT service(s) to build and deploy"
+          
+          for i in $(seq 0 $((SERVICE_COUNT - 1))); do
+            SERVICE_NAME=$(echo $SERVICES | jq -r ".[$i]")
+            echo "::group::Processing service: $SERVICE_NAME"
+            
+            # Use docker-compose service name directly (no mapping)
+            # Teams should name their services as: test-api, test-frontend, test-worker, etc.
+            
+            echo "::notice::Service name: $SERVICE_NAME"
+            
+            # ECR repository format: hackathon-{team_name}-{service_name}
+            ECR_REPO="hackathon-${{ env.TEAM_NAME }}-$SERVICE_NAME"
+            IMAGE_TAG="${{ steps.login-ecr.outputs.registry }}/$ECR_REPO:latest"
+            IMAGE_TAG_REPO="${{ steps.login-ecr.outputs.registry }}/$ECR_REPO:$SERVICE_NAME-latest"
+            IMAGE_TAG_SHA="${{ steps.login-ecr.outputs.registry }}/$ECR_REPO:$SERVICE_NAME-${{ github.sha }}"
+            
+            echo "::notice::ECR Repository: $ECR_REPO"
+            echo "::notice::Image tags: latest, $SERVICE_NAME-latest, $SERVICE_NAME-${{ github.sha }}"
+            
+            # Ensure ECR Repository Exists
+            if ! aws ecr describe-repositories --repository-names $ECR_REPO --region ${{ env.AWS_REGION }} >/dev/null 2>&1; then
+              echo "::notice::Creating ECR repository: $ECR_REPO"
+              aws ecr create-repository \
+                --repository-name $ECR_REPO \
+                --image-scanning-configuration scanOnPush=true \
+                --region ${{ env.AWS_REGION }}
+            else
+              echo "::notice::ECR repository already exists: $ECR_REPO"
+            fi
+            
+            # Build based on method
+            if [ "$BUILD_METHOD" == "compose" ]; then
+              echo "::notice::Building with docker compose..."
+              docker compose -f ${{ steps.detect-services.outputs.file }} build $SERVICE_NAME
+              
+              # Get the built image name
+              COMPOSE_PROJECT="${PWD##*/}"
+              COMPOSE_IMAGE="${COMPOSE_PROJECT}-${SERVICE_NAME}"
+              
+              echo "::notice::Tagging image: $COMPOSE_IMAGE -> $IMAGE_TAG"
+              docker tag $COMPOSE_IMAGE $IMAGE_TAG
+              docker tag $COMPOSE_IMAGE $IMAGE_TAG_REPO
+              docker tag $COMPOSE_IMAGE $IMAGE_TAG_SHA
+            else
+              echo "::notice::Building with Dockerfile..."
+              docker build \
+                --platform linux/amd64 \
+                -f ${{ steps.detect-services.outputs.file }} \
+                -t $IMAGE_TAG \
+                -t $IMAGE_TAG_REPO \
+                -t $IMAGE_TAG_SHA \
+                --build-arg TEAM_NAME=${{ env.TEAM_NAME }} \
+                --build-arg SERVICE_NAME=$SERVICE_NAME \
+                .
+            fi
+            
+            # Push images
+            echo "::notice::Pushing images to ECR..."
+            docker push $IMAGE_TAG
+            docker push $IMAGE_TAG_REPO
+            docker push $IMAGE_TAG_SHA
+            echo "::notice::✅ Successfully pushed all tags for $SERVICE_NAME"
+            
+            # Store service info for deployment step
+            echo "SERVICE_${i}_NAME=$SERVICE_NAME" >> $GITHUB_ENV
+            echo "SERVICE_${i}_ECR_REPO=$ECR_REPO" >> $GITHUB_ENV
+            echo "SERVICE_${i}_IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+            
+            echo "::endgroup::"
+          done
+          
+          # Store service count for deployment
+          echo "SERVICE_COUNT=$SERVICE_COUNT" >> $GITHUB_ENV
+          echo "::endgroup::"
+
+      - name: Configure kubectl for EKS
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ env.AWS_REGION }}
+        run: |
+          echo "::group::Configuring kubectl for EKS"
+          
+          # Verify AWS credentials are working
+          echo "::notice::Verifying AWS credentials..."
+          aws sts get-caller-identity
+          
+          # Test EKS access
+          echo "::notice::Testing EKS API access..."
+          aws eks describe-cluster --name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }} --query 'cluster.name'
+          
+          echo "::notice::Updating kubeconfig for cluster: ${{ env.EKS_CLUSTER_NAME }}"
+          aws eks update-kubeconfig \
+            --name ${{ env.EKS_CLUSTER_NAME }} \
+            --region ${{ env.AWS_REGION }}
+          
+          # Debug: Show kubeconfig (without sensitive data)
+          echo "::notice::Kubeconfig created, verifying configuration..."
+          kubectl config view --minify | head -20
+          
+          # Test kubectl authentication directly
+          echo "::notice::Testing kubectl auth with aws eks get-token..."
+          aws eks get-token --cluster-name ${{ env.EKS_CLUSTER_NAME }} --region ${{ env.AWS_REGION }} | jq -r '.status.token' | head -c 50
+          echo "... (token truncated)"
+          
+          echo "::notice::Verifying connection to cluster..."
+          kubectl cluster-info
+          kubectl get nodes
+          
+          echo "::notice::Verifying namespace team-${{ env.TEAM_NAME }} exists..."
+          if ! kubectl get namespace team-${{ env.TEAM_NAME }} >/dev/null 2>&1; then
+            echo "::warning::Namespace team-${{ env.TEAM_NAME }} does not exist, creating it..."
+            kubectl create namespace team-${{ env.TEAM_NAME }}
+          else
+            echo "::notice::✅ Namespace team-${{ env.TEAM_NAME }} exists"
+          fi
+          echo "::endgroup::"
+
+      - name: Deploy All Services to EKS with Helm
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ env.AWS_REGION }}
+        run: |
+          echo "::group::Deploying Services to EKS"
+          SERVICE_COUNT=${{ env.SERVICE_COUNT }}
+          ECR_REGISTRY="${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com"
+          
+          for i in $(seq 0 $((SERVICE_COUNT - 1))); do
+            SERVICE_NAME=$(printenv SERVICE_${i}_NAME)
+            ECR_REPO=$(printenv SERVICE_${i}_ECR_REPO)
+            
+            echo "::group::Deploying service: $SERVICE_NAME"
+            echo "::notice::Service name: $SERVICE_NAME"
+            echo "::notice::ECR repository: $ECR_REPO"
+            echo "::notice::Image tag: ${{ github.sha }}"
+            
+            # Check if service-specific values file exists
+            VALUES_FILE="deploy/values.${SERVICE_NAME}.yaml"
+            if [ ! -f "$VALUES_FILE" ]; then
+              echo "::warning::Service-specific values file not found: $VALUES_FILE"
+              echo "::notice::Using default values.yaml with overrides"
+              VALUES_FILE="deploy/values.yaml"
+            else
+              echo "::notice::Using service-specific values: $VALUES_FILE"
+            fi
+            
+            # Set ingress hostname: {service}.{team}.bp.elmhakathon.com
+            HOSTNAME="$SERVICE_NAME.${{ env.TEAM_NAME }}.bp.elmhakathon.com"
+            echo "::notice::Ingress hostname: $HOSTNAME"
+            
+            # Deploy with Helm template + kubectl apply
+            echo "::notice::Rendering Helm template and applying to cluster..."
+            
+            # Image tag format: {SERVICE_NAME}-{COMMIT_SHA}
+            IMAGE_TAG="${SERVICE_NAME}-${{ github.sha }}"
+            echo "::notice::Using image tag: $IMAGE_TAG"
+            
+            helm template $SERVICE_NAME ./deploy \
+              -f $VALUES_FILE \
+              --set teamName=${{ env.TEAM_NAME }} \
+              --set service.name=$SERVICE_NAME \
+              --set image.registry=$ECR_REGISTRY \
+              --set image.repository=$ECR_REPO \
+              --set image.tag=$IMAGE_TAG \
+              --set ingress.hostname=$HOSTNAME | kubectl apply -f -
+            
+            echo "::notice::✅ Deployed $SERVICE_NAME to namespace team-${{ env.TEAM_NAME }}"
+            echo "::notice::🌐 URL: https://$HOSTNAME"
+            echo "::endgroup::"
+          done
+          echo "::endgroup::"
+
+      - name: Wait for All Deployments to Roll Out
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ env.AWS_REGION }}
+        run: |
+          echo "::group::Waiting for Deployments to Roll Out"
+          SERVICE_COUNT=${{ env.SERVICE_COUNT }}
+          
+          for i in $(seq 0 $((SERVICE_COUNT - 1))); do
+            SERVICE_NAME=$(printenv SERVICE_${i}_NAME)
+            
+            echo "::notice::Waiting for deployment/$SERVICE_NAME to roll out..."
+            
+            # Wait with timeout (max 5 minutes per service)
+            if timeout 300 kubectl rollout status deployment/$SERVICE_NAME \
+              -n team-${{ env.TEAM_NAME }} \
+              --timeout=5m; then
+              echo "::notice::✅ Deployment $SERVICE_NAME rolled out successfully"
+            else
+              echo "::warning::Deployment $SERVICE_NAME did not complete within timeout"
+              echo "::group::Deployment Status"
+              kubectl describe deployment $SERVICE_NAME -n team-${{ env.TEAM_NAME }}
+              echo "::endgroup::"
+              
+              echo "::group::Pod Status"
+              kubectl get pods -n team-${{ env.TEAM_NAME }} -l app=$SERVICE_NAME
+              kubectl describe pods -n team-${{ env.TEAM_NAME }} -l app=$SERVICE_NAME
+              echo "::endgroup::"
+              
+              echo "::group::Pod Logs"
+              kubectl logs -n team-${{ env.TEAM_NAME }} -l app=$SERVICE_NAME --tail=50 || true
+              echo "::endgroup::"
+            fi
+          done
+          echo "::endgroup::"
+
+      - name: Get All Services Status
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ env.AWS_REGION }}
+        run: |
+          echo "::group::All Services Status"
+          SERVICE_COUNT=${{ env.SERVICE_COUNT }}
+          
+          echo "::notice::Namespace: team-${{ env.TEAM_NAME }}"
+          echo ""
+          
+          for i in $(seq 0 $((SERVICE_COUNT - 1))); do
+            SERVICE_NAME=$(printenv SERVICE_${i}_NAME)
+            
+            echo "::group::Status: $SERVICE_NAME"
+            
+            echo "Deployment:"
+            kubectl get deployment $SERVICE_NAME -n team-${{ env.TEAM_NAME }} -o wide || echo "Deployment not found"
+            echo ""
+            
+            echo "Pods:"
+            kubectl get pods -n team-${{ env.TEAM_NAME }} -l app=$SERVICE_NAME -o wide || echo "No pods found"
+            echo ""
+            
+            echo "Service:"
+            kubectl get service $SERVICE_NAME -n team-${{ env.TEAM_NAME }} -o wide || echo "Service not found"
+            echo ""
+            
+            echo "Ingress:"
+            kubectl get ingress $SERVICE_NAME -n team-${{ env.TEAM_NAME }} -o wide || echo "Ingress not found"
+            echo ""
+            
+            echo "::endgroup::"
+          done
+          
+          echo "::group::All Resources in Namespace"
+          kubectl get all -n team-${{ env.TEAM_NAME }}
+          echo "::endgroup::"
+          
+          echo "::endgroup::"
+
+      - name: Deployment summary
+        if: always()
+        run: |
+          echo "::group::Deployment Summary"
+          echo "================================================"
+          echo "Deployment Status: ${{ job.status }}"
+          echo "================================================"
+          echo "Team Name: ${{ env.TEAM_NAME }}"
+          echo "Services Deployed: ${{ env.SERVICE_COUNT }}"
+          echo "EKS Cluster: ${{ env.EKS_CLUSTER_NAME }}"
+          echo "Namespace: team-${{ env.TEAM_NAME }}"
+          echo "Commit SHA: ${{ github.sha }}"
+          echo "================================================"
+          echo "Deployed Services:"
+          
+          SERVICE_COUNT=${{ env.SERVICE_COUNT }}
+          for i in $(seq 0 $((SERVICE_COUNT - 1))); do
+            SERVICE_NAME=$(printenv SERVICE_${i}_NAME)
+            SERVICE_URL="https://$SERVICE_NAME.${{ env.TEAM_NAME }}.bp.elmhakathon.com"
+            
+            echo "  - $SERVICE_NAME"
+            echo "    Deployment: $SERVICE_NAME"
+            echo "    Namespace: team-${{ env.TEAM_NAME }}"
+            echo "    URL: $SERVICE_URL"
+            echo ""
+          done
+          
+          echo "================================================"
+          echo "Access URLs:"
+          for i in $(seq 0 $((SERVICE_COUNT - 1))); do
+            SERVICE_NAME=$(printenv SERVICE_${i}_NAME)
+            echo "  🌐 https://$SERVICE_NAME.${{ env.TEAM_NAME }}.bp.elmhakathon.com"
+          done
+          
+          echo "================================================"
+          echo "Team Base Domain: ${{ env.TEAM_NAME }}.bp.elmhakathon.com"
+          echo "================================================"
+          echo "::endgroup::"
+          
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "::notice::✅ Deployment successful for team ${{ env.TEAM_NAME }}"
+            echo "::notice::🚀 EKS Cluster: ${{ env.EKS_CLUSTER_NAME }}"
+            echo "::notice::📦 Namespace: team-${{ env.TEAM_NAME }}"
+          else
+            echo "::error::❌ Deployment failed for team ${{ env.TEAM_NAME }}"
+          fi

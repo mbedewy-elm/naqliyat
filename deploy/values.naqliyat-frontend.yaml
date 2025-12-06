@@ -1,7 +1,7 @@
 # Frontend service configuration example
 # Override with: helm template -f deploy/values.frontend.yaml
 
-teamName: "naqliyat"
+teamName: "naqliyat-frontend"
 
 service:
   name: "frontend"
@@ -10,11 +10,11 @@ service:
 
 image:
   registry: "060795935816.dkr.ecr.ap-southeast-1.amazonaws.com"
-  repository: "hackathon-naqliyat-frontend"
-  tag: "latest"
-  pullPolicy: Always
+  repository: ""
+  tag: ""
+  pullPolicy: IfNotPresent
 
-containerPort: 8080
+containerPort: 80
 
 replicaCount: 2
 
@@ -29,7 +29,8 @@ resources:
 ingress:
   enabled: true
   className: "alb"
-  hostname: "app.naqliyat.bp.elmhakathon.com"
+  # {servicename}.{teamname}.{domain}
+  hostname: "naqliyat-frontend.naqliyat.bp.elmhakathon.com"
   
   healthCheck:
     path: "/"
@@ -41,7 +42,7 @@ ingress:
 
 env:
   - name: BACKEND_URL
-    value: "https://api.naqliyat.bp.elmhakathon.com"
+    value: "https://naqliyat-api.naqliyat.bp.elmhakathon.com"
 
 livenessProbe:
   enabled: false

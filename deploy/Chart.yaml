@@ -7,11 +7,11 @@ appVersion: "1.0"
 
 # Add your service dependencies here (optional)
 # Example:
-# dependencies:
-#   - name: postgresql
-#     version: "12.1.0"
-#     repository: "https://charts.bitnami.com/bitnami"
-#     condition: postgresql.enabled
+dependencies:
+  - name: mssql
+    version: 1.2.0
+    repository: oci://registry.gitlab.com/xrow-public/helm-mssql/charts
+    condition: mssql.enabled
 #   - name: redis
 #     version: "17.3.0"
 #     repository: "https://charts.bitnami.com/bitnami"

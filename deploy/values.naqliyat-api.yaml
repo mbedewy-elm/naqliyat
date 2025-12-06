@@ -10,46 +10,44 @@ service:
 
 image:
   registry: "060795935816.dkr.ecr.ap-southeast-1.amazonaws.com"
-  repository: "hackathon-naqliyat"
-  tag: "latest"
-  pullPolicy: Always
+  repository: ""
+  tag: ""
+  pullPolicy: IfNotPresent
 
-containerPort: 3000
+containerPort: 80
 
-replicaCount: 3
+replicaCount: 1
 
 resources:
   requests:
-    memory: "256Mi"
-    cpu: "250m"
-  limits:
-    memory: "512Mi"
-    cpu: "500m"
+    memory: "1024Mi"
+    cpu: "1100m"
+
 
 ingress:
   enabled: true
   className: "alb"
-  hostname: "api.naqliyat.bp.elmhakathon.com"
+  hostname: ""
   
   healthCheck:
-    path: "/health"
+    path: "/"
     intervalSeconds: 15
     timeoutSeconds: 5
     healthyThreshold: 2
     unhealthyThreshold: 2
     successCodes: "200,404"
 
-env:
-  - name: PORT
-    value: "3000"
-  - name: NODE_ENV
-    value: "production"
+env: []
+  # - name: PORT
+  #   value: "3000"
+  # - name: NODE_ENV
+  #   value: "production"
 
-envFromSecrets:
-  - secretName: "app-secrets"
+# envFromSecrets:
+#   - secretName: "app-secrets"
 
-envFromConfigMaps:
-  - configMapName: "app-config"
+# envFromConfigMaps:
+#   - configMapName: "app-config"
 
 livenessProbe:
   enabled: true
@@ -69,3 +67,16 @@ readinessProbe:
 
 persistence:
   enabled: false
+
+
+mssql:
+  enabled: true
+
+  global:
+    storageClass: "managed-csi-premium" # Change this if needed
+
+  auth:
+    database: naqliyat
+    rootPassword: 'YourStrong@Passw0rd'
+    username: sa
+    password: 'YourStrong@Passw0rd'

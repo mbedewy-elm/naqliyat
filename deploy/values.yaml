@@ -150,3 +150,7 @@ image:
   repository: "hackathon-expo-1st"
   tag: "latest"
   pullPolicy: Always
+
+
+mssql:
+  enabled: false

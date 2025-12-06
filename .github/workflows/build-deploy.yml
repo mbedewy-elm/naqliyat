@@ -11,6 +11,7 @@ on:
     branches:
       - main
       - develop
+      - master
 
 env:
   AWS_REGION: ap-southeast-1

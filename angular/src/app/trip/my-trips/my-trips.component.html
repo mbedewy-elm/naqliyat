@@ -1,0 +1,151 @@
+<div class="my-trips-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1><i class="fa fa-road"></i> My Trips</h1>
+      <p>View and manage your assigned trips</p>
+    </div>
+  </div>
+
+  @if (errorMessage) {
+    <div class="alert alert-danger">
+      <i class="fa fa-exclamation-circle"></i>
+      {{ errorMessage }}
+    </div>
+  }
+
+  <div class="filters-section">
+    <div class="search-bar">
+      <i class="fa fa-search"></i>
+      <input
+        type="text"
+        placeholder="Search by location or goods type..."
+        (input)="onSearch($event)"
+      />
+    </div>
+
+    <div class="status-filters">
+      <button 
+        class="filter-btn" 
+        [class.active]="selectedStatus === 'all'"
+        (click)="onStatusFilter('all')">
+        All
+      </button>
+      <button 
+        class="filter-btn" 
+        [class.active]="selectedStatus === '2'"
+        (click)="onStatusFilter('2')">
+        Waiting Agreement
+      </button>
+      <button 
+        class="filter-btn" 
+        [class.active]="selectedStatus === '3'"
+        (click)="onStatusFilter('3')">
+        Waiting Payment
+      </button>
+      <button 
+        class="filter-btn" 
+        [class.active]="selectedStatus === '4'"
+        (click)="onStatusFilter('4')">
+        On Its Way
+      </button>
+      <button 
+        class="filter-btn" 
+        [class.active]="selectedStatus === '5'"
+        (click)="onStatusFilter('5')">
+        Arrived
+      </button>
+    </div>
+  </div>
+
+  @if (isLoading) {
+    <div class="loading-state">
+      <i class="fa fa-spinner fa-spin"></i>
+      <p>Loading your trips...</p>
+    </div>
+  } @else if (filteredTrips.length === 0) {
+    <div class="empty-state">
+      <i class="fa fa-truck"></i>
+      @if (searchTerm || selectedStatus !== 'all') {
+        <h3>No trips found</h3>
+        <p>No trips match your current filters</p>
+        <button class="btn-clear-filters" (click)="searchTerm = ''; selectedStatus = 'all'; applyFilters()">
+          Clear Filters
+        </button>
+      } @else {
+        <h3>No trips yet</h3>
+        <p>You don't have any assigned trips. Place bids on available trips to get started!</p>
+        <a routerLink="/trip/available" class="btn-primary">
+          <i class="fa fa-search"></i> Browse Available Trips
+        </a>
+      }
+    </div>
+  } @else {
+    <div class="trips-count">
+      Showing {{ filteredTrips.length }} trip{{ filteredTrips.length !== 1 ? 's' : '' }}
+    </div>
+
+    <div class="trips-list">
+      @for (trip of filteredTrips; track trip.id) {
+        <div class="trip-card">
+          <div class="trip-header">
+            <div class="route-info">
+              <div class="location from">
+                <i class="fa fa-map-marker"></i>
+                <span>{{ trip.fromLocation || 'Unknown' }}</span>
+              </div>
+              <div class="route-arrow">
+                <i class="fa fa-long-arrow-right"></i>
+              </div>
+              <div class="location to">
+                <i class="fa fa-flag-checkered"></i>
+                <span>{{ trip.toLocation || 'Unknown' }}</span>
+              </div>
+            </div>
+            <span class="status-badge" [ngClass]="getStatusClass(trip.statusId)">
+              {{ getStatusName(trip.statusId) }}
+            </span>
+          </div>
+
+          <div class="trip-details">
+            <div class="detail-item">
+              <i class="fa fa-calendar"></i>
+              <div>
+                <span class="label">Start Date</span>
+                <span class="value">{{ formatDate(trip.startDate) }}</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-calendar-check-o"></i>
+              <div>
+                <span class="label">End Date</span>
+                <span class="value">{{ formatDate(trip.endDate) }}</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-truck"></i>
+              <div>
+                <span class="label">Truck Type</span>
+                <span class="value">{{ getTruckTypeName(trip.truckTypeId) }}</span>
+              </div>
+            </div>
+            @if (trip.goodsType) {
+              <div class="detail-item">
+                <i class="fa fa-cube"></i>
+                <div>
+                  <span class="label">Goods</span>
+                  <span class="value">{{ trip.goodsType }}</span>
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="trip-actions">
+            <a [routerLink]="['/trip', trip.id]" class="btn-view">
+              <i class="fa fa-eye"></i> View Details
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

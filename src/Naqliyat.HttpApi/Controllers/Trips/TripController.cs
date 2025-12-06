@@ -93,4 +93,18 @@ public class TripController : NaqliyatController
     {
         return _tripAppService.RateTripAsync(id, input);
     }
+
+    [HttpGet("driver/my-trips")]
+    [Authorize(NaqliyatPermissions.Trips.DriverTrips)]
+    public virtual Task<System.Collections.Generic.List<TripDto>> GetDriverTripsAsync()
+    {
+        return _tripAppService.GetDriverTripsAsync();
+    }
+
+    [HttpGet("driver/my-trips/{tripId}")]
+    [Authorize(NaqliyatPermissions.Trips.DriverTrips)]
+    public virtual Task<TripDto> GetDriverTripByIdAsync(System.Guid tripId)
+    {
+        return _tripAppService.GetDriverTripByIdAsync(tripId);
+    }
 }

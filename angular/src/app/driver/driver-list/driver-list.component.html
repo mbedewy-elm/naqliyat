@@ -1,0 +1,91 @@
+<div class="driver-list-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1><i class="fa fa-users"></i> My Drivers</h1>
+      <p>Manage your fleet drivers</p>
+    </div>
+    <a routerLink="/driver/add" class="btn-add-driver">
+      <i class="fa fa-plus"></i> Add New Driver
+    </a>
+  </div>
+
+  @if (errorMessage) {
+    <div class="alert alert-danger">
+      <i class="fa fa-exclamation-circle"></i>
+      {{ errorMessage }}
+    </div>
+  }
+
+  <div class="search-bar">
+    <i class="fa fa-search"></i>
+    <input
+      type="text"
+      placeholder="Search by name, phone, license or ID..."
+      (input)="onSearch($event)"
+    />
+  </div>
+
+  @if (isLoading) {
+    <div class="loading-state">
+      <i class="fa fa-spinner fa-spin"></i>
+      <p>Loading drivers...</p>
+    </div>
+  } @else if (filteredDrivers.length === 0) {
+    <div class="empty-state">
+      <i class="fa fa-user-plus"></i>
+      @if (searchTerm) {
+        <h3>No drivers found</h3>
+        <p>No drivers match your search criteria</p>
+      } @else {
+        <h3>No drivers yet</h3>
+        <p>Add your first driver to start managing your fleet</p>
+        <a routerLink="/driver/add" class="btn-primary">
+          <i class="fa fa-plus"></i> Add Your First Driver
+        </a>
+      }
+    </div>
+  } @else {
+    <div class="driver-count">
+      Showing {{ filteredDrivers.length }} driver{{ filteredDrivers.length !== 1 ? 's' : '' }}
+    </div>
+
+    <div class="drivers-grid">
+      @for (driver of filteredDrivers; track driver.id) {
+        <div class="driver-card">
+          <div class="driver-header">
+            <div class="driver-avatar">
+              <i class="fa fa-user"></i>
+            </div>
+            <div class="driver-title">
+              <h3>{{ driver.name || 'Unnamed Driver' }}</h3>
+              <span class="driver-phone">{{ driver.phone || 'No phone' }}</span>
+            </div>
+          </div>
+
+          <div class="driver-details">
+            <div class="detail-item">
+              <i class="fa fa-id-card"></i>
+              <div>
+                <span class="label">ID Number</span>
+                <span class="value">{{ driver.identification || 'N/A' }}</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-car"></i>
+              <div>
+                <span class="label">License</span>
+                <span class="value">{{ driver.licenseNumber || 'N/A' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="driver-actions">
+            <a [routerLink]="['/driver', driver.id]" class="btn-view">
+              <i class="fa fa-eye"></i> View Details
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

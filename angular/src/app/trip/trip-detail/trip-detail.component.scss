@@ -6,6 +6,7 @@ $text-primary: #1e293b;
 $text-secondary: #64748b;
 $bg-light: #fffbeb;
 $bg-white: #ffffff;
+$bg-gray: #f9fafb;
 $border-color: #e5e7eb;
 $error-color: #ef4444;
 $success-color: #10b981;
@@ -46,6 +47,12 @@ $success-color: #10b981;
     background: #fef2f2;
     border: 1px solid #fecaca;
     color: $error-color;
+  }
+
+  &.alert-success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: $success-color;
   }
 }
 
@@ -360,5 +367,530 @@ $success-color: #10b981;
   &:hover {
     background: $error-color;
     color: white;
+  }
+}
+
+// Driver Bid Section
+.driver-bid-section {
+  background: $bg-white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba($primary-color, 0.2);
+}
+
+.bid-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.bid-header-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  > i {
+    font-size: 1.5rem;
+    color: $primary-color;
+  }
+
+  h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0;
+  }
+
+  p {
+    font-size: 0.875rem;
+    color: $text-secondary;
+    margin: 0;
+  }
+}
+
+.btn-place-bid {
+  background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 15px rgba($primary-color, 0.4);
+    transform: translateY(-1px);
+  }
+}
+
+.bid-form {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $border-color;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group {
+  margin-bottom: 1rem;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $text-primary;
+    margin-bottom: 0.5rem;
+
+    i {
+      color: $primary-color;
+    }
+
+    .required {
+      color: $error-color;
+    }
+  }
+
+  input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid $border-color;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    color: $text-primary;
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+
+    &.is-invalid {
+      border-color: $error-color;
+    }
+  }
+}
+
+.price-input-wrapper {
+  position: relative;
+
+  .currency {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $text-secondary;
+    font-weight: 500;
+  }
+
+  input {
+    padding-left: 3.5rem;
+  }
+}
+
+.error-message {
+  display: block;
+  font-size: 0.75rem;
+  color: $error-color;
+  margin-top: 0.25rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn-cancel {
+  background: $bg-white;
+  color: $text-secondary;
+  border: 1px solid $border-color;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: $text-secondary;
+    color: $text-primary;
+  }
+}
+
+.btn-submit-bid {
+  background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+
+  &:hover:not(:disabled) {
+    box-shadow: 0 4px 15px rgba($primary-color, 0.4);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.loading-truck {
+  padding: 1.5rem;
+  text-align: center;
+  color: $text-secondary;
+
+  i {
+    color: $primary-color;
+    margin-right: 0.5rem;
+  }
+}
+
+.no-truck-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  border-radius: 0.75rem;
+
+  > i {
+    font-size: 1.5rem;
+    color: #f59e0b;
+    margin-top: 0.25rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #92400e;
+    margin: 0 0 0.25rem 0;
+  }
+
+  p {
+    font-size: 0.875rem;
+    color: #a16207;
+    margin: 0;
+  }
+}
+
+.assigned-truck-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba($primary-color, 0.1);
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: $text-primary;
+
+  i {
+    color: $primary-color;
+  }
+
+  strong {
+    color: $primary-dark;
+  }
+}
+
+// Map Section
+.map-section {
+  background: $bg-white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-primary;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+
+    i {
+      color: $primary-color;
+    }
+  }
+}
+
+.tracking-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba($success-color, 0.1);
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $success-color;
+
+  .pulse {
+    width: 10px;
+    height: 10px;
+    background: $success-color;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba($success-color, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba($success-color, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba($success-color, 0);
+  }
+}
+
+.map-container {
+  width: 100%;
+  height: 400px;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: $bg-gray;
+  border: 1px solid $border-color;
+}
+
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid $border-color;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: $text-secondary;
+}
+
+.legend-marker {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+
+  &.origin {
+    background: #10b981;
+  }
+
+  &.destination {
+    background: #ef4444;
+  }
+
+  &.truck {
+    background: $primary-color;
+    border: 2px solid $primary-dark;
+  }
+}
+
+// Confirm Arrival Section
+.confirm-arrival-section {
+  background: $bg-white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 2px solid $success-color;
+}
+
+.arrival-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+}
+
+.arrival-header-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  > i {
+    font-size: 2rem;
+    color: $success-color;
+  }
+
+  h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0;
+  }
+
+  p {
+    font-size: 0.875rem;
+    color: $text-secondary;
+    margin: 0;
+  }
+}
+
+.btn-confirm-arrival {
+  background: linear-gradient(135deg, $success-color 0%, darken($success-color, 10%) 100%);
+  color: white;
+  border: none;
+  padding: 0.875rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 15px rgba($success-color, 0.4);
+    transform: translateY(-1px);
+  }
+}
+
+.otp-form {
+  background: rgba($success-color, 0.05);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  margin-top: 1rem;
+
+  .form-group {
+    margin-bottom: 1rem;
+
+    label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: $text-primary;
+      margin-bottom: 0.5rem;
+
+      i {
+        color: $success-color;
+        margin-right: 0.5rem;
+      }
+
+      .required {
+        color: $error-color;
+      }
+    }
+
+    input {
+      width: 100%;
+      max-width: 200px;
+      padding: 1rem;
+      border: 2px solid $border-color;
+      border-radius: 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.5rem;
+      text-align: center;
+      transition: all 0.2s ease;
+
+      &:focus {
+        outline: none;
+        border-color: $success-color;
+        box-shadow: 0 0 0 3px rgba($success-color, 0.1);
+      }
+
+      &.is-invalid {
+        border-color: $error-color;
+      }
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    @media (max-width: 576px) {
+      flex-direction: column-reverse;
+    }
+  }
+
+  .btn-cancel {
+    padding: 0.75rem 1.25rem;
+    border: 1px solid $border-color;
+    border-radius: 0.5rem;
+    background: $bg-white;
+    color: $text-secondary;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: $text-secondary;
+      color: $text-primary;
+    }
+  }
+
+  .btn-submit-arrival {
+    background: linear-gradient(135deg, $success-color 0%, darken($success-color, 10%) 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+
+    &:hover:not(:disabled) {
+      box-shadow: 0 4px 15px rgba($success-color, 0.4);
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
   }
 }

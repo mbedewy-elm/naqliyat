@@ -1,0 +1,124 @@
+<div class="register-container">
+  <div class="register-content">
+    <button class="back-btn" (click)="goBack()">
+      <i class="fa fa-arrow-left"></i>
+      Back to Role Selection
+    </button>
+
+    <div class="header">
+      <div class="header-icon">
+        <i class="fa fa-truck"></i>
+      </div>
+      <h1>Register as Truck Owner</h1>
+      <p>Please provide your business information to complete registration</p>
+    </div>
+
+    @if (error) {
+      <div class="error-alert">
+        <i class="fa fa-exclamation-circle"></i>
+        {{ error }}
+      </div>
+    }
+
+    @if (isLoading) {
+      <div class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Processing your registration...</p>
+      </div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="register-form">
+      <div class="form-group">
+        <label for="name">
+          <i class="fa fa-user"></i>
+          Full Name / Company Name
+        </label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          placeholder="Enter your full name or company name"
+          [class.invalid]="isFieldInvalid('name')"
+        />
+        @if (isFieldInvalid('name')) {
+          <span class="error-text">Name is required (minimum 3 characters)</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="phone">
+          <i class="fa fa-phone"></i>
+          Phone Number
+        </label>
+        <input
+          type="tel"
+          id="phone"
+          formControlName="phone"
+          placeholder="e.g., +966 50 123 4567"
+          [class.invalid]="isFieldInvalid('phone')"
+        />
+        @if (isFieldInvalid('phone')) {
+          <span class="error-text">Please enter a valid phone number</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="identification">
+          <i class="fa fa-id-card"></i>
+          National ID / Iqama Number
+        </label>
+        <input
+          type="text"
+          id="identification"
+          formControlName="identification"
+          placeholder="Enter your national ID or Iqama number"
+          [class.invalid]="isFieldInvalid('identification')"
+        />
+        @if (isFieldInvalid('identification')) {
+          <span class="error-text">Identification is required</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="entityNumber">
+          <i class="fa fa-building"></i>
+          Commercial Registration Number
+        </label>
+        <input
+          type="text"
+          id="entityNumber"
+          formControlName="entityNumber"
+          placeholder="Enter your commercial registration number"
+          [class.invalid]="isFieldInvalid('entityNumber')"
+        />
+        @if (isFieldInvalid('entityNumber')) {
+          <span class="error-text">Commercial registration number is required</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="nationalityId">
+          <i class="fa fa-globe"></i>
+          Nationality
+        </label>
+        <select
+          id="nationalityId"
+          formControlName="nationalityId"
+          [class.invalid]="isFieldInvalid('nationalityId')"
+        >
+          @for (nationality of nationalities; track nationality.id) {
+            <option [value]="nationality.id">{{ nationality.name }}</option>
+          }
+        </select>
+        @if (isFieldInvalid('nationalityId')) {
+          <span class="error-text">Please select your nationality</span>
+        }
+      </div>
+
+      <button type="submit" class="submit-btn" [disabled]="isLoading">
+        <i class="fa fa-check-circle"></i>
+        Complete Registration
+      </button>
+    </form>
+  </div>
+</div>

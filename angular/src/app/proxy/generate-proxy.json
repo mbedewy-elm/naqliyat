@@ -1368,6 +1368,384 @@
               },
               "allowAnonymous": false,
               "implementFrom": "Naqliyat.Controllers.Trips.TripController"
+            },
+            "GetDriverTripsAsync": {
+              "uniqueName": "GetDriverTripsAsync",
+              "name": "GetDriverTripsAsync",
+              "httpMethod": "GET",
+              "url": "api/app/trips/driver/my-trips",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<Naqliyat.Trips.TripDto>",
+                "typeSimple": "[Naqliyat.Trips.TripDto]"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Naqliyat.Controllers.Trips.TripController"
+            },
+            "GetDriverTripByIdAsyncByTripId": {
+              "uniqueName": "GetDriverTripByIdAsyncByTripId",
+              "name": "GetDriverTripByIdAsync",
+              "httpMethod": "GET",
+              "url": "api/app/trips/driver/my-trips/{tripId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "tripId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "tripId",
+                  "name": "tripId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Naqliyat.Trips.TripDto",
+                "typeSimple": "Naqliyat.Trips.TripDto"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Naqliyat.Controllers.Trips.TripController"
+            }
+          }
+        },
+        "Naqliyat.Controllers.Trucks.TruckController": {
+          "controllerName": "Truck",
+          "controllerGroupName": null,
+          "isRemoteService": false,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "Naqliyat.Controllers.Trucks.TruckController",
+          "interfaces": [],
+          "actions": {
+            "CreateAsyncByInput": {
+              "uniqueName": "CreateAsyncByInput",
+              "name": "CreateAsync",
+              "httpMethod": "POST",
+              "url": "api/app/trucks",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Naqliyat.Trucks.CreateTruckDto, Naqliyat.Application.Contracts",
+                  "type": "Naqliyat.Trucks.CreateTruckDto",
+                  "typeSimple": "Naqliyat.Trucks.CreateTruckDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "Naqliyat.Trucks.CreateTruckDto",
+                  "typeSimple": "Naqliyat.Trucks.CreateTruckDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Naqliyat.Trucks.TruckDto",
+                "typeSimple": "Naqliyat.Trucks.TruckDto"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Naqliyat.Controllers.Trucks.TruckController"
+            },
+            "GetListAsync": {
+              "uniqueName": "GetListAsync",
+              "name": "GetListAsync",
+              "httpMethod": "GET",
+              "url": "api/app/trucks",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<Naqliyat.Trucks.TruckDto>",
+                "typeSimple": "[Naqliyat.Trucks.TruckDto]"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Naqliyat.Controllers.Trucks.TruckController"
+            },
+            "CreateDriverAsyncByInput": {
+              "uniqueName": "CreateDriverAsyncByInput",
+              "name": "CreateDriverAsync",
+              "httpMethod": "POST",
+              "url": "api/app/trucks/drivers",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Naqliyat.Trucks.CreateDriverDto, Naqliyat.Application.Contracts",
+                  "type": "Naqliyat.Trucks.CreateDriverDto",
+                  "typeSimple": "Naqliyat.Trucks.CreateDriverDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "Naqliyat.Trucks.CreateDriverDto",
+                  "typeSimple": "Naqliyat.Trucks.CreateDriverDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Naqliyat.Trucks.DriverDto",
+                "typeSimple": "Naqliyat.Trucks.DriverDto"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Naqliyat.Controllers.Trucks.TruckController"
+            },
+            "GetDriverListAsync": {
+              "uniqueName": "GetDriverListAsync",
+              "name": "GetDriverListAsync",
+              "httpMethod": "GET",
+              "url": "api/app/trucks/drivers",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<Naqliyat.Trucks.DriverDto>",
+                "typeSimple": "[Naqliyat.Trucks.DriverDto]"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Naqliyat.Controllers.Trucks.TruckController"
+            },
+            "GetDriverByIdAsyncById": {
+              "uniqueName": "GetDriverByIdAsyncById",
+              "name": "GetDriverByIdAsync",
+              "httpMethod": "GET",
+              "url": "api/app/trucks/drivers/{id}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Naqliyat.Trucks.DriverDto",
+                "typeSimple": "Naqliyat.Trucks.DriverDto"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Naqliyat.Controllers.Trucks.TruckController"
+            },
+            "GetDriverByUserIdAsyncByUserId": {
+              "uniqueName": "GetDriverByUserIdAsyncByUserId",
+              "name": "GetDriverByUserIdAsync",
+              "httpMethod": "GET",
+              "url": "api/app/trucks/drivers/by-user/{userId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "userId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "userId",
+                  "name": "userId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Naqliyat.Trucks.DriverDto",
+                "typeSimple": "Naqliyat.Trucks.DriverDto"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Naqliyat.Controllers.Trucks.TruckController"
+            },
+            "GetTruckByDriverIdAsyncByDriverId": {
+              "uniqueName": "GetTruckByDriverIdAsyncByDriverId",
+              "name": "GetTruckByDriverIdAsync",
+              "httpMethod": "GET",
+              "url": "api/app/trucks/by-driver/{driverId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "driverId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "driverId",
+                  "name": "driverId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Naqliyat.Trucks.TruckDto",
+                "typeSimple": "Naqliyat.Trucks.TruckDto"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Naqliyat.Controllers.Trucks.TruckController"
+            }
+          }
+        },
+        "Naqliyat.Controllers.Users.UserController": {
+          "controllerName": "User",
+          "controllerGroupName": null,
+          "isRemoteService": false,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "Naqliyat.Controllers.Users.UserController",
+          "interfaces": [],
+          "actions": {
+            "RegisterAsRequesterAsync": {
+              "uniqueName": "RegisterAsRequesterAsync",
+              "name": "RegisterAsRequesterAsync",
+              "httpMethod": "POST",
+              "url": "api/app/users/register/requester",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Naqliyat.Users.UserRegistrationResultDto",
+                "typeSimple": "Naqliyat.Users.UserRegistrationResultDto"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Naqliyat.Controllers.Users.UserController"
+            },
+            "RegisterAsOwnerAsyncByInput": {
+              "uniqueName": "RegisterAsOwnerAsyncByInput",
+              "name": "RegisterAsOwnerAsync",
+              "httpMethod": "POST",
+              "url": "api/app/users/register/owner",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Naqliyat.Users.RegisterAsOwnerDto, Naqliyat.Application.Contracts",
+                  "type": "Naqliyat.Users.RegisterAsOwnerDto",
+                  "typeSimple": "Naqliyat.Users.RegisterAsOwnerDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "Naqliyat.Users.RegisterAsOwnerDto",
+                  "typeSimple": "Naqliyat.Users.RegisterAsOwnerDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Naqliyat.Users.UserRegistrationResultDto",
+                "typeSimple": "Naqliyat.Users.UserRegistrationResultDto"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Naqliyat.Controllers.Users.UserController"
+            },
+            "RegisterAsDriverAsyncByInput": {
+              "uniqueName": "RegisterAsDriverAsyncByInput",
+              "name": "RegisterAsDriverAsync",
+              "httpMethod": "POST",
+              "url": "api/app/users/register/driver",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Naqliyat.Users.RegisterAsDriverDto, Naqliyat.Application.Contracts",
+                  "type": "Naqliyat.Users.RegisterAsDriverDto",
+                  "typeSimple": "Naqliyat.Users.RegisterAsDriverDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "Naqliyat.Users.RegisterAsDriverDto",
+                  "typeSimple": "Naqliyat.Users.RegisterAsDriverDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Naqliyat.Users.UserRegistrationResultDto",
+                "typeSimple": "Naqliyat.Users.UserRegistrationResultDto"
+              },
+              "allowAnonymous": false,
+              "implementFrom": "Naqliyat.Controllers.Users.UserController"
             }
           }
         },
@@ -1593,6 +1971,31 @@
                       "typeAsString": "Naqliyat.Trips.RateTripDto, Naqliyat.Application.Contracts",
                       "type": "Naqliyat.Trips.RateTripDto",
                       "typeSimple": "Naqliyat.Trips.RateTripDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "Naqliyat.Trips.TripDto",
+                    "typeSimple": "Naqliyat.Trips.TripDto"
+                  }
+                },
+                {
+                  "name": "GetDriverTripsAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<Naqliyat.Trips.TripDto>",
+                    "typeSimple": "[Naqliyat.Trips.TripDto]"
+                  }
+                },
+                {
+                  "name": "GetDriverTripByIdAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "tripId",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
                       "isOptional": false,
                       "defaultValue": null
                     }
@@ -2092,6 +2495,541 @@
               },
               "allowAnonymous": null,
               "implementFrom": "Naqliyat.Trips.ITripAppService"
+            },
+            "GetDriverTripsAsync": {
+              "uniqueName": "GetDriverTripsAsync",
+              "name": "GetDriverTripsAsync",
+              "httpMethod": "GET",
+              "url": "api/app/trip/driver-trips",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<Naqliyat.Trips.TripDto>",
+                "typeSimple": "[Naqliyat.Trips.TripDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Naqliyat.Trips.ITripAppService"
+            },
+            "GetDriverTripByIdAsyncByTripId": {
+              "uniqueName": "GetDriverTripByIdAsyncByTripId",
+              "name": "GetDriverTripByIdAsync",
+              "httpMethod": "GET",
+              "url": "api/app/trip/driver-trip-by-id/{tripId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "tripId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "tripId",
+                  "name": "tripId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Naqliyat.Trips.TripDto",
+                "typeSimple": "Naqliyat.Trips.TripDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Naqliyat.Trips.ITripAppService"
+            }
+          }
+        },
+        "Naqliyat.Trucks.TruckAppService": {
+          "controllerName": "Truck",
+          "controllerGroupName": "Truck",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "Naqliyat.Trucks.TruckAppService",
+          "interfaces": [
+            {
+              "type": "Naqliyat.Trucks.ITruckAppService",
+              "name": "ITruckAppService",
+              "methods": [
+                {
+                  "name": "CreateAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "Naqliyat.Trucks.CreateTruckDto, Naqliyat.Application.Contracts",
+                      "type": "Naqliyat.Trucks.CreateTruckDto",
+                      "typeSimple": "Naqliyat.Trucks.CreateTruckDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "Naqliyat.Trucks.TruckDto",
+                    "typeSimple": "Naqliyat.Trucks.TruckDto"
+                  }
+                },
+                {
+                  "name": "GetListAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<Naqliyat.Trucks.TruckDto>",
+                    "typeSimple": "[Naqliyat.Trucks.TruckDto]"
+                  }
+                },
+                {
+                  "name": "CreateDriverAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "Naqliyat.Trucks.CreateDriverDto, Naqliyat.Application.Contracts",
+                      "type": "Naqliyat.Trucks.CreateDriverDto",
+                      "typeSimple": "Naqliyat.Trucks.CreateDriverDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "Naqliyat.Trucks.DriverDto",
+                    "typeSimple": "Naqliyat.Trucks.DriverDto"
+                  }
+                },
+                {
+                  "name": "GetDriverListAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "System.Collections.Generic.List<Naqliyat.Trucks.DriverDto>",
+                    "typeSimple": "[Naqliyat.Trucks.DriverDto]"
+                  }
+                },
+                {
+                  "name": "GetDriverByIdAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "id",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "Naqliyat.Trucks.DriverDto",
+                    "typeSimple": "Naqliyat.Trucks.DriverDto"
+                  }
+                },
+                {
+                  "name": "GetDriverByUserIdAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "userId",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "Naqliyat.Trucks.DriverDto",
+                    "typeSimple": "Naqliyat.Trucks.DriverDto"
+                  }
+                },
+                {
+                  "name": "GetTruckByDriverIdAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "driverId",
+                      "typeAsString": "System.Guid, System.Private.CoreLib",
+                      "type": "System.Guid",
+                      "typeSimple": "string",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "Naqliyat.Trucks.TruckDto",
+                    "typeSimple": "Naqliyat.Trucks.TruckDto"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "CreateAsyncByInput": {
+              "uniqueName": "CreateAsyncByInput",
+              "name": "CreateAsync",
+              "httpMethod": "POST",
+              "url": "api/app/truck",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Naqliyat.Trucks.CreateTruckDto, Naqliyat.Application.Contracts",
+                  "type": "Naqliyat.Trucks.CreateTruckDto",
+                  "typeSimple": "Naqliyat.Trucks.CreateTruckDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "Naqliyat.Trucks.CreateTruckDto",
+                  "typeSimple": "Naqliyat.Trucks.CreateTruckDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Naqliyat.Trucks.TruckDto",
+                "typeSimple": "Naqliyat.Trucks.TruckDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Naqliyat.Trucks.ITruckAppService"
+            },
+            "GetListAsync": {
+              "uniqueName": "GetListAsync",
+              "name": "GetListAsync",
+              "httpMethod": "GET",
+              "url": "api/app/truck",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<Naqliyat.Trucks.TruckDto>",
+                "typeSimple": "[Naqliyat.Trucks.TruckDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Naqliyat.Trucks.ITruckAppService"
+            },
+            "CreateDriverAsyncByInput": {
+              "uniqueName": "CreateDriverAsyncByInput",
+              "name": "CreateDriverAsync",
+              "httpMethod": "POST",
+              "url": "api/app/truck/driver",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Naqliyat.Trucks.CreateDriverDto, Naqliyat.Application.Contracts",
+                  "type": "Naqliyat.Trucks.CreateDriverDto",
+                  "typeSimple": "Naqliyat.Trucks.CreateDriverDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "Naqliyat.Trucks.CreateDriverDto",
+                  "typeSimple": "Naqliyat.Trucks.CreateDriverDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Naqliyat.Trucks.DriverDto",
+                "typeSimple": "Naqliyat.Trucks.DriverDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Naqliyat.Trucks.ITruckAppService"
+            },
+            "GetDriverListAsync": {
+              "uniqueName": "GetDriverListAsync",
+              "name": "GetDriverListAsync",
+              "httpMethod": "GET",
+              "url": "api/app/truck/driver-list",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "System.Collections.Generic.List<Naqliyat.Trucks.DriverDto>",
+                "typeSimple": "[Naqliyat.Trucks.DriverDto]"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Naqliyat.Trucks.ITruckAppService"
+            },
+            "GetDriverByIdAsyncById": {
+              "uniqueName": "GetDriverByIdAsyncById",
+              "name": "GetDriverByIdAsync",
+              "httpMethod": "GET",
+              "url": "api/app/truck/{id}/driver-by-id",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "id",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "id",
+                  "name": "id",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Naqliyat.Trucks.DriverDto",
+                "typeSimple": "Naqliyat.Trucks.DriverDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Naqliyat.Trucks.ITruckAppService"
+            },
+            "GetDriverByUserIdAsyncByUserId": {
+              "uniqueName": "GetDriverByUserIdAsyncByUserId",
+              "name": "GetDriverByUserIdAsync",
+              "httpMethod": "GET",
+              "url": "api/app/truck/driver-by-user-id/{userId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "userId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "userId",
+                  "name": "userId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Naqliyat.Trucks.DriverDto",
+                "typeSimple": "Naqliyat.Trucks.DriverDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Naqliyat.Trucks.ITruckAppService"
+            },
+            "GetTruckByDriverIdAsyncByDriverId": {
+              "uniqueName": "GetTruckByDriverIdAsyncByDriverId",
+              "name": "GetTruckByDriverIdAsync",
+              "httpMethod": "GET",
+              "url": "api/app/truck/truck-by-driver-id/{driverId}",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "driverId",
+                  "typeAsString": "System.Guid, System.Private.CoreLib",
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "driverId",
+                  "name": "driverId",
+                  "jsonName": null,
+                  "type": "System.Guid",
+                  "typeSimple": "string",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": [],
+                  "bindingSourceId": "Path",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Naqliyat.Trucks.TruckDto",
+                "typeSimple": "Naqliyat.Trucks.TruckDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Naqliyat.Trucks.ITruckAppService"
+            }
+          }
+        },
+        "Naqliyat.Users.UserAppService": {
+          "controllerName": "User",
+          "controllerGroupName": "User",
+          "isRemoteService": true,
+          "isIntegrationService": false,
+          "apiVersion": null,
+          "type": "Naqliyat.Users.UserAppService",
+          "interfaces": [
+            {
+              "type": "Naqliyat.Users.IUserAppService",
+              "name": "IUserAppService",
+              "methods": [
+                {
+                  "name": "RegisterAsRequesterAsync",
+                  "parametersOnMethod": [],
+                  "returnValue": {
+                    "type": "Naqliyat.Users.UserRegistrationResultDto",
+                    "typeSimple": "Naqliyat.Users.UserRegistrationResultDto"
+                  }
+                },
+                {
+                  "name": "RegisterAsOwnerAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "Naqliyat.Users.RegisterAsOwnerDto, Naqliyat.Application.Contracts",
+                      "type": "Naqliyat.Users.RegisterAsOwnerDto",
+                      "typeSimple": "Naqliyat.Users.RegisterAsOwnerDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "Naqliyat.Users.UserRegistrationResultDto",
+                    "typeSimple": "Naqliyat.Users.UserRegistrationResultDto"
+                  }
+                },
+                {
+                  "name": "RegisterAsDriverAsync",
+                  "parametersOnMethod": [
+                    {
+                      "name": "input",
+                      "typeAsString": "Naqliyat.Users.RegisterAsDriverDto, Naqliyat.Application.Contracts",
+                      "type": "Naqliyat.Users.RegisterAsDriverDto",
+                      "typeSimple": "Naqliyat.Users.RegisterAsDriverDto",
+                      "isOptional": false,
+                      "defaultValue": null
+                    }
+                  ],
+                  "returnValue": {
+                    "type": "Naqliyat.Users.UserRegistrationResultDto",
+                    "typeSimple": "Naqliyat.Users.UserRegistrationResultDto"
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": {
+            "RegisterAsRequesterAsync": {
+              "uniqueName": "RegisterAsRequesterAsync",
+              "name": "RegisterAsRequesterAsync",
+              "httpMethod": "POST",
+              "url": "api/app/user/register-as-requester",
+              "supportedVersions": [],
+              "parametersOnMethod": [],
+              "parameters": [],
+              "returnValue": {
+                "type": "Naqliyat.Users.UserRegistrationResultDto",
+                "typeSimple": "Naqliyat.Users.UserRegistrationResultDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Naqliyat.Users.IUserAppService"
+            },
+            "RegisterAsOwnerAsyncByInput": {
+              "uniqueName": "RegisterAsOwnerAsyncByInput",
+              "name": "RegisterAsOwnerAsync",
+              "httpMethod": "POST",
+              "url": "api/app/user/register-as-owner",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Naqliyat.Users.RegisterAsOwnerDto, Naqliyat.Application.Contracts",
+                  "type": "Naqliyat.Users.RegisterAsOwnerDto",
+                  "typeSimple": "Naqliyat.Users.RegisterAsOwnerDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "Naqliyat.Users.RegisterAsOwnerDto",
+                  "typeSimple": "Naqliyat.Users.RegisterAsOwnerDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Naqliyat.Users.UserRegistrationResultDto",
+                "typeSimple": "Naqliyat.Users.UserRegistrationResultDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Naqliyat.Users.IUserAppService"
+            },
+            "RegisterAsDriverAsyncByInput": {
+              "uniqueName": "RegisterAsDriverAsyncByInput",
+              "name": "RegisterAsDriverAsync",
+              "httpMethod": "POST",
+              "url": "api/app/user/register-as-driver",
+              "supportedVersions": [],
+              "parametersOnMethod": [
+                {
+                  "name": "input",
+                  "typeAsString": "Naqliyat.Users.RegisterAsDriverDto, Naqliyat.Application.Contracts",
+                  "type": "Naqliyat.Users.RegisterAsDriverDto",
+                  "typeSimple": "Naqliyat.Users.RegisterAsDriverDto",
+                  "isOptional": false,
+                  "defaultValue": null
+                }
+              ],
+              "parameters": [
+                {
+                  "nameOnMethod": "input",
+                  "name": "input",
+                  "jsonName": null,
+                  "type": "Naqliyat.Users.RegisterAsDriverDto",
+                  "typeSimple": "Naqliyat.Users.RegisterAsDriverDto",
+                  "isOptional": false,
+                  "defaultValue": null,
+                  "constraintTypes": null,
+                  "bindingSourceId": "Body",
+                  "descriptorName": ""
+                }
+              ],
+              "returnValue": {
+                "type": "Naqliyat.Users.UserRegistrationResultDto",
+                "typeSimple": "Naqliyat.Users.UserRegistrationResultDto"
+              },
+              "allowAnonymous": null,
+              "implementFrom": "Naqliyat.Users.IUserAppService"
             }
           }
         }
@@ -4338,6 +5276,24 @@
       "genericArguments": null,
       "properties": null
     },
+    "Naqliyat.Enums.TemperatureRequirements": {
+      "baseType": "System.Enum",
+      "isEnum": true,
+      "enumNames": [
+        "Ambient",
+        "Chilled",
+        "Frozen",
+        "DeepFrozen"
+      ],
+      "enumValues": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "genericArguments": null,
+      "properties": null
+    },
     "Naqliyat.Enums.TripStatuses": {
       "baseType": "System.Enum",
       "isEnum": true,
@@ -4947,6 +5903,681 @@
           "jsonName": null,
           "type": "[System.Guid]",
           "typeSimple": "[string]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Naqliyat.Trucks.CreateDriverDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Phone",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Identification",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "LicenseNumber",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PhotoId",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "NationalityId",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "UserId",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Naqliyat.Trucks.CreateTruckDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Make",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Model",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Year",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "LicenseNumber",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "RegistrationNumber",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TruckTypeId",
+          "jsonName": null,
+          "type": "Naqliyat.Enums.TruckTypes",
+          "typeSimple": "enum",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TemperatureRequirement",
+          "jsonName": null,
+          "type": "Naqliyat.Enums.TemperatureRequirements",
+          "typeSimple": "enum",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "OwnerId",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "DriverId",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "MaxLoad",
+          "jsonName": null,
+          "type": "System.Double",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PictureIds",
+          "jsonName": null,
+          "type": "[System.Guid]",
+          "typeSimple": "[string]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Naqliyat.Trucks.DriverDto": {
+      "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Guid>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Phone",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Identification",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "LicenseNumber",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PhotoId",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "NationalityId",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "UserId",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Naqliyat.Trucks.TruckDto": {
+      "baseType": "Volo.Abp.Application.Dtos.EntityDto<System.Guid>",
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Make",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Model",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Year",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "LicenseNumber",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "RegistrationNumber",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TruckTypeId",
+          "jsonName": null,
+          "type": "Naqliyat.Enums.TruckTypes",
+          "typeSimple": "enum",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "TemperatureRequirement",
+          "jsonName": null,
+          "type": "Naqliyat.Enums.TemperatureRequirements",
+          "typeSimple": "enum",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "OwnerId",
+          "jsonName": null,
+          "type": "System.Guid",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "DriverId",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "MaxLoad",
+          "jsonName": null,
+          "type": "System.Double",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PictureIds",
+          "jsonName": null,
+          "type": "[System.Guid]",
+          "typeSimple": "[string]",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Naqliyat.Users.RegisterAsDriverDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Phone",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Identification",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "LicenseNumber",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "PhotoId",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "NationalityId",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Naqliyat.Users.RegisterAsOwnerDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Name",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Phone",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Identification",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "EntityNumber",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "NationalityId",
+          "jsonName": null,
+          "type": "System.Int32",
+          "typeSimple": "number",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        }
+      ]
+    },
+    "Naqliyat.Users.UserRegistrationResultDto": {
+      "baseType": null,
+      "isEnum": false,
+      "enumNames": null,
+      "enumValues": null,
+      "genericArguments": null,
+      "properties": [
+        {
+          "name": "Success",
+          "jsonName": null,
+          "type": "System.Boolean",
+          "typeSimple": "boolean",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Role",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "EntityId",
+          "jsonName": null,
+          "type": "System.Guid?",
+          "typeSimple": "string?",
+          "isRequired": false,
+          "minLength": null,
+          "maxLength": null,
+          "minimum": null,
+          "maximum": null,
+          "regex": null
+        },
+        {
+          "name": "Message",
+          "jsonName": null,
+          "type": "System.String",
+          "typeSimple": "string",
           "isRequired": false,
           "minLength": null,
           "maxLength": null,

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Naqliyat.Enums;
 using Naqliyat.Notifications;
+using Naqliyat.Trucks;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Uow;
@@ -18,6 +19,8 @@ public class TripAppService : NaqliyatAppService, ITripAppService
     private readonly IRepository<Payment, Guid> _paymentRepository;
     private readonly IPaymentIntegrationService _paymentIntegrationService;
     private readonly IRepository<Notification, Guid> _notificationRepository;
+    private readonly IRepository<Truck, Guid> _truckRepository;
+    private readonly IRepository<Driver, Guid> _driverRepository;
 
     public TripAppService(
         IRepository<Trip, Guid> tripRepository,
@@ -25,7 +28,9 @@ public class TripAppService : NaqliyatAppService, ITripAppService
         IRepository<Bid, Guid> bidRepository,
         IRepository<Payment, Guid> paymentRepository,
         IPaymentIntegrationService paymentIntegrationService,
-        IRepository<Notification, Guid> notificationRepository)
+        IRepository<Notification, Guid> notificationRepository,
+        IRepository<Truck, Guid> truckRepository,
+        IRepository<Driver, Guid> driverRepository)
     {
         _tripRepository = tripRepository;
         _tripPictureRepository = tripPictureRepository;
@@ -33,6 +38,8 @@ public class TripAppService : NaqliyatAppService, ITripAppService
         _paymentRepository = paymentRepository;
         _paymentIntegrationService = paymentIntegrationService;
         _notificationRepository = notificationRepository;
+        _truckRepository = truckRepository;
+        _driverRepository = driverRepository;
     }
 
     [UnitOfWork]
@@ -246,6 +253,11 @@ public class TripAppService : NaqliyatAppService, ITripAppService
 
         bid = await _bidRepository.UpdateAsync(bid, autoSave: true);
 
+        // Update trip status to WaitingPayment
+        var trip = await _tripRepository.GetAsync(bid.TripId);
+        trip.SetStatus(TripStatuses.WaitingPayment);
+        await _tripRepository.UpdateAsync(trip, autoSave: true);
+
         return new BidDto
         {
             Id = bid.Id,
@@ -407,6 +419,148 @@ public class TripAppService : NaqliyatAppService, ITripAppService
             .Select(tp => tp.PictureId)
             .Distinct()
             .ToList();
+
+        return new TripDto
+        {
+            Id = trip.Id,
+            FromLocation = trip.FromLocation,
+            ToLocation = trip.ToLocation,
+            StartDate = trip.StartDate,
+            EndDate = trip.EndDate,
+            GoodsWeight = trip.GoodsWeight,
+            GoodsDimensions = trip.GoodsDimensions,
+            TruckTypeId = trip.TruckTypeId,
+            GoodsType = trip.GoodsType,
+            Notes = trip.Notes,
+            StatusId = trip.StatusId,
+            PictureIds = pictureIds
+        };
+    }
+
+    [UnitOfWork]
+    public virtual async Task<List<TripDto>> GetDriverTripsAsync()
+    {
+        var currentUserId = CurrentUser.Id;
+        if (!currentUserId.HasValue)
+        {
+            return new List<TripDto>();
+        }
+
+        // Get driver by current user ID
+        var driverQueryable = await _driverRepository.GetQueryableAsync();
+        var driver = await AsyncExecuter.FirstOrDefaultAsync(driverQueryable.Where(d => d.UserId == currentUserId.Value));
+
+        if (driver == null)
+        {
+            return new List<TripDto>();
+        }
+
+        // Get trucks that have this driver
+        var truckQueryable = await _truckRepository.GetQueryableAsync();
+        var truckIds = await AsyncExecuter.ToListAsync(
+            truckQueryable.Where(t => t.DriverId == driver.Id).Select(t => t.Id));
+
+        if (!truckIds.Any())
+        {
+            return new List<TripDto>();
+        }
+
+        // Get accepted bids related to those trucks
+        var bidQueryable = await _bidRepository.GetQueryableAsync();
+        var acceptedBids = await AsyncExecuter.ToListAsync(
+            bidQueryable.Where(b => truckIds.Contains(b.TruckId) && b.StatusId == BidStatus.Accepted));
+
+        if (!acceptedBids.Any())
+        {
+            return new List<TripDto>();
+        }
+
+        var tripIds = acceptedBids.Select(b => b.TripId).Distinct().ToList();
+
+        // Get trips
+        var tripQueryable = await _tripRepository.GetQueryableAsync();
+        var trips = await AsyncExecuter.ToListAsync(tripQueryable.Where(t => tripIds.Contains(t.Id)));
+
+        // Get pictures
+        var pictureQueryable = await _tripPictureRepository.GetQueryableAsync();
+        var tripPictures = await AsyncExecuter.ToListAsync(pictureQueryable.Where(tp => tripIds.Contains(tp.TripId)));
+
+        var picturesByTrip = tripPictures
+            .GroupBy(tp => tp.TripId)
+            .ToDictionary(g => g.Key, g => g.Select(x => x.PictureId).Distinct().ToList());
+
+        var result = new List<TripDto>();
+
+        foreach (var trip in trips)
+        {
+            picturesByTrip.TryGetValue(trip.Id, out var picIds);
+
+            result.Add(new TripDto
+            {
+                Id = trip.Id,
+                FromLocation = trip.FromLocation,
+                ToLocation = trip.ToLocation,
+                StartDate = trip.StartDate,
+                EndDate = trip.EndDate,
+                GoodsWeight = trip.GoodsWeight,
+                GoodsDimensions = trip.GoodsDimensions,
+                TruckTypeId = trip.TruckTypeId,
+                GoodsType = trip.GoodsType,
+                Notes = trip.Notes,
+                StatusId = trip.StatusId,
+                PictureIds = picIds ?? new List<Guid>()
+            });
+        }
+
+        return result;
+    }
+
+    [UnitOfWork]
+    public virtual async Task<TripDto> GetDriverTripByIdAsync(Guid tripId)
+    {
+        var currentUserId = CurrentUser.Id;
+        if (!currentUserId.HasValue)
+        {
+            throw new Volo.Abp.UserFriendlyException("User not authenticated.");
+        }
+
+        // Get driver by current user ID
+        var driverQueryable = await _driverRepository.GetQueryableAsync();
+        var driver = await AsyncExecuter.FirstOrDefaultAsync(driverQueryable.Where(d => d.UserId == currentUserId.Value));
+
+        if (driver == null)
+        {
+            throw new Volo.Abp.UserFriendlyException("Driver not found for current user.");
+        }
+
+        // Get trucks that have this driver
+        var truckQueryable = await _truckRepository.GetQueryableAsync();
+        var truckIds = await AsyncExecuter.ToListAsync(
+            truckQueryable.Where(t => t.DriverId == driver.Id).Select(t => t.Id));
+
+        if (!truckIds.Any())
+        {
+            throw new Volo.Abp.UserFriendlyException("No trucks found for this driver.");
+        }
+
+        // Check if there's an accepted bid for this trip related to driver's trucks
+        var bidQueryable = await _bidRepository.GetQueryableAsync();
+        var hasAcceptedBid = await AsyncExecuter.AnyAsync(
+            bidQueryable.Where(b => b.TripId == tripId && truckIds.Contains(b.TruckId) && b.StatusId == BidStatus.Accepted));
+
+        if (!hasAcceptedBid)
+        {
+            throw new Volo.Abp.UserFriendlyException("Trip not found or not accessible.");
+        }
+
+        // Get trip
+        var trip = await _tripRepository.GetAsync(tripId);
+
+        // Get pictures
+        var pictureQueryable = await _tripPictureRepository.GetQueryableAsync();
+        var tripPictures = await AsyncExecuter.ToListAsync(pictureQueryable.Where(tp => tp.TripId == tripId));
+
+        var pictureIds = tripPictures.Select(tp => tp.PictureId).Distinct().ToList();
 
         return new TripDto
         {

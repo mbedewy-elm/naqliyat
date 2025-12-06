@@ -1,0 +1,70 @@
+<div class="truck-detail-container">
+  <div class="back-link">
+    <a routerLink="/truck/list">
+      <i class="fa fa-arrow-left"></i> Back to My Trucks
+    </a>
+  </div>
+
+  @if (errorMessage) {
+    <div class="alert alert-danger">
+      <i class="fa fa-exclamation-circle"></i>
+      {{ errorMessage }}
+    </div>
+  }
+
+  @if (isLoading) {
+    <div class="loading-state">
+      <i class="fa fa-spinner fa-spin"></i>
+      <p>Loading truck details...</p>
+    </div>
+  } @else if (truck) {
+    <div class="truck-detail-content">
+      <div class="truck-header-card">
+        <div class="truck-icon">
+          <i class="fa fa-truck"></i>
+        </div>
+        <div class="truck-title">
+          <h1>{{ truck.make }} {{ truck.model }}</h1>
+          <span class="truck-year">{{ truck.year }}</span>
+        </div>
+        <a [routerLink]="['/truck/edit', truck.id]" class="btn-edit">
+          <i class="fa fa-pencil"></i> Edit
+        </a>
+      </div>
+
+      <div class="detail-grid">
+        <div class="detail-card">
+          <h3><i class="fa fa-id-card"></i> Registration</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">License Number</span>
+              <span class="value">{{ truck.licenseNumber || 'N/A' }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Registration Number</span>
+              <span class="value">{{ truck.registrationNumber || 'N/A' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-card">
+          <h3><i class="fa fa-cog"></i> Specifications</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">Truck Type</span>
+              <span class="value">{{ getTruckTypeName(truck.truckTypeId) }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Max Load</span>
+              <span class="value">{{ truck.maxLoad ? truck.maxLoad + ' kg' : 'N/A' }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Temperature Requirement</span>
+              <span class="value">{{ getTemperatureName(truck.temperatureRequirement) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

@@ -21,6 +21,21 @@ public class NaqliyatPermissionDefinitionProvider : PermissionDefinitionProvider
         trips.AddChild(NaqliyatPermissions.Trips.CreatePayment, L("Permission:Trips.CreatePayment"));
         trips.AddChild(NaqliyatPermissions.Trips.ConfirmArrival, L("Permission:Trips.ConfirmArrival"));
         trips.AddChild(NaqliyatPermissions.Trips.Rate, L("Permission:Trips.Rate"));
+        trips.AddChild(NaqliyatPermissions.Trips.DriverTrips, L("Permission:Trips.DriverTrips"));
+
+        var trucks = myGroup.AddPermission(NaqliyatPermissions.Trucks.Default, L("Permission:Trucks"));
+        trucks.AddChild(NaqliyatPermissions.Trucks.Create, L("Permission:Trucks.Create"));
+        trucks.AddChild(NaqliyatPermissions.Trucks.List, L("Permission:Trucks.List"));
+
+        var drivers = myGroup.AddPermission(NaqliyatPermissions.Drivers.Default, L("Permission:Drivers"));
+        drivers.AddChild(NaqliyatPermissions.Drivers.Create, L("Permission:Drivers.Create"));
+        drivers.AddChild(NaqliyatPermissions.Drivers.List, L("Permission:Drivers.List"));
+        drivers.AddChild(NaqliyatPermissions.Drivers.ViewDetails, L("Permission:Drivers.ViewDetails"));
+
+        var users = myGroup.AddPermission(NaqliyatPermissions.Users.Default, L("Permission:Users"));
+        users.AddChild(NaqliyatPermissions.Users.RegisterAsRequester, L("Permission:Users.RegisterAsRequester"));
+        users.AddChild(NaqliyatPermissions.Users.RegisterAsOwner, L("Permission:Users.RegisterAsOwner"));
+        users.AddChild(NaqliyatPermissions.Users.RegisterAsDriver, L("Permission:Users.RegisterAsDriver"));
     }
 
     private static LocalizableString L(string name)

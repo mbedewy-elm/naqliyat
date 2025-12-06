@@ -8,8 +8,20 @@ export const APP_ROUTES: Routes = [
     loadComponent: () => import('./home/home.component').then(c => c.HomeComponent),
   },
   {
+    path: 'registration',
+    loadChildren: () => import('./registration/registration.routes').then(c => c.REGISTRATION_ROUTES),
+  },
+  {
     path: 'trip',
     loadChildren: () => import('./trip/trip.routes').then(c => c.TRIP_ROUTES),
+  },
+  {
+    path: 'truck',
+    loadChildren: () => import('./truck/truck.routes').then(c => c.TRUCK_ROUTES),
+  },
+  {
+    path: 'driver',
+    loadChildren: () => import('./driver/driver.routes').then(c => c.DRIVER_ROUTES),
   },
   {
     path: 'account',

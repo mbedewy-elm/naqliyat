@@ -23,6 +23,11 @@ export const TRIP_ROUTES: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'my-trips',
+    loadComponent: () => import('./my-trips/my-trips.component').then(c => c.MyTripsComponent),
+    canActivate: [authGuard],
+  },
+  {
     path: 'bid/:id',
     loadComponent: () => import('./place-bid/place-bid.component').then(c => c.PlaceBidComponent),
     canActivate: [authGuard],

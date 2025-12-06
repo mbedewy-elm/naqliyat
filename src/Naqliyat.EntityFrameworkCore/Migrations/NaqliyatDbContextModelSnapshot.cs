@@ -495,7 +495,7 @@ namespace Naqliyat.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("PhotoId")
+                    b.Property<Guid?>("PhotoId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserId")
@@ -2624,9 +2624,7 @@ namespace Naqliyat.Migrations
 
                     b.HasOne("Naqliyat.Attachments.Attachment", "Photo")
                         .WithMany()
-                        .HasForeignKey("PhotoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PhotoId");
 
                     b.Navigation("Nationality");
 

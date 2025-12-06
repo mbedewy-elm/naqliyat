@@ -12,6 +12,13 @@
     </div>
   }
 
+  @if (successMessage) {
+    <div class="alert alert-success">
+      <i class="fa fa-check-circle"></i>
+      {{ successMessage }}
+    </div>
+  }
+
   @if (isLoading) {
     <div class="loading-state">
       <i class="fa fa-spinner fa-spin"></i>
@@ -97,6 +104,179 @@
           </div>
         }
       </div>
+
+      <!-- Live Tracking Map (when trip is On Its Way) -->
+      @if (trip.statusId === TripStatuses.OnItsWay) {
+        <div class="map-section">
+          <div class="map-header">
+            <h2><i class="fa fa-map"></i> Live Tracking</h2>
+            <div class="tracking-status">
+              <span class="pulse"></span>
+              <span>Trip in Progress</span>
+            </div>
+          </div>
+          <div class="map-container" #mapContainer></div>
+          <div class="map-legend">
+            <div class="legend-item">
+              <span class="legend-marker origin"></span>
+              <span>Origin: {{ trip.fromLocation }}</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-marker destination"></span>
+              <span>Destination: {{ trip.toLocation }}</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-marker truck"></span>
+              <span>Current Position (Simulated)</span>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Driver Bid Section -->
+      @if (isDriver && trip?.statusId === TripStatuses.OpenForBidding) {
+        <div class="driver-bid-section">
+          @if (isLoadingTruck) {
+            <div class="loading-truck">
+              <i class="fa fa-spinner fa-spin"></i> Loading your truck information...
+            </div>
+          } @else if (!driverTruck) {
+            <div class="no-truck-warning">
+              <i class="fa fa-exclamation-triangle"></i>
+              <div>
+                <h4>No Truck Assigned</h4>
+                <p>You don't have a truck assigned to your account. Please contact the fleet owner to assign a truck to you before placing bids.</p>
+              </div>
+            </div>
+          } @else {
+            <div class="bid-section-header">
+              <div class="bid-header-content">
+                <i class="fa fa-gavel"></i>
+                <div>
+                  <h3>Place Your Bid</h3>
+                  <p>Submit your offer for this trip</p>
+                </div>
+              </div>
+              @if (!showBidForm) {
+                <button class="btn-place-bid" (click)="toggleBidForm()">
+                  <i class="fa fa-plus"></i> Place Bid
+                </button>
+              }
+            </div>
+
+            <!-- Show assigned truck info -->
+            <div class="assigned-truck-info">
+              <i class="fa fa-truck"></i>
+              <span>Bidding with: <strong>{{ driverTruck.make }} {{ driverTruck.model }}</strong> ({{ driverTruck.licenseNumber }})</span>
+            </div>
+
+          @if (showBidForm) {
+            <form [formGroup]="bidForm" (ngSubmit)="submitBid()" class="bid-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="price">
+                    <i class="fa fa-money"></i> Your Price (SAR) <span class="required">*</span>
+                  </label>
+                  <div class="price-input-wrapper">
+                    <span class="currency">SAR</span>
+                    <input
+                      type="number"
+                      id="price"
+                      formControlName="price"
+                      placeholder="Enter your bid amount"
+                      min="1"
+                      [class.is-invalid]="isFieldInvalid('price')"
+                    />
+                  </div>
+                  @if (isFieldInvalid('price')) {
+                    <span class="error-message">Please enter a valid price</span>
+                  }
+                </div>
+                <div class="form-group">
+                  <label for="arrivalDate">
+                    <i class="fa fa-clock-o"></i> Estimated Arrival <span class="required">*</span>
+                  </label>
+                  <input
+                    type="datetime-local"
+                    id="arrivalDate"
+                    formControlName="arrivalDate"
+                    [class.is-invalid]="isFieldInvalid('arrivalDate')"
+                  />
+                  @if (isFieldInvalid('arrivalDate')) {
+                    <span class="error-message">Please select an arrival date</span>
+                  }
+                </div>
+              </div>
+              <div class="form-actions">
+                <button type="button" class="btn-cancel" (click)="toggleBidForm()">
+                  Cancel
+                </button>
+                <button type="submit" class="btn-submit-bid" [disabled]="isSubmittingBid">
+                  @if (isSubmittingBid) {
+                    <i class="fa fa-spinner fa-spin"></i> Submitting...
+                  } @else {
+                    <i class="fa fa-gavel"></i> Submit Bid
+                  }
+                </button>
+              </div>
+            </form>
+          }
+          }
+        </div>
+      }
+
+      <!-- Confirm Arrival Section (Driver only, when trip is On Its Way) -->
+      @if (canConfirmArrival) {
+        <div class="confirm-arrival-section">
+          <div class="arrival-section-header">
+            <div class="arrival-header-content">
+              <i class="fa fa-flag-checkered"></i>
+              <div>
+                <h3>Confirm Arrival</h3>
+                <p>Enter the OTP provided by the customer to confirm delivery</p>
+              </div>
+            </div>
+            @if (!showOtpForm) {
+              <button class="btn-confirm-arrival" (click)="toggleOtpForm()">
+                <i class="fa fa-check-circle"></i> Confirm Arrival
+              </button>
+            }
+          </div>
+
+          @if (showOtpForm) {
+            <form [formGroup]="otpForm" (ngSubmit)="confirmArrival()" class="otp-form">
+              <div class="form-group">
+                <label for="otp">
+                  <i class="fa fa-key"></i> OTP Code <span class="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="otp"
+                  formControlName="otp"
+                  placeholder="Enter the 4-digit OTP"
+                  maxlength="6"
+                  [class.is-invalid]="isOtpFieldInvalid('otp')"
+                />
+                @if (isOtpFieldInvalid('otp')) {
+                  <span class="error-message">Please enter a valid OTP code</span>
+                }
+              </div>
+              <div class="form-actions">
+                <button type="button" class="btn-cancel" (click)="toggleOtpForm()">
+                  Cancel
+                </button>
+                <button type="submit" class="btn-submit-arrival" [disabled]="isConfirmingArrival">
+                  @if (isConfirmingArrival) {
+                    <i class="fa fa-spinner fa-spin"></i> Confirming...
+                  } @else {
+                    <i class="fa fa-check"></i> Confirm Delivery
+                  }
+                </button>
+              </div>
+            </form>
+          }
+        </div>
+      }
 
       <!-- Bids Section -->
       @if (trip.statusId === TripStatuses.OpenForBidding || trip.statusId === TripStatuses.WaitingBidAgreement) {

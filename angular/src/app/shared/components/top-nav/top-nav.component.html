@@ -1,0 +1,44 @@
+<nav class="top-nav">
+  <div class="nav-brand">
+    <a routerLink="/" class="brand-link">
+      <span class="brand-name">Naqliyat</span>
+    </a>
+  </div>
+
+  <div class="nav-links">
+    @for (link of navLinks; track link.path) {
+      @if (isLinkVisible(link)) {
+        <a [routerLink]="link.path" routerLinkActive="active" [routerLinkActiveOptions]="{exact: link.path === '/'}" class="nav-link">
+          <i class="fa {{ link.icon }}"></i>
+          <span>{{ link.label }}</span>
+        </a>
+      }
+    }
+  </div>
+
+  <div class="nav-actions">
+    @if (isAuthenticated) {
+      @if (!hasRoles) {
+        <a routerLink="/registration" class="btn-register">
+          <i class="fa fa-user-plus"></i>
+          Complete Registration
+        </a>
+      }
+      <div class="user-menu">
+        <span class="user-name">
+          <i class="fa fa-user-circle"></i>
+          {{ currentUserName }}
+        </span>
+        <button class="btn-logout" (click)="logout()">
+          <i class="fa fa-sign-out"></i>
+          Logout
+        </button>
+      </div>
+    } @else {
+      <button class="btn-login" (click)="login()">
+        <i class="fa fa-sign-in"></i>
+        Login
+      </button>
+    }
+  </div>
+</nav>

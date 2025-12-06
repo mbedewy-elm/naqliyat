@@ -1,0 +1,38 @@
+<div class="role-selection-container">
+  <div class="role-selection-content">
+    <div class="header">
+      <h1>Welcome to Naqliyat!</h1>
+      <p>Please select how you would like to use our platform</p>
+    </div>
+
+    @if (error) {
+      <div class="error-alert">
+        <i class="fa fa-exclamation-circle"></i>
+        {{ error }}
+      </div>
+    }
+
+    @if (isLoading) {
+      <div class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Processing your registration...</p>
+      </div>
+    }
+
+    <div class="roles-grid">
+      @for (role of roles; track role.id) {
+        <div class="role-card" (click)="selectRole(role.id)" [style.--accent-color]="role.color">
+          <div class="role-icon">
+            <i class="fa {{ role.icon }}"></i>
+          </div>
+          <h2>{{ role.title }}</h2>
+          <p>{{ role.description }}</p>
+          <button class="select-btn">
+            Select
+            <i class="fa fa-arrow-right"></i>
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</div>

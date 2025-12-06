@@ -1,0 +1,235 @@
+// Variables - Golden Orange Theme
+$primary-color: #f59e0b;
+$primary-dark: #d97706;
+$text-primary: #1e293b;
+$text-secondary: #64748b;
+$text-light: #94a3b8;
+$bg-white: #ffffff;
+$border-color: #e5e7eb;
+$error-color: #ef4444;
+
+.add-driver-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.back-link {
+  margin-bottom: 1.5rem;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: $text-secondary;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}
+
+.form-card {
+  background: $bg-white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.card-header {
+  background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+  padding: 2rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+
+  .header-icon {
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i {
+      font-size: 1.5rem;
+    }
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 0.25rem 0;
+  }
+
+  p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 0.9rem;
+  }
+}
+
+.alert {
+  margin: 1.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  &.alert-danger {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: $error-color;
+  }
+}
+
+form {
+  padding: 1.5rem;
+}
+
+.form-section {
+  margin-bottom: 2rem;
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid $border-color;
+
+    i {
+      color: $primary-color;
+    }
+  }
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group {
+  margin-bottom: 1rem;
+
+  label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $text-primary;
+    margin-bottom: 0.5rem;
+
+    .required {
+      color: $error-color;
+    }
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid $border-color;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    color: $text-primary;
+    background: $bg-white;
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+
+    &.is-invalid {
+      border-color: $error-color;
+    }
+
+    &::placeholder {
+      color: $text-light;
+    }
+  }
+
+  select {
+    cursor: pointer;
+  }
+}
+
+.error-message {
+  display: block;
+  font-size: 0.75rem;
+  color: $error-color;
+  margin-top: 0.25rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid $border-color;
+
+  @media (max-width: 576px) {
+    flex-direction: column-reverse;
+  }
+}
+
+.btn-cancel,
+.btn-submit {
+  padding: 0.875rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  @media (max-width: 576px) {
+    width: 100%;
+  }
+}
+
+.btn-cancel {
+  background: $bg-white;
+  color: $text-secondary;
+  border: 1px solid $border-color;
+  text-decoration: none;
+
+  &:hover {
+    border-color: $text-secondary;
+    color: $text-primary;
+  }
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, $primary-color 0%, $primary-dark 100%);
+  color: white;
+  border: none;
+
+  &:hover:not(:disabled) {
+    box-shadow: 0 4px 15px rgba($primary-color, 0.4);
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}

@@ -61,6 +61,22 @@ export class TripService {
     { apiName: this.apiName,...config });
   
 
+  getDriverTripById = (tripId: string, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, TripDto>({
+      method: 'GET',
+      url: `/api/app/trip/driver-trip-by-id/${tripId}`,
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getDriverTrips = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, TripDto[]>({
+      method: 'GET',
+      url: '/api/app/trip/driver-trips',
+    },
+    { apiName: this.apiName,...config });
+  
+
   getNewBids = (tripId: string, config?: Partial<Rest.Config>) =>
     this.restService.request<any, BidDto[]>({
       method: 'GET',

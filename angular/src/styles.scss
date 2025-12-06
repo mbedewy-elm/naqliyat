@@ -1,5 +1,51 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* Hide LeptonX sidebar completely */
+.lpx-sidebar,
+.lpx-sidebar-container,
+.lpx-brand-container,
+lpx-navbar,
+.lpx-nav-menu {
+  display: none !important;
+}
+
+/* Make main content full width */
+.lpx-content-container,
+.lpx-main-container {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  width: 100% !important;
+}
+
+.lpx-content {
+  margin-left: 0 !important;
+}
+
+/* Hide mobile menu toggle */
+.lpx-mobile-sidebar-toggle,
+.lpx-sidebar-toggle {
+  display: none !important;
+}
+
+/* Hide LeptonX footer bar */
+.lpx-footer,
+lpx-footer,
+.lpx-footer-container {
+  display: none !important;
+}
+
+/* Hide LeptonX topbar since we have custom nav */
+.lpx-topbar,
+lpx-topbar,
+.lpx-topbar-container,
+.lpx-header {
+  display: none !important;
+}
+
+/* Adjust content to account for custom nav */
+.lpx-scroll-container {
+  padding-top: 0 !important;
+}
 
 :root {
   --lpx-theme-light-bg: url('assets/images/login/login-bg-img-light.svg');

@@ -102,4 +102,6 @@ public interface ITripAppService
     System.Threading.Tasks.Task<PaymentDto> CreatePaymentAsync(System.Guid tripId, CreatePaymentDto input);
     System.Threading.Tasks.Task<TripDto> ConfirmArrivalAsync(System.Guid tripId, ConfirmArrivalDto input);
     System.Threading.Tasks.Task<TripDto> RateTripAsync(System.Guid tripId, RateTripDto input);
+    System.Threading.Tasks.Task<System.Collections.Generic.List<TripDto>> GetDriverTripsAsync();
+    System.Threading.Tasks.Task<TripDto> GetDriverTripByIdAsync(System.Guid tripId);
 }

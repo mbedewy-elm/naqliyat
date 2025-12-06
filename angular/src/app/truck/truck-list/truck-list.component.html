@@ -1,0 +1,115 @@
+<div class="truck-list-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1><i class="fa fa-truck"></i> My Trucks</h1>
+      <p>Manage your fleet of trucks</p>
+    </div>
+    <a routerLink="/truck/add" class="btn-add-truck">
+      <i class="fa fa-plus"></i> Add New Truck
+    </a>
+  </div>
+
+  @if (errorMessage) {
+    <div class="alert alert-danger">
+      <i class="fa fa-exclamation-circle"></i>
+      {{ errorMessage }}
+    </div>
+  }
+
+  <div class="search-bar">
+    <i class="fa fa-search"></i>
+    <input
+      type="text"
+      placeholder="Search by make, model, license or registration..."
+      (input)="onSearch($event)"
+    />
+  </div>
+
+  @if (isLoading) {
+    <div class="loading-state">
+      <i class="fa fa-spinner fa-spin"></i>
+      <p>Loading your trucks...</p>
+    </div>
+  } @else if (filteredTrucks.length === 0) {
+    <div class="empty-state">
+      <i class="fa fa-truck"></i>
+      @if (searchTerm) {
+        <h3>No trucks found</h3>
+        <p>No trucks match your search criteria</p>
+      } @else {
+        <h3>No trucks yet</h3>
+        <p>Add your first truck to start managing your fleet</p>
+        <a routerLink="/truck/add" class="btn-primary">
+          <i class="fa fa-plus"></i> Add Your First Truck
+        </a>
+      }
+    </div>
+  } @else {
+    <div class="truck-count">
+      Showing {{ filteredTrucks.length }} truck{{ filteredTrucks.length !== 1 ? 's' : '' }}
+    </div>
+
+    <div class="trucks-grid">
+      @for (truck of filteredTrucks; track truck.id) {
+        <div class="truck-card">
+          <div class="truck-header">
+            <div class="truck-icon">
+              <i class="fa fa-truck"></i>
+            </div>
+            <div class="truck-title">
+              <h3>{{ truck.make }} {{ truck.model }}</h3>
+              <span class="truck-year">{{ truck.year }}</span>
+            </div>
+          </div>
+
+          <div class="truck-details">
+            <div class="detail-item">
+              <i class="fa fa-id-card"></i>
+              <div>
+                <span class="label">License</span>
+                <span class="value">{{ truck.licenseNumber || 'N/A' }}</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-file-text"></i>
+              <div>
+                <span class="label">Registration</span>
+                <span class="value">{{ truck.registrationNumber || 'N/A' }}</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-tags"></i>
+              <div>
+                <span class="label">Type</span>
+                <span class="value">{{ getTruckTypeName(truck.truckTypeId) }}</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-balance-scale"></i>
+              <div>
+                <span class="label">Max Load</span>
+                <span class="value">{{ truck.maxLoad ? truck.maxLoad + ' kg' : 'N/A' }}</span>
+              </div>
+            </div>
+          </div>
+
+          @if (truck.temperatureRequirement !== undefined && truck.temperatureRequirement !== 0) {
+            <div class="temperature-badge">
+              <i class="fa fa-thermometer-half"></i>
+              {{ getTemperatureName(truck.temperatureRequirement) }}
+            </div>
+          }
+
+          <div class="truck-actions">
+            <a [routerLink]="['/truck', truck.id]" class="btn-view">
+              <i class="fa fa-eye"></i> View
+            </a>
+            <a [routerLink]="['/truck/edit', truck.id]" class="btn-edit">
+              <i class="fa fa-pencil"></i> Edit
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

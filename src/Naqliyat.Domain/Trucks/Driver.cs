@@ -10,7 +10,7 @@ namespace Naqliyat.Trucks
         public string Phone { get; set; }
         public string Identification { get; set; }
         public string LicenseNumber { get; set; }
-        public Guid PhotoId { get; set; }
+        public Guid? PhotoId { get; set; }
         public int NationalityId { get; set; }
         public Guid UserId { get; set; }
 

@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { LocalizationModule } from '@abp/ng.core';
 import { TripService } from '../../proxy/trips/trip.service';
 import { CreateTripDto } from '../../proxy/trips/models';
 import { TruckTypes, truckTypesOptions } from '../../proxy/enums/truck-types.enum';
@@ -9,7 +10,7 @@ import { TruckTypes, truckTypesOptions } from '../../proxy/enums/truck-types.enu
 @Component({
   selector: 'app-create-trip',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, LocalizationModule],
   templateUrl: './create-trip.component.html',
   styleUrls: ['./create-trip.component.scss']
 })

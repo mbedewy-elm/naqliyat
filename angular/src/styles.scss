@@ -47,6 +47,28 @@ lpx-topbar,
   padding-top: 0 !important;
 }
 
+/* RTL Support - ensure full width and proper margins */
+[dir="rtl"] {
+  .lpx-content-container,
+  .lpx-main-container {
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
+  
+  .lpx-content {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+}
+
+/* Ensure body and html take full width */
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 :root {
   --lpx-theme-light-bg: url('assets/images/login/login-bg-img-light.svg');
   --lpx-theme-dim-bg: url('assets/images/login/login-bg-img-dim.svg');

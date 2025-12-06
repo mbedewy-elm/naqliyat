@@ -1,8 +1,8 @@
 <div class="role-selection-container">
   <div class="role-selection-content">
     <div class="header">
-      <h1>Welcome to Naqliyat!</h1>
-      <p>Please select how you would like to use our platform</p>
+      <h1>{{ '::RoleSelection:Title' | abpLocalization }}</h1>
+      <p>{{ '::RoleSelection:Subtitle' | abpLocalization }}</p>
     </div>
 
     @if (error) {
@@ -15,7 +15,7 @@
     @if (isLoading) {
       <div class="loading-overlay">
         <div class="spinner"></div>
-        <p>Processing your registration...</p>
+        <p>{{ '::RoleSelection:ProcessingRegistration' | abpLocalization }}</p>
       </div>
     }
 
@@ -28,7 +28,7 @@
           <h2>{{ role.title }}</h2>
           <p>{{ role.description }}</p>
           <button class="select-btn">
-            Select
+            {{ '::RoleSelection:Select' | abpLocalization }}
             <i class="fa fa-arrow-right"></i>
           </button>
         </div>

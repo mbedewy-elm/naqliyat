@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '@abp/ng.core';
+import { AuthService, LocalizationModule } from '@abp/ng.core';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  imports: [CommonModule]
+  imports: [CommonModule, LocalizationModule]
 })
 export class HomeComponent {
   private authService = inject(AuthService);

@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { ConfigStateService } from '@abp/ng.core';
+import { ConfigStateService, LocalizationModule } from '@abp/ng.core';
 import { TripService } from '../../proxy/trips/trip.service';
 import { TruckService } from '../../proxy/trucks/truck.service';
 import { TripDto, CreateBidDto } from '../../proxy/trips/models';
@@ -12,7 +12,7 @@ import { TruckTypes } from '../../proxy/enums/truck-types.enum';
 @Component({
   selector: 'app-place-bid',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, LocalizationModule],
   templateUrl: './place-bid.component.html',
   styleUrls: ['./place-bid.component.scss']
 })

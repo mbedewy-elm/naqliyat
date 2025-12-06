@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { AuthService } from '@abp/ng.core';
+import { AuthService, LocalizationModule } from '@abp/ng.core';
 import { UserService } from '../../proxy/users/user.service';
 
 @Component({
   selector: 'app-role-selection',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LocalizationModule],
   templateUrl: './role-selection.component.html',
   styleUrls: ['./role-selection.component.scss']
 })

@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ConfigStateService } from '@abp/ng.core';
+import { ConfigStateService, LocalizationModule } from '@abp/ng.core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -11,7 +11,7 @@ import { TemperatureRequirements, temperatureRequirementsOptions } from '../../p
 @Component({
   selector: 'app-add-truck',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, LocalizationModule],
   templateUrl: './add-truck.component.html',
   styleUrls: ['./add-truck.component.scss']
 })

@@ -26,6 +26,12 @@ $bg-white: #ffffff;
     gap: 0.5rem;
   }
 
+  .brand-logo {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+  }
+
   .brand-name {
     font-size: 1.5rem;
     font-weight: 700;
@@ -150,6 +156,37 @@ $bg-white: #ffffff;
   &:hover {
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(#10b981, 0.4);
+  }
+}
+
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: #f1f5f9;
+  border-radius: 2rem;
+  padding: 0.25rem;
+}
+
+.lang-btn {
+  padding: 0.35rem 0.75rem;
+  border: none;
+  background: transparent;
+  color: $text-secondary;
+  font-weight: 600;
+  font-size: 0.8rem;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: $primary-color;
+  }
+
+  &.active {
+    background: $primary-color;
+    color: white;
+    box-shadow: 0 2px 6px rgba($primary-color, 0.3);
   }
 }
 

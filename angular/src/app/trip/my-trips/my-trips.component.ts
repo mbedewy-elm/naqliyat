@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { LocalizationModule } from '@abp/ng.core';
 import { TripService } from '../../proxy/trips/trip.service';
 import { TripDto } from '../../proxy/trips/models';
 import { TruckTypes } from '../../proxy/enums/truck-types.enum';
@@ -9,7 +10,7 @@ import { TripStatuses } from '../../proxy/enums/trip-statuses.enum';
 @Component({
   selector: 'app-my-trips',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, LocalizationModule],
   templateUrl: './my-trips.component.html',
   styleUrls: ['./my-trips.component.scss']
 })

@@ -1,7 +1,8 @@
 <nav class="top-nav">
   <div class="nav-brand">
     <a routerLink="/" class="brand-link">
-      <span class="brand-name">Naqliyat</span>
+      <img src="/assets/images/logo/naqliyat-logo.png" alt="Naqliyat" class="brand-logo" />
+      <span class="brand-name">{{ '::AppName' | abpLocalization }}</span>
     </a>
   </div>
 
@@ -10,7 +11,7 @@
       @if (isLinkVisible(link)) {
         <a [routerLink]="link.path" routerLinkActive="active" [routerLinkActiveOptions]="{exact: link.path === '/'}" class="nav-link">
           <i class="fa {{ link.icon }}"></i>
-          <span>{{ link.label }}</span>
+          <span>{{ link.label | abpLocalization }}</span>
         </a>
       }
     }
@@ -21,7 +22,7 @@
       @if (!hasRoles) {
         <a routerLink="/registration" class="btn-register">
           <i class="fa fa-user-plus"></i>
-          Complete Registration
+          {{ '::Nav:CompleteRegistration' | abpLocalization }}
         </a>
       }
       <div class="user-menu">
@@ -29,15 +30,43 @@
           <i class="fa fa-user-circle"></i>
           {{ currentUserName }}
         </span>
+        <div class="lang-switcher">
+          <button 
+            class="lang-btn" 
+            [class.active]="currentLang === 'en'" 
+            (click)="switchLanguage('en')">
+            EN
+          </button>
+          <button 
+            class="lang-btn" 
+            [class.active]="currentLang === 'ar'" 
+            (click)="switchLanguage('ar')">
+            AR
+          </button>
+        </div>
         <button class="btn-logout" (click)="logout()">
           <i class="fa fa-sign-out"></i>
-          Logout
+          {{ '::Nav:Logout' | abpLocalization }}
         </button>
       </div>
     } @else {
+      <div class="lang-switcher">
+        <button 
+          class="lang-btn" 
+          [class.active]="currentLang === 'en'" 
+          (click)="switchLanguage('en')">
+          EN
+        </button>
+        <button 
+          class="lang-btn" 
+          [class.active]="currentLang === 'ar'" 
+          (click)="switchLanguage('ar')">
+          AR
+        </button>
+      </div>
       <button class="btn-login" (click)="login()">
         <i class="fa fa-sign-in"></i>
-        Login
+        {{ '::Nav:Login' | abpLocalization }}
       </button>
     }
   </div>

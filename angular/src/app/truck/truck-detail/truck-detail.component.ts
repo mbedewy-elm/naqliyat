@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { LocalizationModule } from '@abp/ng.core';
 import { TruckService } from '../../proxy/trucks/truck.service';
 import { TruckDto } from '../../proxy/trucks/models';
 import { TruckTypes } from '../../proxy/enums/truck-types.enum';
@@ -9,7 +10,7 @@ import { TemperatureRequirements } from '../../proxy/enums/temperature-requireme
 @Component({
   selector: 'app-truck-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, LocalizationModule],
   templateUrl: './truck-detail.component.html',
   styleUrls: ['./truck-detail.component.scss']
 })

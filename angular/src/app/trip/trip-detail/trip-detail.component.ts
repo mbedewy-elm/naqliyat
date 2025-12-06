@@ -2,7 +2,7 @@ import { Component, inject, OnInit, AfterViewInit, ViewChild, ElementRef } from 
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ConfigStateService } from '@abp/ng.core';
+import { ConfigStateService, LocalizationModule } from '@abp/ng.core';
 import { TripService } from '../../proxy/trips/trip.service';
 import { TruckService } from '../../proxy/trucks/truck.service';
 import { TripDto, BidDto, CreateBidDto, ConfirmArrivalDto } from '../../proxy/trips/models';
@@ -40,7 +40,7 @@ const SAUDI_CITIES: { [key: string]: [number, number] } = {
 @Component({
   selector: 'app-trip-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, LocalizationModule],
   templateUrl: './trip-detail.component.html',
   styleUrls: ['./trip-detail.component.scss']
 })

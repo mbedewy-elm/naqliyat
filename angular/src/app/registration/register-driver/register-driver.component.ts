@@ -2,14 +2,14 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '@abp/ng.core';
+import { AuthService, LocalizationModule } from '@abp/ng.core';
 import { UserService } from '../../proxy/users/user.service';
 import { RegisterAsDriverDto } from '../../proxy/users/models';
 
 @Component({
   selector: 'app-register-driver',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, LocalizationModule],
   templateUrl: './register-driver.component.html',
   styleUrls: ['./register-driver.component.scss']
 })

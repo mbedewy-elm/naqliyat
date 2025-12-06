@@ -117,9 +117,15 @@ $gradient-dark: linear-gradient(135deg, #292524 0%, #44403c 100%);
   background-image: url('/assets/images/hero/hero-bg.jpg.jpeg');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  background-repeat: no-repeat;
   text-align: center;
   padding: 2rem;
+  width: 100%;
+  
+  // RTL support
+  [dir="rtl"] & {
+    background-position: center;
+  }
 }
 
 .hero-overlay {

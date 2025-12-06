@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { LocalizationModule } from '@abp/ng.core';
 import { TruckService } from '../../proxy/trucks/truck.service';
 import { TruckDto } from '../../proxy/trucks/models';
 import { TruckTypes, truckTypesOptions } from '../../proxy/enums/truck-types.enum';
@@ -10,7 +11,7 @@ import { TemperatureRequirements, temperatureRequirementsOptions } from '../../p
 @Component({
   selector: 'app-edit-truck',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, LocalizationModule],
   templateUrl: './edit-truck.component.html',
   styleUrls: ['./edit-truck.component.scss']
 })

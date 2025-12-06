@@ -1,11 +1,11 @@
 <div class="truck-list-container">
   <div class="page-header">
     <div class="header-content">
-      <h1><i class="fa fa-truck"></i> My Trucks</h1>
-      <p>Manage your fleet of trucks</p>
+      <h1><i class="fa fa-truck"></i> {{ '::Truck:MyTrucks' | abpLocalization }}</h1>
+      <p>{{ '::Truck:ManageFleet' | abpLocalization }}</p>
     </div>
     <a routerLink="/truck/add" class="btn-add-truck">
-      <i class="fa fa-plus"></i> Add New Truck
+      <i class="fa fa-plus"></i> {{ '::Truck:AddNewTruck' | abpLocalization }}
     </a>
   </div>
 
@@ -20,7 +20,7 @@
     <i class="fa fa-search"></i>
     <input
       type="text"
-      placeholder="Search by make, model, license or registration..."
+      [placeholder]="'::Truck:SearchPlaceholder' | abpLocalization"
       (input)="onSearch($event)"
     />
   </div>
@@ -28,25 +28,25 @@
   @if (isLoading) {
     <div class="loading-state">
       <i class="fa fa-spinner fa-spin"></i>
-      <p>Loading your trucks...</p>
+      <p>{{ '::Truck:LoadingTrucks' | abpLocalization }}</p>
     </div>
   } @else if (filteredTrucks.length === 0) {
     <div class="empty-state">
       <i class="fa fa-truck"></i>
       @if (searchTerm) {
-        <h3>No trucks found</h3>
-        <p>No trucks match your search criteria</p>
+        <h3>{{ '::Truck:NoTrucksFound' | abpLocalization }}</h3>
+        <p>{{ '::Truck:NoTrucksMatch' | abpLocalization }}</p>
       } @else {
-        <h3>No trucks yet</h3>
-        <p>Add your first truck to start managing your fleet</p>
+        <h3>{{ '::Truck:NoTrucksYet' | abpLocalization }}</h3>
+        <p>{{ '::Truck:AddFirstTruck' | abpLocalization }}</p>
         <a routerLink="/truck/add" class="btn-primary">
-          <i class="fa fa-plus"></i> Add Your First Truck
+          <i class="fa fa-plus"></i> {{ '::Truck:AddYourFirstTruck' | abpLocalization }}
         </a>
       }
     </div>
   } @else {
     <div class="truck-count">
-      Showing {{ filteredTrucks.length }} truck{{ filteredTrucks.length !== 1 ? 's' : '' }}
+      {{ '::Truck:Showing' | abpLocalization }} {{ filteredTrucks.length }} {{ '::Truck:Trucks' | abpLocalization }}
     </div>
 
     <div class="trucks-grid">
@@ -66,29 +66,29 @@
             <div class="detail-item">
               <i class="fa fa-id-card"></i>
               <div>
-                <span class="label">License</span>
-                <span class="value">{{ truck.licenseNumber || 'N/A' }}</span>
+                <span class="label">{{ '::Truck:License' | abpLocalization }}</span>
+                <span class="value">{{ truck.licenseNumber || ('::Common:NA' | abpLocalization) }}</span>
               </div>
             </div>
             <div class="detail-item">
               <i class="fa fa-file-text"></i>
               <div>
-                <span class="label">Registration</span>
-                <span class="value">{{ truck.registrationNumber || 'N/A' }}</span>
+                <span class="label">{{ '::Truck:Registration' | abpLocalization }}</span>
+                <span class="value">{{ truck.registrationNumber || ('::Common:NA' | abpLocalization) }}</span>
               </div>
             </div>
             <div class="detail-item">
               <i class="fa fa-tags"></i>
               <div>
-                <span class="label">Type</span>
+                <span class="label">{{ '::Truck:Type' | abpLocalization }}</span>
                 <span class="value">{{ getTruckTypeName(truck.truckTypeId) }}</span>
               </div>
             </div>
             <div class="detail-item">
               <i class="fa fa-balance-scale"></i>
               <div>
-                <span class="label">Max Load</span>
-                <span class="value">{{ truck.maxLoad ? truck.maxLoad + ' kg' : 'N/A' }}</span>
+                <span class="label">{{ '::Truck:MaxLoad' | abpLocalization }}</span>
+                <span class="value">{{ truck.maxLoad ? truck.maxLoad + ' kg' : ('::Common:NA' | abpLocalization) }}</span>
               </div>
             </div>
           </div>
@@ -102,10 +102,10 @@
 
           <div class="truck-actions">
             <a [routerLink]="['/truck', truck.id]" class="btn-view">
-              <i class="fa fa-eye"></i> View
+              <i class="fa fa-eye"></i> {{ '::Truck:View' | abpLocalization }}
             </a>
             <a [routerLink]="['/truck/edit', truck.id]" class="btn-edit">
-              <i class="fa fa-pencil"></i> Edit
+              <i class="fa fa-pencil"></i> {{ '::Truck:Edit' | abpLocalization }}
             </a>
           </div>
         </div>

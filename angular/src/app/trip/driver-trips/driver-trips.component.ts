@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { LocalizationModule } from '@abp/ng.core';
 import { TripService } from '../../proxy/trips/trip.service';
 import { TripDto } from '../../proxy/trips/models';
 import { TruckTypes } from '../../proxy/enums/truck-types.enum';
@@ -10,7 +11,7 @@ import { TripStatuses } from '../../proxy/enums/trip-statuses.enum';
 @Component({
   selector: 'app-driver-trips',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, LocalizationModule],
   templateUrl: './driver-trips.component.html',
   styleUrls: ['./driver-trips.component.scss']
 })

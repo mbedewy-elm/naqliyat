@@ -2,13 +2,14 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { LocalizationModule } from '@abp/ng.core';
 import { TruckService } from '../../proxy/trucks/truck.service';
 import { CreateDriverDto } from '../../proxy/trucks/models';
 
 @Component({
   selector: 'app-add-driver',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, LocalizationModule],
   templateUrl: './add-driver.component.html',
   styleUrls: ['./add-driver.component.scss']
 })

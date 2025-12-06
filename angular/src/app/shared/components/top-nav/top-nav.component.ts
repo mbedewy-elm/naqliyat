@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService, ConfigStateService } from '@abp/ng.core';
+import { AuthService, ConfigStateService, LocalizationModule, SessionStateService } from '@abp/ng.core';
 
 interface NavLink {
   path: string;
@@ -14,28 +14,29 @@ interface NavLink {
 @Component({
   selector: 'app-top-nav',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, LocalizationModule],
   templateUrl: './top-nav.component.html',
   styleUrls: ['./top-nav.component.scss']
 })
 export class TopNavComponent implements OnInit {
   private authService = inject(AuthService);
   private configState = inject(ConfigStateService);
+  private sessionState = inject(SessionStateService);
   private router = inject(Router);
 
   navLinks: NavLink[] = [
-    { path: '/', label: 'Home', icon: 'fa-home', requiresAuth: false },
+    { path: '/', label: '::Nav:Home', icon: 'fa-home', requiresAuth: false },
     // Driver links
-    { path: '/trip/available', label: 'Available Trips', icon: 'fa-route', roles: ['driver'], requiresAuth: true },
-    { path: '/trip/my-trips', label: 'My Trips', icon: 'fa-truck-loading', roles: ['driver'], requiresAuth: true },
+    { path: '/trip/available', label: '::Nav:AvailableTrips', icon: 'fa-route', roles: ['driver'], requiresAuth: true },
+    { path: '/trip/my-trips', label: '::Nav:MyTrips', icon: 'fa-truck-loading', roles: ['driver'], requiresAuth: true },
     // Service Requester links
-    { path: '/trip/create', label: 'Create Trip', icon: 'fa-plus-circle', roles: ['requester', 'admin'], requiresAuth: true },
-    { path: '/trip/list', label: 'My Requests', icon: 'fa-list-alt', roles: ['requester', 'admin'], requiresAuth: true },
+    { path: '/trip/create', label: '::Nav:CreateTrip', icon: 'fa-plus-circle', roles: ['requester', 'admin'], requiresAuth: true },
+    { path: '/trip/list', label: '::Nav:MyRequests', icon: 'fa-list-alt', roles: ['requester', 'admin'], requiresAuth: true },
     // Truck Owner links
-    { path: '/truck/list', label: 'Trucks', icon: 'fa-truck', roles: ['owner', 'admin'], requiresAuth: true },
-    { path: '/truck/add', label: 'Add Truck', icon: 'fa-plus', roles: ['owner', 'admin'], requiresAuth: true },
-    { path: '/driver/list', label: 'Drivers', icon: 'fa-id-card', roles: ['owner', 'admin'], requiresAuth: true },
-    { path: '/driver/add', label: 'Add Driver', icon: 'fa-user-plus', roles: ['owner', 'admin'], requiresAuth: true },
+    { path: '/truck/list', label: '::Nav:Trucks', icon: 'fa-truck', roles: ['owner', 'admin'], requiresAuth: true },
+    { path: '/truck/add', label: '::Nav:AddTruck', icon: 'fa-plus', roles: ['owner', 'admin'], requiresAuth: true },
+    { path: '/driver/list', label: '::Nav:Drivers', icon: 'fa-id-card', roles: ['owner', 'admin'], requiresAuth: true },
+    { path: '/driver/add', label: '::Nav:AddDriver', icon: 'fa-user-plus', roles: ['owner', 'admin'], requiresAuth: true },
   ];
 
   ngOnInit(): void {
@@ -78,6 +79,16 @@ export class TopNavComponent implements OnInit {
 
   get currentUserName(): string {
     return this.configState.getOne('currentUser')?.userName || '';
+  }
+
+  get currentLang(): string {
+    return this.sessionState.getLanguage() || 'en';
+  }
+
+  switchLanguage(lang: string): void {
+    this.sessionState.setLanguage(lang);
+    // Reload the page to apply the new language
+    window.location.reload();
   }
 
   isLinkVisible(link: NavLink): boolean {

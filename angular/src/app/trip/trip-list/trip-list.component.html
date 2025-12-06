@@ -1,11 +1,11 @@
 <div class="trip-list-container">
   <div class="page-header">
     <div class="header-content">
-      <h1>Available Trips</h1>
-      <p>Browse and manage transport requests</p>
+      <h1>{{ '::TripList:AvailableTrips' | abpLocalization }}</h1>
+      <p>{{ '::TripList:BrowseAndManage' | abpLocalization }}</p>
     </div>
     <a routerLink="/trip/create" class="btn-primary">
-      <i class="fa fa-plus"></i> Create Trip
+      <i class="fa fa-plus"></i> {{ '::Trip:CreateTrip' | abpLocalization }}
     </a>
   </div>
 
@@ -16,11 +16,11 @@
       <input
         type="text"
         [(ngModel)]="locationFilter"
-        placeholder="Search by location..."
+        [placeholder]="'::TripList:SearchByLocation' | abpLocalization"
         (keyup.enter)="onSearch()"
       />
     </div>
-    <button class="btn-search" (click)="onSearch()">Search</button>
+    <button class="btn-search" (click)="onSearch()">{{ '::TripList:Search' | abpLocalization }}</button>
   </div>
 
   @if (errorMessage) {
@@ -33,15 +33,15 @@
   @if (isLoading) {
     <div class="loading-state">
       <i class="fa fa-spinner fa-spin"></i>
-      <p>Loading trips...</p>
+      <p>{{ '::TripList:LoadingTrips' | abpLocalization }}</p>
     </div>
   } @else if (trips.length === 0) {
     <div class="empty-state">
       <i class="fa fa-truck"></i>
-      <h3>No trips found</h3>
-      <p>There are no open trips at the moment. Create a new trip to get started.</p>
+      <h3>{{ '::TripList:NoTripsFound' | abpLocalization }}</h3>
+      <p>{{ '::TripList:NoOpenTrips' | abpLocalization }}</p>
       <a routerLink="/trip/create" class="btn-primary">
-        <i class="fa fa-plus"></i> Create Trip
+        <i class="fa fa-plus"></i> {{ '::Trip:CreateTrip' | abpLocalization }}
       </a>
     </div>
   } @else {
@@ -83,7 +83,7 @@
           </div>
           <div class="trip-actions">
             <a [routerLink]="['/trip', trip.id]" class="btn-view">
-              View Details <i class="fa fa-arrow-right"></i>
+              {{ '::TripList:ViewDetails' | abpLocalization }} <i class="fa fa-arrow-right"></i>
             </a>
           </div>
         </div>

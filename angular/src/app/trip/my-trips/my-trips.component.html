@@ -1,8 +1,8 @@
 <div class="my-trips-container">
   <div class="page-header">
     <div class="header-content">
-      <h1><i class="fa fa-road"></i> My Trips</h1>
-      <p>View and manage your assigned trips</p>
+      <h1><i class="fa fa-road"></i> {{ '::MyTrips:Title' | abpLocalization }}</h1>
+      <p>{{ '::MyTrips:Subtitle' | abpLocalization }}</p>
     </div>
   </div>
 
@@ -18,7 +18,7 @@
       <i class="fa fa-search"></i>
       <input
         type="text"
-        placeholder="Search by location or goods type..."
+        [placeholder]="'::MyTrips:SearchPlaceholder' | abpLocalization"
         (input)="onSearch($event)"
       />
     </div>
@@ -28,31 +28,31 @@
         class="filter-btn" 
         [class.active]="selectedStatus === 'all'"
         (click)="onStatusFilter('all')">
-        All
+        {{ '::MyTrips:All' | abpLocalization }}
       </button>
       <button 
         class="filter-btn" 
         [class.active]="selectedStatus === '2'"
         (click)="onStatusFilter('2')">
-        Waiting Agreement
+        {{ '::MyTrips:WaitingAgreement' | abpLocalization }}
       </button>
       <button 
         class="filter-btn" 
         [class.active]="selectedStatus === '3'"
         (click)="onStatusFilter('3')">
-        Waiting Payment
+        {{ '::MyTrips:WaitingPayment' | abpLocalization }}
       </button>
       <button 
         class="filter-btn" 
         [class.active]="selectedStatus === '4'"
         (click)="onStatusFilter('4')">
-        On Its Way
+        {{ '::MyTrips:OnItsWay' | abpLocalization }}
       </button>
       <button 
         class="filter-btn" 
         [class.active]="selectedStatus === '5'"
         (click)="onStatusFilter('5')">
-        Arrived
+        {{ '::MyTrips:Arrived' | abpLocalization }}
       </button>
     </div>
   </div>
@@ -60,28 +60,28 @@
   @if (isLoading) {
     <div class="loading-state">
       <i class="fa fa-spinner fa-spin"></i>
-      <p>Loading your trips...</p>
+      <p>{{ '::MyTrips:LoadingYourTrips' | abpLocalization }}</p>
     </div>
   } @else if (filteredTrips.length === 0) {
     <div class="empty-state">
       <i class="fa fa-truck"></i>
       @if (searchTerm || selectedStatus !== 'all') {
-        <h3>No trips found</h3>
-        <p>No trips match your current filters</p>
+        <h3>{{ '::TripList:NoTripsFound' | abpLocalization }}</h3>
+        <p>{{ '::MyTrips:NoTripsMatch' | abpLocalization }}</p>
         <button class="btn-clear-filters" (click)="searchTerm = ''; selectedStatus = 'all'; applyFilters()">
-          Clear Filters
+          {{ '::MyTrips:ClearFilters' | abpLocalization }}
         </button>
       } @else {
-        <h3>No trips yet</h3>
-        <p>You don't have any assigned trips. Place bids on available trips to get started!</p>
+        <h3>{{ '::MyTrips:NoTripsYet' | abpLocalization }}</h3>
+        <p>{{ '::MyTrips:NoAssignedTrips' | abpLocalization }}</p>
         <a routerLink="/trip/available" class="btn-primary">
-          <i class="fa fa-search"></i> Browse Available Trips
+          <i class="fa fa-search"></i> {{ '::MyTrips:BrowseAvailableTrips' | abpLocalization }}
         </a>
       }
     </div>
   } @else {
     <div class="trips-count">
-      Showing {{ filteredTrips.length }} trip{{ filteredTrips.length !== 1 ? 's' : '' }}
+      {{ '::MyTrips:Showing' | abpLocalization }} {{ filteredTrips.length }} {{ filteredTrips.length !== 1 ? ('::MyTrips:Trips' | abpLocalization) : ('::MyTrips:Trip' | abpLocalization) }}
     </div>
 
     <div class="trips-list">
@@ -91,14 +91,14 @@
             <div class="route-info">
               <div class="location from">
                 <i class="fa fa-map-marker"></i>
-                <span>{{ trip.fromLocation || 'Unknown' }}</span>
+                <span>{{ trip.fromLocation || ('::MyTrips:Unknown' | abpLocalization) }}</span>
               </div>
               <div class="route-arrow">
                 <i class="fa fa-long-arrow-right"></i>
               </div>
               <div class="location to">
                 <i class="fa fa-flag-checkered"></i>
-                <span>{{ trip.toLocation || 'Unknown' }}</span>
+                <span>{{ trip.toLocation || ('::MyTrips:Unknown' | abpLocalization) }}</span>
               </div>
             </div>
             <span class="status-badge" [ngClass]="getStatusClass(trip.statusId)">
@@ -110,21 +110,21 @@
             <div class="detail-item">
               <i class="fa fa-calendar"></i>
               <div>
-                <span class="label">Start Date</span>
+                <span class="label">{{ '::Trip:StartDate' | abpLocalization }}</span>
                 <span class="value">{{ formatDate(trip.startDate) }}</span>
               </div>
             </div>
             <div class="detail-item">
               <i class="fa fa-calendar-check-o"></i>
               <div>
-                <span class="label">End Date</span>
+                <span class="label">{{ '::Trip:EndDate' | abpLocalization }}</span>
                 <span class="value">{{ formatDate(trip.endDate) }}</span>
               </div>
             </div>
             <div class="detail-item">
               <i class="fa fa-truck"></i>
               <div>
-                <span class="label">Truck Type</span>
+                <span class="label">{{ '::Trip:TruckType' | abpLocalization }}</span>
                 <span class="value">{{ getTruckTypeName(trip.truckTypeId) }}</span>
               </div>
             </div>
@@ -132,7 +132,7 @@
               <div class="detail-item">
                 <i class="fa fa-cube"></i>
                 <div>
-                  <span class="label">Goods</span>
+                  <span class="label">{{ '::MyTrips:Goods' | abpLocalization }}</span>
                   <span class="value">{{ trip.goodsType }}</span>
                 </div>
               </div>
@@ -141,7 +141,7 @@
 
           <div class="trip-actions">
             <a [routerLink]="['/trip', trip.id]" class="btn-view">
-              <i class="fa fa-eye"></i> View Details
+              <i class="fa fa-eye"></i> {{ '::TripList:ViewDetails' | abpLocalization }}
             </a>
           </div>
         </div>

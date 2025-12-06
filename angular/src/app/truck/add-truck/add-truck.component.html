@@ -1,7 +1,7 @@
 <div class="add-truck-container">
   <div class="back-link">
     <a routerLink="/truck/list">
-      <i class="fa fa-arrow-left"></i> Back to My Trucks
+      <i class="fa fa-arrow-left"></i> {{ '::Truck:BackToMyTrucks' | abpLocalization }}
     </a>
   </div>
 
@@ -11,8 +11,8 @@
         <i class="fa fa-truck"></i>
       </div>
       <div>
-        <h1>Add New Truck</h1>
-        <p>Enter your truck details to add it to your fleet</p>
+        <h1>{{ '::Truck:AddNewTruck' | abpLocalization }}</h1>
+        <p>{{ '::Truck:AddTruckSubtitle' | abpLocalization }}</p>
       </div>
     </div>
 
@@ -25,56 +25,56 @@
 
     <form [formGroup]="truckForm" (ngSubmit)="onSubmit()">
       <div class="form-section">
-        <h3><i class="fa fa-info-circle"></i> Basic Information</h3>
+        <h3><i class="fa fa-info-circle"></i> {{ '::Truck:BasicInformation' | abpLocalization }}</h3>
         
         <div class="form-row">
           <div class="form-group">
-            <label for="make">Make <span class="required">*</span></label>
+            <label for="make">{{ '::Truck:Make' | abpLocalization }} <span class="required">*</span></label>
             <input
               type="text"
               id="make"
               formControlName="make"
-              placeholder="e.g., Volvo, Mercedes, Scania"
+              [placeholder]="'::Truck:MakePlaceholder' | abpLocalization"
               [class.is-invalid]="isFieldInvalid('make')"
             />
             @if (isFieldInvalid('make')) {
-              <span class="error-message">Make is required</span>
+              <span class="error-message">{{ '::Truck:MakeRequired' | abpLocalization }}</span>
             }
           </div>
           <div class="form-group">
-            <label for="model">Model <span class="required">*</span></label>
+            <label for="model">{{ '::Truck:Model' | abpLocalization }} <span class="required">*</span></label>
             <input
               type="text"
               id="model"
               formControlName="model"
-              placeholder="e.g., FH16, Actros"
+              [placeholder]="'::Truck:ModelPlaceholder' | abpLocalization"
               [class.is-invalid]="isFieldInvalid('model')"
             />
             @if (isFieldInvalid('model')) {
-              <span class="error-message">Model is required</span>
+              <span class="error-message">{{ '::Truck:ModelRequired' | abpLocalization }}</span>
             }
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label for="year">Year <span class="required">*</span></label>
+            <label for="year">{{ '::Truck:Year' | abpLocalization }} <span class="required">*</span></label>
             <select
               id="year"
               formControlName="year"
               [class.is-invalid]="isFieldInvalid('year')"
             >
-              <option value="">Select Year</option>
+              <option value="">{{ '::Truck:SelectYear' | abpLocalization }}</option>
               @for (year of yearOptions; track year) {
                 <option [value]="year">{{ year }}</option>
               }
             </select>
             @if (isFieldInvalid('year')) {
-              <span class="error-message">Year is required</span>
+              <span class="error-message">{{ '::Truck:YearRequired' | abpLocalization }}</span>
             }
           </div>
           <div class="form-group">
-            <label for="truckTypeId">Truck Type <span class="required">*</span></label>
+            <label for="truckTypeId">{{ '::Trip:TruckType' | abpLocalization }} <span class="required">*</span></label>
             <select
               id="truckTypeId"
               formControlName="truckTypeId"
@@ -85,57 +85,57 @@
               }
             </select>
             @if (isFieldInvalid('truckTypeId')) {
-              <span class="error-message">Truck type is required</span>
+              <span class="error-message">{{ '::Truck:TruckTypeRequired' | abpLocalization }}</span>
             }
           </div>
         </div>
       </div>
 
       <div class="form-section">
-        <h3><i class="fa fa-id-card"></i> Registration Details</h3>
+        <h3><i class="fa fa-id-card"></i> {{ '::Truck:RegistrationDetails' | abpLocalization }}</h3>
         
         <div class="form-row">
           <div class="form-group">
-            <label for="licenseNumber">License Number <span class="required">*</span></label>
+            <label for="licenseNumber">{{ '::Truck:LicenseNumber' | abpLocalization }} <span class="required">*</span></label>
             <input
               type="text"
               id="licenseNumber"
               formControlName="licenseNumber"
-              placeholder="Enter license plate number"
+              [placeholder]="'::Truck:LicenseNumberPlaceholder' | abpLocalization"
               [class.is-invalid]="isFieldInvalid('licenseNumber')"
             />
             @if (isFieldInvalid('licenseNumber')) {
-              <span class="error-message">License number is required</span>
+              <span class="error-message">{{ '::Truck:LicenseNumberRequired' | abpLocalization }}</span>
             }
           </div>
           <div class="form-group">
-            <label for="registrationNumber">Registration Number</label>
+            <label for="registrationNumber">{{ '::Truck:RegistrationNumber' | abpLocalization }}</label>
             <input
               type="text"
               id="registrationNumber"
               formControlName="registrationNumber"
-              placeholder="Enter registration number (optional)"
+              [placeholder]="'::Truck:RegistrationNumberPlaceholder' | abpLocalization"
             />
           </div>
         </div>
       </div>
 
       <div class="form-section">
-        <h3><i class="fa fa-cog"></i> Specifications</h3>
+        <h3><i class="fa fa-cog"></i> {{ '::Truck:Specifications' | abpLocalization }}</h3>
         
         <div class="form-row">
           <div class="form-group">
-            <label for="maxLoad">Max Load (kg)</label>
+            <label for="maxLoad">{{ '::Truck:MaxLoadKg' | abpLocalization }}</label>
             <input
               type="number"
               id="maxLoad"
               formControlName="maxLoad"
-              placeholder="Enter maximum load capacity"
+              [placeholder]="'::Truck:MaxLoadPlaceholder' | abpLocalization"
               min="0"
             />
           </div>
           <div class="form-group">
-            <label for="temperatureRequirement">Temperature Requirement</label>
+            <label for="temperatureRequirement">{{ '::Truck:TemperatureRequirement' | abpLocalization }}</label>
             <select
               id="temperatureRequirement"
               formControlName="temperatureRequirement"
@@ -149,28 +149,28 @@
       </div>
 
       <div class="form-section">
-        <h3><i class="fa fa-user"></i> Assign Driver</h3>
+        <h3><i class="fa fa-user"></i> {{ '::Truck:AssignDriver' | abpLocalization }}</h3>
         
         <div class="form-group">
-          <label for="driverId">Driver</label>
+          <label for="driverId">{{ '::Driver:Driver' | abpLocalization }}</label>
           <select
             id="driverId"
             formControlName="driverId"
           >
-            <option [ngValue]="null">-- No Driver Assigned --</option>
+            <option [ngValue]="null">{{ '::Truck:NoDriverAssigned' | abpLocalization }}</option>
             @if (isLoadingDrivers) {
-              <option disabled>Loading drivers...</option>
+              <option disabled>{{ '::Truck:LoadingDrivers' | abpLocalization }}</option>
             } @else {
               @for (driver of drivers; track driver.id) {
-                <option [ngValue]="driver.id">{{ driver.name }} ({{ driver.phone || 'No phone' }})</option>
+                <option [ngValue]="driver.id">{{ driver.name }} ({{ driver.phone || ('::Common:NA' | abpLocalization) }})</option>
               }
             }
           </select>
           <span class="helper-text">
             <i class="fa fa-info-circle"></i> 
-            Optionally assign a driver to this truck. You can also do this later.
+            {{ '::Truck:AssignDriverHelper' | abpLocalization }}
             @if (drivers.length === 0 && !isLoadingDrivers) {
-              <a routerLink="/driver/add">Add a driver first</a>
+              <a routerLink="/driver/add">{{ '::Truck:AddDriverFirst' | abpLocalization }}</a>
             }
           </span>
         </div>
@@ -178,13 +178,13 @@
 
       <div class="form-actions">
         <button type="button" class="btn-cancel" routerLink="/truck/list">
-          Cancel
+          {{ '::Trip:Cancel' | abpLocalization }}
         </button>
         <button type="submit" class="btn-submit" [disabled]="isSubmitting">
           @if (isSubmitting) {
-            <i class="fa fa-spinner fa-spin"></i> Adding...
+            <i class="fa fa-spinner fa-spin"></i> {{ '::Truck:Adding' | abpLocalization }}
           } @else {
-            <i class="fa fa-plus"></i> Add Truck
+            <i class="fa fa-plus"></i> {{ '::Truck:AddTruck' | abpLocalization }}
           }
         </button>
       </div>

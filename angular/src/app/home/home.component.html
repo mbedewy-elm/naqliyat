@@ -3,162 +3,162 @@
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="hero-badge">
-      <span>Licensed Trucks</span>
+      <span>{{ '::Hero:LicensedTrucks' | abpLocalization }}</span>
       <span class="separator">•</span>
-      <span>Verified Drivers</span>
+      <span>{{ '::Hero:VerifiedDrivers' | abpLocalization }}</span>
       <span class="separator">•</span>
-      <span>Real-Time Tracking</span>
+      <span>{{ '::Hero:RealTimeTracking' | abpLocalization }}</span>
     </div>
-    <h1 class="hero-title">The Smarter Way to<br>Move Goods Across<br>Cities</h1>
+    <h1 class="hero-title">{{ '::Hero:Title' | abpLocalization }}</h1>
     <p class="hero-description">
-      A fully automated logistics platform that connects service requesters with verified trucks and drivers—through smart bidding, real-time tracking, and secure escrow payments.
+      {{ '::Hero:Description' | abpLocalization }}
     </p>
     <div class="hero-buttons">
       @if(!hasLoggedIn){
-      <button (click)="login()" class="btn-primary-custom">Get Started</button>
+      <button (click)="login()" class="btn-primary-custom">{{ '::Hero:GetStarted' | abpLocalization }}</button>
       }
-      <button class="btn-secondary-custom">Download the App</button>
+      <button class="btn-secondary-custom">{{ '::Hero:DownloadApp' | abpLocalization }}</button>
     </div>
     <div class="hero-features">
-      <span>Licensed Trucks</span>
+      <span>{{ '::Hero:LicensedTrucks' | abpLocalization }}</span>
       <span class="separator">•</span>
-      <span>Verified Drivers</span>
+      <span>{{ '::Hero:VerifiedDrivers' | abpLocalization }}</span>
       <span class="separator">•</span>
-      <span>Real-Time Visibility</span>
+      <span>{{ '::Hero:RealTimeVisibility' | abpLocalization }}</span>
     </div>
   </div>
   <div class="chat-widget">
     <i class="fa fa-comments"></i>
-    <span>Talk with Us</span>
+    <span>{{ '::Hero:TalkWithUs' | abpLocalization }}</span>
   </div>
 </section>
 
 <!-- Trust Badges Section -->
 <section class="trust-section">
-  <h2 class="section-title">Built for Speed, Trust & Transparency</h2>
+  <h2 class="section-title">{{ '::Trust:Title' | abpLocalization }}</h2>
   <div class="trust-grid">
     <div class="trust-card">
       <div class="trust-icon">
         <i class="fa fa-map-marker"></i>
       </div>
-      <h3>Real-Time Tracking</h3>
-      <p>Monitor your shipment from pickup to delivery with a live map and instant status updates.</p>
+      <h3>{{ '::Trust:RealTimeTracking' | abpLocalization }}</h3>
+      <p>{{ '::Trust:RealTimeTrackingDesc' | abpLocalization }}</p>
     </div>
     <div class="trust-card">
       <div class="trust-icon">
         <i class="fa fa-gavel"></i>
       </div>
-      <h3>Smart Bidding System</h3>
-      <p>Receive competitive offers from drivers and choose the best price, timing, and truck type.</p>
+      <h3>{{ '::Trust:SmartBidding' | abpLocalization }}</h3>
+      <p>{{ '::Trust:SmartBiddingDesc' | abpLocalization }}</p>
     </div>
     <div class="trust-card">
       <div class="trust-icon">
         <i class="fa fa-lock"></i>
       </div>
-      <h3>Secure Escrow Payments</h3>
-      <p>We hold your payment securely and release it only after successful delivery confirmation.</p>
+      <h3>{{ '::Trust:SecureEscrow' | abpLocalization }}</h3>
+      <p>{{ '::Trust:SecureEscrowDesc' | abpLocalization }}</p>
     </div>
     <div class="trust-card">
       <div class="trust-icon">
         <i class="fa fa-check-circle"></i>
       </div>
-      <h3>Verified Trucks & Drivers</h3>
-      <p>Every truck and driver undergoes ID, license, and registration verification.</p>
+      <h3>{{ '::Trust:VerifiedTrucksDrivers' | abpLocalization }}</h3>
+      <p>{{ '::Trust:VerifiedTrucksDriversDesc' | abpLocalization }}</p>
     </div>
     <div class="trust-card">
       <div class="trust-icon">
         <i class="fa fa-truck"></i>
       </div>
-      <h3>All Truck Types Available</h3>
-      <p>Trailers – Flatbeds – Refrigerated Trucks – Heavy-Duty Vehicles.</p>
+      <h3>{{ '::Trust:AllTruckTypes' | abpLocalization }}</h3>
+      <p>{{ '::Trust:AllTruckTypesDesc' | abpLocalization }}</p>
     </div>
     <div class="trust-card">
       <div class="trust-icon">
         <i class="fa fa-users"></i>
       </div>
-      <h3>For Companies & Individuals</h3>
-      <p>Suitable for factories, warehouses, businesses, and personal shipments.</p>
+      <h3>{{ '::Trust:ForCompaniesIndividuals' | abpLocalization }}</h3>
+      <p>{{ '::Trust:ForCompaniesIndividualsDesc' | abpLocalization }}</p>
     </div>
   </div>
 </section>
 
 <!-- Features Section -->
 <section class="features-section">
-  <h2 class="section-title">Main Platform Features</h2>
-  <p class="section-subtitle">Everything you need to manage your logistics operations efficiently and transparently</p>
+  <h2 class="section-title">{{ '::Features:Title' | abpLocalization }}</h2>
+  <p class="section-subtitle">{{ '::Features:Subtitle' | abpLocalization }}</p>
   <div class="features-grid">
     <div class="feature-card">
       <div class="feature-icon">
         <i class="fa fa-plus-circle"></i>
       </div>
-      <h3>Trip Creation Made Easy</h3>
-      <p>Create your transport request in minutes with detailed filters (weight, dimensions, truck type, goods type, temperature…).</p>
+      <h3>{{ '::Features:TripCreation' | abpLocalization }}</h3>
+      <p>{{ '::Features:TripCreationDesc' | abpLocalization }}</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">
         <i class="fa fa-bolt"></i>
       </div>
-      <h3>Receive Driver Bids Instantly</h3>
-      <p>Drivers near you submit offers—compare prices and select the best fit.</p>
+      <h3>{{ '::Features:ReceiveBids' | abpLocalization }}</h3>
+      <p>{{ '::Features:ReceiveBidsDesc' | abpLocalization }}</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">
         <i class="fa fa-map"></i>
       </div>
-      <h3>Live Map Tracking</h3>
-      <p>Know exactly where your shipment is at any moment with GPS tracking.</p>
+      <h3>{{ '::Features:LiveMapTracking' | abpLocalization }}</h3>
+      <p>{{ '::Features:LiveMapTrackingDesc' | abpLocalization }}</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">
         <i class="fa fa-key"></i>
       </div>
-      <h3>OTP Delivery Confirmation</h3>
-      <p>Confirm delivery securely using a one-time code (OTP).</p>
+      <h3>{{ '::Features:OTPConfirmation' | abpLocalization }}</h3>
+      <p>{{ '::Features:OTPConfirmationDesc' | abpLocalization }}</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">
         <i class="fa fa-star"></i>
       </div>
-      <h3>Rate Your Driver</h3>
-      <p>Share your experience and help improve service quality.</p>
+      <h3>{{ '::Features:RateDriver' | abpLocalization }}</h3>
+      <p>{{ '::Features:RateDriverDesc' | abpLocalization }}</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">
         <i class="fa fa-cogs"></i>
       </div>
-      <h3>Truck Owner Module</h3>
-      <p>Add trucks, upload documents, link drivers, and manage your fleet.</p>
+      <h3>{{ '::Features:TruckOwnerModule' | abpLocalization }}</h3>
+      <p>{{ '::Features:TruckOwnerModuleDesc' | abpLocalization }}</p>
     </div>
   </div>
 </section>
 
 <!-- How It Works Section -->
 <section class="how-it-works-section">
-  <h2 class="section-title">How It Works</h2>
-  <p class="section-subtitle">Four Simple Steps to Move Your Goods</p>
+  <h2 class="section-title">{{ '::HowItWorks:Title' | abpLocalization }}</h2>
+  <p class="section-subtitle">{{ '::HowItWorks:Subtitle' | abpLocalization }}</p>
   <div class="steps-container">
     <div class="step-card">
       <div class="step-number">1</div>
-      <h3>Create Your Trip</h3>
-      <p>Select pickup and drop-off locations, cargo details, and required truck type.</p>
+      <h3>{{ '::HowItWorks:Step1Title' | abpLocalization }}</h3>
+      <p>{{ '::HowItWorks:Step1Desc' | abpLocalization }}</p>
     </div>
     <div class="step-connector"></div>
     <div class="step-card">
       <div class="step-number">2</div>
-      <h3>Receive Bids</h3>
-      <p>Drivers submit prices—compare bids and choose your best option.</p>
+      <h3>{{ '::HowItWorks:Step2Title' | abpLocalization }}</h3>
+      <p>{{ '::HowItWorks:Step2Desc' | abpLocalization }}</p>
     </div>
     <div class="step-connector"></div>
     <div class="step-card">
       <div class="step-number">3</div>
-      <h3>Track Your Driver Live</h3>
-      <p>Watch your shipment move in real time on the map.</p>
+      <h3>{{ '::HowItWorks:Step3Title' | abpLocalization }}</h3>
+      <p>{{ '::HowItWorks:Step3Desc' | abpLocalization }}</p>
     </div>
     <div class="step-connector"></div>
     <div class="step-card">
       <div class="step-number">4</div>
-      <h3>Confirm Delivery</h3>
-      <p>Enter OTP when goods arrive; payment is then released automatically to the driver.</p>
+      <h3>{{ '::HowItWorks:Step4Title' | abpLocalization }}</h3>
+      <p>{{ '::HowItWorks:Step4Desc' | abpLocalization }}</p>
     </div>
   </div>
 </section>
@@ -167,9 +167,9 @@
 <section class="drivers-section">
   <div class="drivers-content">
     <div class="drivers-text">
-      <h2>Earn More. Drive Smarter.</h2>
-      <p>Join a platform that brings you high-quality trips every day. Submit your bid, get selected, and start earning instantly.</p>
-      <button class="btn-primary-custom">Join as Driver</button>
+      <h2>{{ '::Drivers:Title' | abpLocalization }}</h2>
+      <p>{{ '::Drivers:Description' | abpLocalization }}</p>
+      <button class="btn-primary-custom">{{ '::Drivers:JoinAsDriver' | abpLocalization }}</button>
     </div>
     <div class="drivers-visual">
       <i class="fa fa-id-card driver-icon"></i>
@@ -184,20 +184,20 @@
       <i class="fa fa-truck fleet-icon"></i>
     </div>
     <div class="fleet-text">
-      <h2>Manage Your Fleet with Confidence</h2>
-      <p>Add trucks, manage documents, assign drivers, and track all trips from one place. Our comprehensive fleet management system gives you complete control over your operations.</p>
+      <h2>{{ '::Fleet:Title' | abpLocalization }}</h2>
+      <p>{{ '::Fleet:Description' | abpLocalization }}</p>
       <div class="fleet-features">
         <div class="fleet-feature">
           <i class="fa fa-check"></i>
-          <span>Register Multiple Trucks</span>
+          <span>{{ '::Fleet:RegisterMultipleTrucks' | abpLocalization }}</span>
         </div>
         <div class="fleet-feature">
           <i class="fa fa-check"></i>
-          <span>Upload Documents</span>
+          <span>{{ '::Fleet:UploadDocuments' | abpLocalization }}</span>
         </div>
         <div class="fleet-feature">
           <i class="fa fa-check"></i>
-          <span>Track Performance</span>
+          <span>{{ '::Fleet:TrackPerformance' | abpLocalization }}</span>
         </div>
       </div>
     </div>
@@ -206,122 +206,122 @@
 
 <!-- Enterprise Section -->
 <section class="enterprise-section">
-  <h2 class="section-title">Reliable Logistics for Large-Scale Operations</h2>
-  <p class="section-subtitle">Power your business with enterprise-grade logistics solutions designed for scale, reliability, and complete transparency.</p>
+  <h2 class="section-title">{{ '::Enterprise:Title' | abpLocalization }}</h2>
+  <p class="section-subtitle">{{ '::Enterprise:Subtitle' | abpLocalization }}</p>
   <div class="enterprise-features">
     <div class="enterprise-card">
       <i class="fa fa-dashboard"></i>
-      <h4>Enterprise Dashboard</h4>
-      <p>Comprehensive analytics, fleet management, and real-time monitoring all in one place.</p>
+      <h4>{{ '::Enterprise:Dashboard' | abpLocalization }}</h4>
+      <p>{{ '::Enterprise:DashboardDesc' | abpLocalization }}</p>
     </div>
     <div class="enterprise-card">
       <i class="fa fa-users"></i>
-      <h4>User Management</h4>
-      <p>Manage team access, roles, and permissions with ease.</p>
+      <h4>{{ '::Enterprise:UserManagement' | abpLocalization }}</h4>
+      <p>{{ '::Enterprise:UserManagementDesc' | abpLocalization }}</p>
     </div>
     <div class="enterprise-card">
       <i class="fa fa-line-chart"></i>
-      <h4>Analytics</h4>
-      <p>Deep insights into your logistics operations and performance metrics.</p>
+      <h4>{{ '::Enterprise:Analytics' | abpLocalization }}</h4>
+      <p>{{ '::Enterprise:AnalyticsDesc' | abpLocalization }}</p>
     </div>
     <div class="enterprise-card">
       <i class="fa fa-shield"></i>
-      <h4>Compliance</h4>
-      <p>Stay compliant with automated documentation and reporting.</p>
+      <h4>{{ '::Enterprise:Compliance' | abpLocalization }}</h4>
+      <p>{{ '::Enterprise:ComplianceDesc' | abpLocalization }}</p>
     </div>
   </div>
 </section>
 
 <!-- Pricing Section -->
 <section class="pricing-section">
-  <h2 class="section-title">Transparent and Flexible</h2>
-  <p class="section-subtitle">Choose the plan that fits your needs</p>
+  <h2 class="section-title">{{ '::Pricing:Title' | abpLocalization }}</h2>
+  <p class="section-subtitle">{{ '::Pricing:Subtitle' | abpLocalization }}</p>
   <div class="pricing-grid">
     <div class="pricing-card">
-      <h3>Free Plan</h3>
-      <p class="pricing-description">For individuals needing occasional shipments</p>
+      <h3>{{ '::Pricing:FreePlan' | abpLocalization }}</h3>
+      <p class="pricing-description">{{ '::Pricing:FreePlanDesc' | abpLocalization }}</p>
       <ul class="pricing-features">
-        <li><i class="fa fa-check"></i> Up to 5 trips per month</li>
-        <li><i class="fa fa-check"></i> Basic real-time tracking</li>
-        <li><i class="fa fa-check"></i> Standard support</li>
-        <li><i class="fa fa-check"></i> Access to verified drivers</li>
-        <li><i class="fa fa-check"></i> Secure escrow payments</li>
-        <li><i class="fa fa-check"></i> Mobile app access</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:UpTo5Trips' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:BasicTracking' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:StandardSupport' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:AccessVerifiedDrivers' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:SecureEscrowPayments' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:MobileAppAccess' | abpLocalization }}</li>
       </ul>
-      <button class="btn-outline">Get Started</button>
+      <button class="btn-outline">{{ '::Hero:GetStarted' | abpLocalization }}</button>
     </div>
     <div class="pricing-card featured">
-      <div class="featured-badge">Popular</div>
-      <h3>Business Plan</h3>
-      <p class="pricing-description">For companies with weekly shipments</p>
+      <div class="featured-badge">{{ '::Pricing:Popular' | abpLocalization }}</div>
+      <h3>{{ '::Pricing:BusinessPlan' | abpLocalization }}</h3>
+      <p class="pricing-description">{{ '::Pricing:BusinessPlanDesc' | abpLocalization }}</p>
       <ul class="pricing-features">
-        <li><i class="fa fa-check"></i> Unlimited trips</li>
-        <li><i class="fa fa-check"></i> Advanced real-time tracking</li>
-        <li><i class="fa fa-check"></i> Priority support</li>
-        <li><i class="fa fa-check"></i> Reduced commission rates</li>
-        <li><i class="fa fa-check"></i> Dedicated account manager</li>
-        <li><i class="fa fa-check"></i> Digital invoices & reports</li>
-        <li><i class="fa fa-check"></i> API access</li>
-        <li><i class="fa fa-check"></i> Custom branding</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:UnlimitedTrips' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:AdvancedTracking' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:PrioritySupport' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:ReducedCommission' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:DedicatedAccountManager' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:DigitalInvoices' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:APIAccess' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:CustomBranding' | abpLocalization }}</li>
       </ul>
-      <button class="btn-primary-custom">Get Started</button>
+      <button class="btn-primary-custom">{{ '::Hero:GetStarted' | abpLocalization }}</button>
     </div>
     <div class="pricing-card">
-      <h3>Enterprise Plan</h3>
-      <p class="pricing-description">Custom solutions for large operations</p>
+      <h3>{{ '::Pricing:EnterprisePlan' | abpLocalization }}</h3>
+      <p class="pricing-description">{{ '::Pricing:EnterprisePlanDesc' | abpLocalization }}</p>
       <ul class="pricing-features">
-        <li><i class="fa fa-check"></i> Everything in Business</li>
-        <li><i class="fa fa-check"></i> Custom SLA agreements</li>
-        <li><i class="fa fa-check"></i> Dedicated support team</li>
-        <li><i class="fa fa-check"></i> Advanced analytics dashboard</li>
-        <li><i class="fa fa-check"></i> White-label solutions</li>
-        <li><i class="fa fa-check"></i> Integration support</li>
-        <li><i class="fa fa-check"></i> Training & onboarding</li>
-        <li><i class="fa fa-check"></i> Volume discounts</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:EverythingInBusiness' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:CustomSLA' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:DedicatedSupportTeam' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:AdvancedAnalytics' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:WhiteLabel' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:IntegrationSupport' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:TrainingOnboarding' | abpLocalization }}</li>
+        <li><i class="fa fa-check"></i> {{ '::Pricing:VolumeDiscounts' | abpLocalization }}</li>
       </ul>
-      <button class="btn-outline">Contact Sales</button>
+      <button class="btn-outline">{{ '::Pricing:ContactSales' | abpLocalization }}</button>
     </div>
   </div>
 </section>
 
 <!-- Testimonials Section -->
 <section class="testimonials-section">
-  <h2 class="section-title">Trusted by Thousands</h2>
-  <p class="section-subtitle">See what our users have to say about their experience</p>
+  <h2 class="section-title">{{ '::Testimonials:Title' | abpLocalization }}</h2>
+  <p class="section-subtitle">{{ '::Testimonials:Subtitle' | abpLocalization }}</p>
   <div class="testimonials-grid">
     <div class="testimonial-card">
-      <p class="testimonial-text">"Finally a platform that makes trucking simple. The bidding system saves us time and money on every shipment."</p>
+      <p class="testimonial-text">"{{ '::Testimonials:Quote1' | abpLocalization }}"</p>
       <div class="testimonial-author">
         <div class="author-avatar">
           <i class="fa fa-user"></i>
         </div>
         <div class="author-info">
-          <h4>Ahmed Al-Rashid</h4>
-          <p>Logistics Manager, Manufacturing Company</p>
+          <h4>{{ '::Testimonials:Author1Name' | abpLocalization }}</h4>
+          <p>{{ '::Testimonials:Author1Title' | abpLocalization }}</p>
         </div>
       </div>
     </div>
     <div class="testimonial-card">
-      <p class="testimonial-text">"Real-time tracking changed everything for us. Our clients love knowing exactly where their goods are at all times."</p>
+      <p class="testimonial-text">"{{ '::Testimonials:Quote2' | abpLocalization }}"</p>
       <div class="testimonial-author">
         <div class="author-avatar">
           <i class="fa fa-user"></i>
         </div>
         <div class="author-info">
-          <h4>Sarah Mohammed</h4>
-          <p>Warehouse Supervisor, Distribution Center</p>
+          <h4>{{ '::Testimonials:Author2Name' | abpLocalization }}</h4>
+          <p>{{ '::Testimonials:Author2Title' | abpLocalization }}</p>
         </div>
       </div>
     </div>
     <div class="testimonial-card">
-      <p class="testimonial-text">"Good pay, good trips, no middlemen. The platform is straightforward and payments are always on time."</p>
+      <p class="testimonial-text">"{{ '::Testimonials:Quote3' | abpLocalization }}"</p>
       <div class="testimonial-author">
         <div class="author-avatar">
           <i class="fa fa-user"></i>
         </div>
         <div class="author-info">
-          <h4>Khalid Hassan</h4>
-          <p>Professional Driver, Riyadh</p>
+          <h4>{{ '::Testimonials:Author3Name' | abpLocalization }}</h4>
+          <p>{{ '::Testimonials:Author3Title' | abpLocalization }}</p>
         </div>
       </div>
     </div>
@@ -332,44 +332,44 @@
 <footer class="footer-section">
   <div class="footer-content">
     <div class="footer-brand">
-      <h3>Naqliyat</h3>
-      <p>The smarter way to move goods across cities. Connecting service requesters with verified trucks and drivers through smart technology.</p>
+      <h3>{{ '::AppName' | abpLocalization }}</h3>
+      <p>{{ '::Footer:Description' | abpLocalization }}</p>
     </div>
     <div class="footer-links">
       <div class="footer-column">
-        <h4>Company</h4>
+        <h4>{{ '::Footer:Company' | abpLocalization }}</h4>
         <ul>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Press Kit</a></li>
+          <li><a href="#">{{ '::Footer:AboutUs' | abpLocalization }}</a></li>
+          <li><a href="#">{{ '::Footer:Careers' | abpLocalization }}</a></li>
+          <li><a href="#">{{ '::Footer:Blog' | abpLocalization }}</a></li>
+          <li><a href="#">{{ '::Footer:PressKit' | abpLocalization }}</a></li>
         </ul>
       </div>
       <div class="footer-column">
-        <h4>Platform</h4>
+        <h4>{{ '::Footer:Platform' | abpLocalization }}</h4>
         <ul>
-          <li><a href="#">Service Requester App</a></li>
-          <li><a href="#">Driver App</a></li>
-          <li><a href="#">Admin Portal</a></li>
-          <li><a href="#">Truck Owner Portal</a></li>
+          <li><a href="#">{{ '::Footer:ServiceRequesterApp' | abpLocalization }}</a></li>
+          <li><a href="#">{{ '::Footer:DriverApp' | abpLocalization }}</a></li>
+          <li><a href="#">{{ '::Footer:AdminPortal' | abpLocalization }}</a></li>
+          <li><a href="#">{{ '::Footer:TruckOwnerPortal' | abpLocalization }}</a></li>
         </ul>
       </div>
       <div class="footer-column">
-        <h4>Support</h4>
+        <h4>{{ '::Footer:Support' | abpLocalization }}</h4>
         <ul>
-          <li><a href="#">FAQs</a></li>
-          <li><a href="#">Contact Us</a></li>
-          <li><a href="#">Help Center</a></li>
-          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">{{ '::Footer:FAQs' | abpLocalization }}</a></li>
+          <li><a href="#">{{ '::Footer:ContactUs' | abpLocalization }}</a></li>
+          <li><a href="#">{{ '::Footer:HelpCenter' | abpLocalization }}</a></li>
+          <li><a href="#">{{ '::Footer:TermsOfService' | abpLocalization }}</a></li>
         </ul>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2025 Naqliyat. All Rights Reserved</p>
+    <p>&copy; 2025 {{ '::AppName' | abpLocalization }}. {{ '::Footer:AllRightsReserved' | abpLocalization }}</p>
     <div class="footer-legal">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
+      <a href="#">{{ '::Footer:PrivacyPolicy' | abpLocalization }}</a>
+      <a href="#">{{ '::Footer:TermsOfService' | abpLocalization }}</a>
     </div>
   </div>
 </footer>

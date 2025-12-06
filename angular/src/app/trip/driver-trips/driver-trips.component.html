@@ -5,13 +5,13 @@
         <i class="fa fa-truck"></i>
       </div>
       <div class="header-text">
-        <h1>Available Trips</h1>
-        <p>Browse open trips and place your bids</p>
+        <h1>{{ '::DriverTrips:Title' | abpLocalization }}</h1>
+        <p>{{ '::DriverTrips:Subtitle' | abpLocalization }}</p>
       </div>
     </div>
     <div class="trips-count" *ngIf="!isLoading">
       <span class="count">{{ filteredTrips.length }}</span>
-      <span class="label">trips available</span>
+      <span class="label">{{ '::DriverTrips:TripsAvailable' | abpLocalization }}</span>
     </div>
   </div>
 
@@ -22,11 +22,11 @@
       <input
         type="text"
         [(ngModel)]="locationFilter"
-        placeholder="Search by location..."
+        [placeholder]="'::TripList:SearchByLocation' | abpLocalization"
         (keyup.enter)="onSearch()"
       />
       <button class="btn-search" (click)="onSearch()">
-        <i class="fa fa-filter"></i> Search
+        <i class="fa fa-filter"></i> {{ '::TripList:Search' | abpLocalization }}
       </button>
     </div>
   </div>
@@ -43,17 +43,17 @@
       <div class="loader">
         <i class="fa fa-spinner fa-spin"></i>
       </div>
-      <p>Finding available trips...</p>
+      <p>{{ '::DriverTrips:FindingTrips' | abpLocalization }}</p>
     </div>
   } @else if (filteredTrips.length === 0) {
     <div class="empty-state">
       <div class="empty-icon">
         <i class="fa fa-road"></i>
       </div>
-      <h3>No Trips Available</h3>
-      <p>There are no open trips for bidding at the moment. Check back later for new opportunities.</p>
+      <h3>{{ '::DriverTrips:NoTripsAvailable' | abpLocalization }}</h3>
+      <p>{{ '::DriverTrips:NoTripsAvailableDesc' | abpLocalization }}</p>
       <button class="btn-refresh" (click)="loadOpenTrips()">
-        <i class="fa fa-refresh"></i> Refresh
+        <i class="fa fa-refresh"></i> {{ '::DriverTrips:Refresh' | abpLocalization }}
       </button>
     </div>
   } @else {
@@ -62,7 +62,7 @@
         <div class="trip-card">
           <div class="card-header">
             <span class="status-badge">
-              <i class="fa fa-circle"></i> Open for Bidding
+              <i class="fa fa-circle"></i> {{ '::DriverTrips:OpenForBidding' | abpLocalization }}
             </span>
             <span class="truck-type-badge">
               <i class="fa fa-truck"></i> {{ getTruckTypeName(trip.truckTypeId) }}
@@ -75,7 +75,7 @@
                 <i class="fa fa-circle-o"></i>
               </div>
               <div class="point-info">
-                <span class="label">Pickup</span>
+                <span class="label">{{ '::DriverTrips:Pickup' | abpLocalization }}</span>
                 <span class="location">{{ trip.fromLocation }}</span>
               </div>
             </div>
@@ -88,7 +88,7 @@
                 <i class="fa fa-map-marker"></i>
               </div>
               <div class="point-info">
-                <span class="label">Drop-off</span>
+                <span class="label">{{ '::DriverTrips:DropOff' | abpLocalization }}</span>
                 <span class="location">{{ trip.toLocation }}</span>
               </div>
             </div>
@@ -97,7 +97,7 @@
           <div class="trip-details">
             <div class="detail-item">
               <i class="fa fa-cube"></i>
-              <span>{{ trip.goodsType || 'General Cargo' }}</span>
+              <span>{{ trip.goodsType || ('::DriverTrips:GeneralCargo' | abpLocalization) }}</span>
             </div>
             <div class="detail-item">
               <i class="fa fa-balance-scale"></i>
@@ -115,14 +115,14 @@
             <div class="schedule-item">
               <i class="fa fa-calendar"></i>
               <div class="schedule-info">
-                <span class="label">Start Date</span>
+                <span class="label">{{ '::Trip:StartDate' | abpLocalization }}</span>
                 <span class="value">{{ formatDate(trip.startDate) }}</span>
               </div>
             </div>
             <div class="schedule-item">
               <i class="fa fa-calendar-check-o"></i>
               <div class="schedule-info">
-                <span class="label">End Date</span>
+                <span class="label">{{ '::Trip:EndDate' | abpLocalization }}</span>
                 <span class="value">{{ formatDate(trip.endDate) }}</span>
               </div>
             </div>
@@ -137,10 +137,10 @@
 
           <div class="card-actions">
             <a [routerLink]="['/trip/bid', trip.id]" class="btn-bid">
-              <i class="fa fa-gavel"></i> Place Bid
+              <i class="fa fa-gavel"></i> {{ '::DriverTrips:PlaceBid' | abpLocalization }}
             </a>
             <a [routerLink]="['/trip', trip.id]" class="btn-details">
-              View Details <i class="fa fa-arrow-right"></i>
+              {{ '::DriverTrips:ViewDetails' | abpLocalization }} <i class="fa fa-arrow-right"></i>
             </a>
           </div>
         </div>

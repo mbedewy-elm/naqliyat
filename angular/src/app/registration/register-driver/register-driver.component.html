@@ -2,15 +2,15 @@
   <div class="register-content">
     <button class="back-btn" (click)="goBack()">
       <i class="fa fa-arrow-left"></i>
-      Back to Role Selection
+      {{ '::RegisterOwner:BackToRoleSelection' | abpLocalization }}
     </button>
 
     <div class="header">
       <div class="header-icon driver">
         <i class="fa fa-id-card"></i>
       </div>
-      <h1>Register as Driver</h1>
-      <p>Please provide your driver information to complete registration</p>
+      <h1>{{ '::RegisterDriver:Title' | abpLocalization }}</h1>
+      <p>{{ '::RegisterDriver:Subtitle' | abpLocalization }}</p>
     </div>
 
     @if (error) {
@@ -23,7 +23,7 @@
     @if (isLoading) {
       <div class="loading-overlay">
         <div class="spinner"></div>
-        <p>Processing your registration...</p>
+        <p>{{ '::RoleSelection:ProcessingRegistration' | abpLocalization }}</p>
       </div>
     }
 
@@ -31,75 +31,75 @@
       <div class="form-group">
         <label for="name">
           <i class="fa fa-user"></i>
-          Full Name
+          {{ '::RegisterDriver:FullName' | abpLocalization }}
         </label>
         <input
           type="text"
           id="name"
           formControlName="name"
-          placeholder="Enter your full name"
+          [placeholder]="'::RegisterDriver:FullNamePlaceholder' | abpLocalization"
           [class.invalid]="isFieldInvalid('name')"
         />
         @if (isFieldInvalid('name')) {
-          <span class="error-text">Name is required (minimum 3 characters)</span>
+          <span class="error-text">{{ '::RegisterOwner:NameRequired' | abpLocalization }}</span>
         }
       </div>
 
       <div class="form-group">
         <label for="phone">
           <i class="fa fa-phone"></i>
-          Phone Number
+          {{ '::RegisterOwner:PhoneNumber' | abpLocalization }}
         </label>
         <input
           type="tel"
           id="phone"
           formControlName="phone"
-          placeholder="e.g., +966 50 123 4567"
+          [placeholder]="'::RegisterOwner:PhonePlaceholder' | abpLocalization"
           [class.invalid]="isFieldInvalid('phone')"
         />
         @if (isFieldInvalid('phone')) {
-          <span class="error-text">Please enter a valid phone number</span>
+          <span class="error-text">{{ '::RegisterOwner:PhoneRequired' | abpLocalization }}</span>
         }
       </div>
 
       <div class="form-group">
         <label for="identification">
           <i class="fa fa-id-card"></i>
-          National ID / Iqama Number
+          {{ '::RegisterOwner:NationalIdIqama' | abpLocalization }}
         </label>
         <input
           type="text"
           id="identification"
           formControlName="identification"
-          placeholder="Enter your national ID or Iqama number"
+          [placeholder]="'::RegisterOwner:NationalIdIqamaPlaceholder' | abpLocalization"
           [class.invalid]="isFieldInvalid('identification')"
         />
         @if (isFieldInvalid('identification')) {
-          <span class="error-text">Identification is required</span>
+          <span class="error-text">{{ '::RegisterOwner:IdentificationRequired' | abpLocalization }}</span>
         }
       </div>
 
       <div class="form-group">
         <label for="licenseNumber">
           <i class="fa fa-car"></i>
-          Driving License Number
+          {{ '::RegisterDriver:DrivingLicenseNumber' | abpLocalization }}
         </label>
         <input
           type="text"
           id="licenseNumber"
           formControlName="licenseNumber"
-          placeholder="Enter your driving license number"
+          [placeholder]="'::RegisterDriver:DrivingLicensePlaceholder' | abpLocalization"
           [class.invalid]="isFieldInvalid('licenseNumber')"
         />
         @if (isFieldInvalid('licenseNumber')) {
-          <span class="error-text">Driving license number is required</span>
+          <span class="error-text">{{ '::RegisterDriver:DrivingLicenseRequired' | abpLocalization }}</span>
         }
       </div>
 
       <div class="form-group">
         <label for="nationalityId">
           <i class="fa fa-globe"></i>
-          Nationality
+          {{ '::RegisterOwner:Nationality' | abpLocalization }}
         </label>
         <select
           id="nationalityId"
@@ -111,13 +111,13 @@
           }
         </select>
         @if (isFieldInvalid('nationalityId')) {
-          <span class="error-text">Please select your nationality</span>
+          <span class="error-text">{{ '::RegisterOwner:NationalityRequired' | abpLocalization }}</span>
         }
       </div>
 
       <button type="submit" class="submit-btn" [disabled]="isLoading">
         <i class="fa fa-check-circle"></i>
-        Complete Registration
+        {{ '::RegisterOwner:CompleteRegistration' | abpLocalization }}
       </button>
     </form>
   </div>

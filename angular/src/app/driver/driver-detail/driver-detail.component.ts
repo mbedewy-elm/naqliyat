@@ -1,13 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { LocalizationModule } from '@abp/ng.core';
 import { TruckService } from '../../proxy/trucks/truck.service';
 import { DriverDto } from '../../proxy/trucks/models';
 
 @Component({
   selector: 'app-driver-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, LocalizationModule],
   templateUrl: './driver-detail.component.html',
   styleUrls: ['./driver-detail.component.scss']
 })

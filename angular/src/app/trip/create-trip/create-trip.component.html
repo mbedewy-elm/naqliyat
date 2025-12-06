@@ -1,7 +1,7 @@
 <div class="create-trip-container">
   <div class="page-header">
-    <h1>Create New Trip</h1>
-    <p>Fill in the details below to create a new transport request</p>
+    <h1>{{ '::Trip:CreateNewTrip' | abpLocalization }}</h1>
+    <p>{{ '::Trip:CreateTripSubtitle' | abpLocalization }}</p>
   </div>
 
   @if (errorMessage) {
@@ -14,15 +14,15 @@
   <form [formGroup]="tripForm" (ngSubmit)="onSubmit()" class="trip-form">
     <!-- Location Section -->
     <div class="form-section">
-      <h3><i class="fa fa-map-marker"></i> Location Details</h3>
+      <h3><i class="fa fa-map-marker"></i> {{ '::Trip:LocationDetails' | abpLocalization }}</h3>
       <div class="form-row">
         <div class="form-group">
-          <label for="fromLocation">Pickup Location <span class="required">*</span></label>
+          <label for="fromLocation">{{ '::Trip:PickupLocation' | abpLocalization }} <span class="required">*</span></label>
           <input
             type="text"
             id="fromLocation"
             formControlName="fromLocation"
-            placeholder="Enter pickup address"
+            [placeholder]="'::Trip:PickupLocationPlaceholder' | abpLocalization"
             [class.is-invalid]="isFieldInvalid('fromLocation')"
           />
           @if (isFieldInvalid('fromLocation')) {
@@ -30,12 +30,12 @@
           }
         </div>
         <div class="form-group">
-          <label for="toLocation">Drop-off Location <span class="required">*</span></label>
+          <label for="toLocation">{{ '::Trip:DropOffLocation' | abpLocalization }} <span class="required">*</span></label>
           <input
             type="text"
             id="toLocation"
             formControlName="toLocation"
-            placeholder="Enter drop-off address"
+            [placeholder]="'::Trip:DropOffLocationPlaceholder' | abpLocalization"
             [class.is-invalid]="isFieldInvalid('toLocation')"
           />
           @if (isFieldInvalid('toLocation')) {
@@ -47,10 +47,10 @@
 
     <!-- Schedule Section -->
     <div class="form-section">
-      <h3><i class="fa fa-calendar"></i> Schedule</h3>
+      <h3><i class="fa fa-calendar"></i> {{ '::Trip:Schedule' | abpLocalization }}</h3>
       <div class="form-row">
         <div class="form-group">
-          <label for="startDate">Start Date <span class="required">*</span></label>
+          <label for="startDate">{{ '::Trip:StartDate' | abpLocalization }} <span class="required">*</span></label>
           <input
             type="datetime-local"
             id="startDate"
@@ -62,7 +62,7 @@
           }
         </div>
         <div class="form-group">
-          <label for="endDate">End Date <span class="required">*</span></label>
+          <label for="endDate">{{ '::Trip:EndDate' | abpLocalization }} <span class="required">*</span></label>
           <input
             type="datetime-local"
             id="endDate"
@@ -78,15 +78,15 @@
 
     <!-- Cargo Section -->
     <div class="form-section">
-      <h3><i class="fa fa-cube"></i> Cargo Details</h3>
+      <h3><i class="fa fa-cube"></i> {{ '::Trip:CargoDetails' | abpLocalization }}</h3>
       <div class="form-row">
         <div class="form-group">
-          <label for="goodsType">Goods Type <span class="required">*</span></label>
+          <label for="goodsType">{{ '::Trip:GoodsType' | abpLocalization }} <span class="required">*</span></label>
           <input
             type="text"
             id="goodsType"
             formControlName="goodsType"
-            placeholder="e.g., Electronics, Furniture, Food"
+            [placeholder]="'::Trip:GoodsTypePlaceholder' | abpLocalization"
             [class.is-invalid]="isFieldInvalid('goodsType')"
           />
           @if (isFieldInvalid('goodsType')) {
@@ -94,12 +94,12 @@
           }
         </div>
         <div class="form-group">
-          <label for="goodsWeight">Weight (kg) <span class="required">*</span></label>
+          <label for="goodsWeight">{{ '::Trip:Weight' | abpLocalization }} <span class="required">*</span></label>
           <input
             type="number"
             id="goodsWeight"
             formControlName="goodsWeight"
-            placeholder="Enter weight in kg"
+            [placeholder]="'::Trip:WeightPlaceholder' | abpLocalization"
             min="1"
             [class.is-invalid]="isFieldInvalid('goodsWeight')"
           />
@@ -110,16 +110,16 @@
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label for="goodsDimensions">Dimensions</label>
+          <label for="goodsDimensions">{{ '::Trip:Dimensions' | abpLocalization }}</label>
           <input
             type="text"
             id="goodsDimensions"
             formControlName="goodsDimensions"
-            placeholder="e.g., 2m x 1.5m x 1m"
+            [placeholder]="'::Trip:DimensionsPlaceholder' | abpLocalization"
           />
         </div>
         <div class="form-group">
-          <label for="truckTypeId">Truck Type <span class="required">*</span></label>
+          <label for="truckTypeId">{{ '::Trip:TruckType' | abpLocalization }} <span class="required">*</span></label>
           <select
             id="truckTypeId"
             formControlName="truckTypeId"
@@ -138,14 +138,14 @@
 
     <!-- Additional Info Section -->
     <div class="form-section">
-      <h3><i class="fa fa-info-circle"></i> Additional Information</h3>
+      <h3><i class="fa fa-info-circle"></i> {{ '::Trip:AdditionalInformation' | abpLocalization }}</h3>
       <div class="form-group full-width">
-        <label for="notes">Notes</label>
+        <label for="notes">{{ '::Trip:Notes' | abpLocalization }}</label>
         <textarea
           id="notes"
           formControlName="notes"
           rows="4"
-          placeholder="Any special instructions or requirements..."
+          [placeholder]="'::Trip:NotesPlaceholder' | abpLocalization"
         ></textarea>
       </div>
     </div>
@@ -153,13 +153,13 @@
     <!-- Submit Section -->
     <div class="form-actions">
       <button type="button" class="btn-secondary" routerLink="/trip/list">
-        Cancel
+        {{ '::Trip:Cancel' | abpLocalization }}
       </button>
       <button type="submit" class="btn-primary" [disabled]="isSubmitting">
         @if (isSubmitting) {
-          <i class="fa fa-spinner fa-spin"></i> Creating...
+          <i class="fa fa-spinner fa-spin"></i> {{ '::Trip:Creating' | abpLocalization }}
         } @else {
-          <i class="fa fa-plus"></i> Create Trip
+          <i class="fa fa-plus"></i> {{ '::Trip:CreateTrip' | abpLocalization }}
         }
       </button>
     </div>

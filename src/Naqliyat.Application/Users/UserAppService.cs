@@ -70,7 +70,7 @@ public class UserAppService : NaqliyatAppService, IUserAppService
     }
 
     [UnitOfWork]
-    public virtual async Task<UserRegistrationResultDto> RegisterAsOwnerAsync(RegissterAsOwnerDto input)
+    public virtual async Task<UserRegistrationResultDto> RegisterAsOwnerAsync(RegisterAsOwnerDto input)
     {
         var currentUserId = CurrentUser.Id;
         if (!currentUserId.HasValue)
